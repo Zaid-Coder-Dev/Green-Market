@@ -1,0 +1,71 @@
+/* Body */
+body {
+  background-color: #f5ede0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2d4a2d;
+}
+
+/* Hero */
+.hero-img {
+  height: 480px;
+  object-fit: cover;
+}
+
+/* Badges */
+.badge-nouveau {
+  background-color: #e07b39;
+}
+
+/* Product buttons */
+.btn-add { 
+  background-color: #2d4a2d;
+}
+.btn-add:hover{ background-color: #3f683f;}
+
+/* Categories */
+.categories-section {
+  background-color: #f5ede0;
+}
+
+.category-overlay {
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+}
+
+.category-link {
+  color: #e07b39;
+}
+
+/* Cooperative steps */
+.steps {
+  background-color: #D8C3A5;
+}
+
+.coop {
+  background-color: #2d4a2d;
+  width: 55px;
+  height: 55px;
+}
+
+/* Newsletter */
+.newsletter-section {
+  background-color: #1e2f5a;
+}
+
+.newsletter-label {
+  color: #e07b39;
+}
+
+.btn-subscribe {
+  background-color: #e07b39;
+}
+
+/* Footer */
+footer {
+  background-color: #D8C3A5;
+}
