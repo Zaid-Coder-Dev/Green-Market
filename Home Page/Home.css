@@ -18,12 +18,12 @@ body {
 }
 
 /* Badges */
-.badge-nouveau {
+.badge-nouveau, .cart-badge {
   background-color: #e07b39;
 }
 
 /* Product buttons */
-.btn-add { 
+.btn-add, .btn-more { 
   background-color: #2d4a2d;
 }
 .btn-add:hover{ background-color: #3f683f;}
@@ -56,16 +56,19 @@ body {
 .newsletter-section {
   background-color: #1e2f5a;
 }
-
 .newsletter-label {
   color: #e07b39;
+  border: 1px solid #e07b39;
+  background-color: rgba(224, 123, 57, 0.3);
 }
 
 .btn-subscribe {
   background-color: #e07b39;
 }
 
+
 /* Footer */
 footer {
   background-color: #D8C3A5;
 }
+ /* use later  color:#8A5A44 */
