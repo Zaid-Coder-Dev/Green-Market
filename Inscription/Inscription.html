@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Market - Connexion</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="inscription.css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="page" id="page">
+
+  <!-- CÔTÉ GAUCHE -->
+  <div class="left-side d-flex flex-column align-items-center justify-content-center p-5">
+    <h2 class="fw-bold text-white mb-3">🌿 Green_market</h2>
+    <h3 class="text-white fw-bold text-center mb-3" id="left-title">Bienvenue!</h3>
+    <p class="text-center text-white-50 mb-4" id="left-text">Connectez-vous pour accéder à votre compte.</p>
+    <button class="btn btn-outline-light rounded-pill px-4" id="switchBtn">S'inscrire</button>
+  </div>
+
+  <!-- CÔTÉ DROIT -->
+  <div class="right-side d-flex flex-column align-items-center justify-content-center p-5">
+
+    <!-- CONNEXION -->
+    <div id="connexionForm" class="form-width">
+      <h3 class="fw-bold text-white mb-4">Se connecter</h3>
+
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Email">
+        <label for="email">Email</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" placeholder="Mot de passe">
+        <label for="password">Mot de passe</label>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="remember">
+          <label class="form-check-label text-white small" for="remember">Se souvenir de moi</label>
+        </div>
+        <a href="#" class="lien-form small">Mot de passe oublié?</a>
+      </div>
+
+      <button class="btn w-100 text-white btn-form mb-3">Se connecter</button>
+    </div>
+
+    <!-- INSCRIPTION -->
+    <div id="inscriptionForm" class="form-width d-none">
+      <h3 class="fw-bold text-white mb-4">Créer un compte</h3>
+
+      <div class="row g-2 mb-2">
+        <div class="col-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="nom" placeholder="Nom">
+            <label for="nom">Nom</label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="prenom" placeholder="Prénom">
+            <label for="prenom">Prénom</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="regEmail" placeholder="Email">
+        <label for="regEmail">Email</label>
+      </div>
+
+      <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="regPassword" placeholder="Mot de passe">
+        <label for="regPassword">Mot de passe</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="confirm" placeholder="Confirmer">
+        <label for="confirm">Confirmer mot de passe</label>
+      </div>
+
+      <div class="d-flex gap-2 mb-3">
+        <input type="radio" class="btn-check" name="type" id="client" checked>
+        <label class="btn btn-outline-light w-50" for="client">Client</label>
+
+        <input type="radio" class="btn-check" name="type" id="producteur">
+        <label class="btn btn-outline-light w-50" for="producteur">Producteur</label>
+      </div>
+
+      <button class="btn w-100 text-white btn-form mb-3">S'inscrire</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="inscription.js"></script>
+</body>
+</html>
