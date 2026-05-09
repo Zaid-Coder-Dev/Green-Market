@@ -20,10 +20,10 @@ document.querySelectorAll('[data-go="register"]').forEach(el =>
 
 formLogin.addEventListener('submit', (e) => {
   e.preventDefault();
-  alert('Connexion (démo)');
+  alert('Connecte');
 });
 
 formRegister.addEventListener('submit', (e) => {
   e.preventDefault();
-  alert('Inscription (démo)');
+  alert('Connecte');
 });

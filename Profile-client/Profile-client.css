@@ -1,0 +1,119 @@
+body {
+  background-color: #f5ede0;
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+}
+
+.navbar {
+  background-color: #2d4a2d;
+}
+
+.badge-nouveau, .cart-badge {
+  background-color: #e07b39;
+}
+
+footer {
+  background-color: #D8C3A5;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  position: sticky;
+  top: 20px;
+}
+
+/* Avatar */
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #2d4a2d;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar links */
+.sidebar-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.sidebar-link:hover {
+  background-color: #f5ede0;
+  color: #2d4a2d;
+}
+
+.sidebar-link.active {
+  background-color: #2d4a2d;
+  color: white;
+}
+
+/* Stat cards */
+.stat-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* Content card */
+.content-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* Status badges */
+.badge-statut {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-statut.livré {
+  background-color: #e8f5e9;
+  color: #2d4a2d;
+}
+
+.badge-statut.encours {
+  background-color: #fff3e0;
+  color: #e07b39;
+}
+
+.badge-statut.annulé {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Save button */
+.btn-save {
+  background-color: #2d4a2d;
+}
+
+.btn-save:hover {
+  background-color: #3f683f;
+  color: white;
+}
+
+/* Product image */
+.product-img {
+  height: 150px;
+  object-fit: cover;
+}
