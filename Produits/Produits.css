@@ -1,0 +1,130 @@
+body {
+  background-color: #f5ede0;
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2d4a2d;
+}
+
+.badge-nouveau, .cart-badge {
+  background-color: #e07b39;
+}
+
+/* Page header */
+.page-header {
+  background-color: #D8C3A5;
+}
+
+
+/* Sidebar */
+.sidebar {
+  background-color: #f5ede0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  position: sticky;
+  top: 20px;
+}
+
+.sidebar-title {
+  color: #2d4a2d;
+  margin-bottom: 10px;
+}
+
+.form-check-input:checked {
+  background-color: #2d4a2d;
+  border-color: #2d4a2d;
+}
+
+/* Tags */
+.tag {
+  background-color: #f5ede0;
+  border: 1px solid #D8C3A5;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background-color: #2d4a2d;
+  color: white;
+}
+
+/* Reset button */
+.btn-reset {
+  background-color: #D8C3A5;
+  color: #2d4a2d;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.btn-reset:hover {
+  background-color: #ead4b6;
+  color: #3f683f;
+}
+
+
+
+/* Product buttons */
+.btn-add {
+  background-color: #2d4a2d;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.btn-add:hover {
+  background-color: #3f683f;
+  color: white;
+}
+
+.btn-voir{
+    background-color: #F6F1E7;
+    border:1px solid #2d4a2d;
+    color:#2d4a2d;
+
+}
+
+.btn-voir:hover{
+    background-color: #3f683f;
+    border:1px solid #2d4a2d;
+    color:white;}
+
+
+.trier{ background-color: #f5ede0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+
+
+
+/* Product image */
+.product-img {
+  height: 290px;
+  object-fit: cover;
+}
+
+.card-body{background-color: #ead4b6;}
+
+/* Pagination */
+.page-item.active .page-link {
+  background-color: #2d4a2d;
+  border-color: #2d4a2d;
+}
+
+.page-link {
+  color: #2d4a2d;
+}
+
+.page-link:hover {
+  color: #2d4a2d;
+}
+
+footer {
+  background-color: #D8C3A5;}

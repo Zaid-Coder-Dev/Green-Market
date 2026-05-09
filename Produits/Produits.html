@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Green Market - Produits</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet" />
+    <link href="Produits.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="../Home Page/index.html">🌿 Green_market</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Home Page/Home.html">Accueil</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Boutique</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Categories/categories.html">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Home Page/Home.html#contact">Contact</a>
+                    </li>
+                </ul>
+                <a href="../Inscription/inscription.html" class="text-white fs-5 m-3"><i class="bi bi-person"></i></a>
+                <a href="#" class="text-white fs-5 m-3"><i class="bi bi-search"></i></a>
+                <a href="../Cart/cart.html" class="text-white fs-5 m-3"><i class="bi bi-cart3"></i>
+                    <span class="badge cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TITRE -->
+    <section class="py-4 page-header">
+        <div class="container">
+            <h2 class="mb-0">Tous nos produits</h2>
+            <small class="text-muted" id="product-count">19 produits trouvés</small>
+        </div>
+    </section>
+
+    <!-- CONTENU -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- SIDEBAR -->
+                <div class="col-12 col-md-3">
+                    <form class="sidebar p-3" id="filter-form">
+
+                        <!-- Catégories - checkbox -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold sidebar-title">Catégories</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cat1">
+                                <label class="form-check-label small" for="cat1">Produits Bio</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cat2">
+                                <label class="form-check-label small" for="cat2">Cosmétiques</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cat3">
+                                <label class="form-check-label small" for="cat3">Artisanat</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cat4">
+                                <label class="form-check-label small" for="cat4">Mode Traditionnelle</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Prix - radio -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold sidebar-title">Prix</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="prix" id="prix1">
+                                <label class="form-check-label small" for="prix1">Moins de 50 MAD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="prix" id="prix2">
+                                <label class="form-check-label small" for="prix2">50 - 150 MAD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="prix" id="prix3">
+                                <label class="form-check-label small" for="prix3">150 - 300 MAD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="prix" id="prix4">
+                                <label class="form-check-label small" for="prix4">Plus de 300 MAD</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Coopérative - radio -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold sidebar-title">Coopérative</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="coop" id="coop1">
+                                <label class="form-check-label small" for="coop1">Coopérative Tiznit</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="coop" id="coop2">
+                                <label class="form-check-label small" for="coop2">Coopérative Essaouira</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="coop" id="coop3">
+                                <label class="form-check-label small" for="coop3">Coopérative Marrakech</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Tracabilité - checkbox -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold sidebar-title">Tracabilité</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="trace">
+                                <label class="form-check-label small" for="trace">Produits traçables uniquement</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Tags -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold sidebar-title">Tags</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="tag">Bio</span>
+                                <span class="tag">Naturel</span>
+                                <span class="tag">Berbère</span>
+                                <span class="tag">Artisanal</span>
+                                <span class="tag">Local</span>
+                            </div>
+                        </div>
+
+                        <!-- Bouton -->
+                        <input type="submit" class="btn w-100 btn-outline-white mb-2 btn-add" value="Appliquer les filtres">
+                        <input type="reset" class="btn w-100 btn-reset" value="Réinitialiser">
+
+                    </form>
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <!-- Barre du haut -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="text-muted small">Affichage 1-6 sur 19 produits</span>
+                        <select class="form-select form-select-sm w-auto trier">
+                            <option selected>Trier par défaut</option>
+                            <option>Prix croissant</option>
+                            <option>Prix décroissant</option>
+                            <option>Mieux notés</option>
+                        </select>
+                    </div>
+
+                    <!-- Grille produits -->
+                    <div class="row g-3">
+
+                        <!-- Card 1 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="./Produits images/Savon beldi.png" class="card-img-top product-img"
+                                    alt="Savon Beldi">
+                                <div class="card-body">
+                                    <small class="text-muted">Cosmétiques</small>
+                                    <h6 class="card-title mt-1">Savon Beldi</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(24)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">45 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge bg-danger position-absolute m-2">Solde</span>
+                                <img src="./Produits images/Huile d'Argan Bio.png" class="card-img-top product-img"
+                                    alt="Huile Argan">
+                                <div class="card-body">
+                                    <small class="text-muted">Produits Bio</small>
+                                    <h6 class="card-title mt-1">Huile d'Argan</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(58)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">120 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./Produits images/Tapis Azilal Indigo.png" class="card-img-top product-img"
+                                    alt="Tapis Azilal Indingo">
+                                <div class="card-body">
+                                    <small class="text-muted">Artisanat</small>
+                                    <h6 class="card-title mt-1">Tapis Azilal Indingo</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(12)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">2800 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="./Produits images/Huile d'Olive Vierge.png" class="card-img-top product-img"
+                                    alt="Huile Olive">
+                                <div class="card-body">
+                                    <small class="text-muted">Produits Bio</small>
+                                    <h6 class="card-title mt-1">Huile d'Olive Vierge</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <small class="text-muted">(33)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">80 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./Produits images/Tagine Terracotta.png"" class="card-img-top product-img"
+                                    alt="Tagine Terracotta">
+                                <div class="card-body">
+                                    <small class="text-muted">Poterie</small>
+                                    <h6 class="card-title mt-1">Tagine Terracotta</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(18)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">280 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src=".//Produits images/Kaftan Bleu Indigo.png"" class="card-img-top product-img"
+                                    alt="Kaftan Bleu Indigo">
+                                <div class="card-body">
+                                    <small class="text-muted">Mode Traditionnelle</small>
+                                    <h6 class="card-title mt-1">Kaftan Bleu Indigo</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(7)</small>
+                                    </div>
+                                    <p class="text-success fw-bold mb-2">850 MAD</p>
+                                    <div class="d-flex gap-2">
+                                    <a href="produit.html" class="btn btn-sm  w-75 btn-voir btn-voir btn-voir">Voir</a>
+                                    <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-cart"></i></button>
+                                    </div>                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav class="mt-5 d-flex justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">»</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+     
+  <!-- FOOTER -->
+  <footer class="py-5">
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-12 col-md-3">
+          <h5 class="fw-bold">🌿 Green_market</h5>
+          <p class="text-muted small">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="#" class="text-dark"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h6 class="fw-bold mb-3">Liens utiles</h6>
+          <ul class="list-unstyled">
+            <li><a href="../Home Page/home.html" class="text-muted text-decoration-none small">Accueil</a></li>
+            <li><a href="Produits.html" class="text-muted text-decoration-none small">Boutique</a></li>
+            <li><a href="#" class="text-muted text-decoration-none small">À propos</a></li>
+            <li><a href="../Home Page/home.html#contact" class="text-muted text-decoration-none small">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h6 class="fw-bold mb-3">Catégories</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-muted text-decoration-none small">Produits Bio</a></li>
+            <li><a href="#" class="text-muted text-decoration-none small">Cosmétiques</a></li>
+            <li><a href="#" class="text-muted text-decoration-none small">Artisanat</a></li>
+            <li><a href="#" class="text-muted text-decoration-none small">Mode Traditionnelle</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <h6 class="fw-bold mb-3">Contact</h6>
+          <ul class="list-unstyled">
+            <li class="text-muted small"><i class="bi bi-envelope me-2"></i>contact@greenmarket.ma</li>
+            <li class="text-muted small"><i class="bi bi-telephone me-2"></i>+212 6 00 00 00 00</li>
+            <li class="text-muted small"><i class="bi bi-geo-alt me-2"></i>Marrakech, Maroc</li>
+          </ul>
+        </div>
+
+      </div>
+      <hr class="mt-4">
+      <p class="text-center text-muted small mb-0">&copy; 2024 Green Market. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Produits.js"></script>
+</body>
+
+</html>

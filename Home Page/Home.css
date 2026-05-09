@@ -58,7 +58,9 @@ body {
 
 /* Newsletter */
 .newsletter-section {
-  background-color: #2d4a2d;;
+      background-image: url('./Home images/Newsletter.png');
+    background-size: cover;
+    background-position: center;
 }
 .newsletter-label {
   color: #e07b39;
