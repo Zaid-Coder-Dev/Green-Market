@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../Home Page/Home.html">Accueil</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Boutique</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Produits/Produits.html">Boutique</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="../Categories/categories.html">Catégories</a>
                     </li>
@@ -37,7 +37,7 @@
                 </ul>
                 <a href="../Inscription/inscription.html" class="text-white fs-5 m-3"><i class="bi bi-person"></i></a>
                 <a href="#" class="text-white fs-5 m-3"><i class="bi bi-search"></i></a>
-                <a href="../Cart/cart.html" class="text-white fs-5 m-3"><i class="bi bi-cart3"></i>
+                <a href="../Panier/Panier.html" class="text-white fs-5 m-3"><i class="bi bi-cart3"></i>
                     <span class="badge cart-badge">0</span>
                 </a>
             </div>
@@ -291,28 +291,62 @@
                 <div id="favoris" class="section d-none">
                     <h4 class="mb-4">Mes Favoris</h4>
                     <div class="row g-3">
+
+                        <!-- Fav 1-->
                         <div class="col-6 col-md-4">
                             <div class="card border-0 shadow-sm h-100">
-                                <img src="../Home Page/Home images/savon-beldi.jpeg" class="card-img-top product-img"
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="../Produits/Produits images/Savon beldi.png" class="card-img-top product-img"
                                     alt="Savon Beldi">
                                 <div class="card-body">
-                                    <h6 class="card-title">Savon Beldi</h6>
+                                    <small class="text-muted">Cosmétiques</small>
+                                    <h6 class="card-title mt-1">Savon Beldi</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(24)</small>
+                                    </div>
                                     <p class="text-success fw-bold mb-2">45 MAD</p>
-                                    <button class="btn btn-sm w-100 text-white btn-save">Ajouter au panier</button>
+                                    <div class="d-flex gap-2">
+                                        <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Fav 2 -->
                         <div class="col-6 col-md-4">
                             <div class="card border-0 shadow-sm h-100">
-                                <img src="../Home Page/Home images/huile-argan.jpeg" class="card-img-top product-img"
+                                <span class="badge bg-danger position-absolute m-2">Solde</span>
+                                <img src="../Produits/Produits images/Huile d'Argan Bio.png" class="card-img-top product-img"
                                     alt="Huile Argan">
                                 <div class="card-body">
-                                    <h6 class="card-title">Huile d'Argan</h6>
+                                    <small class="text-muted">Produits Bio</small>
+                                    <h6 class="card-title mt-1">Huile d'Argan</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(58)</small>
+                                    </div>
                                     <p class="text-success fw-bold mb-2">120 MAD</p>
-                                    <button class="btn btn-sm w-100 text-white btn-save">Ajouter au panier</button>
+                                    <div class="d-flex gap-2">
+                                        <a href="produit.html" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+    
                     </div>
                 </div>
 

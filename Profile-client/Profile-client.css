@@ -114,6 +114,28 @@ footer {
 
 /* Product image */
 .product-img {
-  height: 150px;
+  width: 100%;
+  aspect-ratio: 4/3;
   object-fit: cover;
+}
+.card-body{background-color: #ead4b6 ;}
+
+.btn-voir {
+  background-color: #f5ede0;
+  color: #2d4a2d;
+  border: 1px solid #2d4a2d;
+}
+
+.btn-voir:hover {
+  background-color: #2d4a2d;
+  color: white;
+}
+
+.btn-add {
+  background-color: #2d4a2d;
+}
+
+.btn-add:hover {
+  background-color: #3f683f;
+  color: white;
 }

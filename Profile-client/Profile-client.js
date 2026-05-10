@@ -17,7 +17,6 @@ document.querySelectorAll('.sidebar-link').forEach(function(link) {
     let sectionId = this.getAttribute('data-section');
     if (sectionId) {
       document.getElementById(sectionId).classList.remove('d-none');
-      this.classList.add('active');
-    }
+      this.classList.add('active');}
   });
 });

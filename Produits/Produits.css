@@ -106,11 +106,12 @@ h1, h2, h3, h4, h5 {
 
 /* Product image */
 .product-img {
-  height: 290px;
+  width:100%;
+  aspect-ratio: 4/3;
   object-fit: cover;
 }
 
-.card-body{background-color: #ead4b6;}
+.card-body{background-color: #ead4b6  ;}
 
 /* Pagination */
 .page-item.active .page-link {

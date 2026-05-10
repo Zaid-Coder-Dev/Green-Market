@@ -1,0 +1,82 @@
+body {
+  background-color: #f5ede0;
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+}
+
+.navbar {
+  background-color: #2d4a2d;
+}
+
+.badge-nouveau, .cart-badge {
+  background-color: #e07b39;
+}
+
+.page-header {
+  background-color: #D8C3A5;
+}
+
+footer {
+  background-color: #D8C3A5;
+}
+
+/* Content card */
+.content-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* Cart item */
+.cart-item {
+  padding: 8px 0;
+}
+
+/* Cart image */
+.cart-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Quantity buttons */
+.btn-qty {
+  background-color: #f5ede0;
+  color: #2d4a2d;
+  border: 1px solid #D8C3A5;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  line-height: 1;
+}
+
+.btn-qty:hover {
+  background-color: #2d4a2d;
+  color: white;
+}
+
+/* Bouton retour */
+.btn-retour {
+  background-color: #f5ede0;
+  color: #2d4a2d;
+  border: 1px solid #2d4a2d;
+}
+
+.btn-retour:hover {
+  background-color: #2d4a2d;
+  color: white;
+}
+
+.btn-add {
+  background-color: #2d4a2d;
+}
+
+.btn-add:hover {
+  background-color: #3f683f;
+  color: white;
+}
