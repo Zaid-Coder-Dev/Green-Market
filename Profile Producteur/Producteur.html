@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile-Client</title>
+    <title>Profile-Producteur</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
@@ -311,8 +311,603 @@
                     </div>
                 </div>
 
+                <!-- Ajouter Produit -->
+                <div id="ajouter-produit" class="section d-none">
+                <div class="products-page">
+                    <div class="stock-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                        <h2 class="mb-1">Ajouter un produit</h2>
+                        <p class="subtitle mb-0">Ajoutez facilement un nouveau produit.</p>
+                        </div>
+                    </div>
+                    <button type="reset" class="add-btn" onclick="showSection('produits')">
+                        <i class="bi bi-arrow-left me-2"></i> Retour
+                    </button>
+                    </div>
+                    <div class="content-card">
+                    <form>
+                        <div class="row g-4">
+                        <h5 class="form-section-title">Informations produit</h5>
+                        <div class="col-12">
+                            <label class="form-label">Images du produit</label>
+                            <div class="upload-box text-center">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <h5 class="mt-3">Glissez vos images ici</h5>
+                            <p>ou cliquez pour sélectionner</p>
+                            <input type="file" multiple hidden>
+                            </div>
+                            <div class="preview-images mt-3">
+                            <img src="./Produit images/Savon_beldi/SB_nila.jpeg">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nom du produit</label>
+                            <input type="text" class="form-control" placeholder="Nom du produit">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Catégorie</label>
+                            <select class="form-select">
+                            <option>Choisir catégorie</option>
+                            <option>Cosmetics</option>
+                            <option>Bio</option>
+                            <option>Artisanat</option>
+                            </select>
+                        </div>
+                        <h5 class="form-section-title">Stock & Prix</h5>
+                        <div class="col-md-4">
+                            <label class="form-label">Prix</label>
+                            <input type="number" class="form-control" placeholder="0.00 DH">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Quantité stock</label>
+                            <input type="number" class="form-control" placeholder="0">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">ID Produit</label>
+                            <input type="text" class="form-control" value="#PRD-001" disabled>
+                        </div>>
+                        <h5 class="form-section-title">Description</h5>
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" placeholder="Description du produit..."></textarea>
+                        </div>
+                        <h5 class="form-section-title">Publication</h5>
+                        <div class="col-md-6">
+                            <label class="form-label">Statut</label>
+                            <input type="text" class="form-control" value="En attente" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Producteur</label>
+                            <select class="form-select">
+                            <option>Choisir producteur</option>
+                            <option>Ahmed Bio</option>
+                            <option>Atlas Nature</option>
+                            <option>Bio Maroc</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end gap-3 mt-4">
+                            <button type="reset" class="annul-btn">
+                                <i class="bi bi-x-circle me-2"></i> Annuler
+                            </button>
+                            <button type="submit" class="add-btn">
+                                <i class="bi bi-check-circle me-2"></i> Ajouter produit
+                            </button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Modifier Produit -->
+                <div id="modifier-produit" class="section d-none">
+                    <div class="products-page">
+                        <div class="stock-header">
+                            <div class="d-flex align-items-center gap-3">
+                                <div>
+                                    <h2 class="mb-1">
+                                        Modifier un produit
+                                    </h2>
+                                    <p class="subtitle mb-0">
+                                        Modifiez facilement les informations du produit.
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="add-btn"
+                                onclick="showSection('produits')">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Retour
+                            </button>
+                        </div>
+                        <div class="content-card">
+                            <form>
+                                <div class="row g-4">
+
+                                    <h5 class="form-section-title">
+                                        Informations produit
+                                    </h5>
+                                    <div class="col-12">
+                                        <label class="form-label">
+                                            Images du produit
+                                        </label>
+                                        <div class="upload-box text-center">
+                                            <i class="bi bi-cloud-arrow-up"></i>
+                                            <h5 class="mt-3">
+                                                Modifier les images
+                                            </h5>
+                                            <p>
+                                                Cliquez ou glissez vos images ici
+                                            </p>
+                                            <input type="file" multiple hidden>
+                                        </div>
+                                        <!-- PREVIEW -->
+                                        <div class="preview-images mt-3 d-flex gap-3">
+                                            <img
+                                                src="./Produit images/Savon_beldi/SB_nila.jpeg"
+                                            >
+                                            <img
+                                                src="./Produit images/Savon_beldi/SB_akarFasi.jpeg"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Nom du produit
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            value="Savon Beldi"
+                                        >
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Catégorie
+                                        </label>
+                                        <select class="form-select">
+                                            <option selected>
+                                                Cosmetics
+                                            </option>
+                                            <option>
+                                                Bio
+                                            </option>
+                                            <option>
+                                                Artisanat
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <h5 class="form-section-title">
+                                        Stock & Prix
+                                    </h5>
+                                    <div class="col-md-4">
+                                        <label class="form-label">
+                                            Prix
+                                        </label>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            value="120"
+                                        >
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">
+                                            Quantité stock
+                                        </label>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            value="8"
+                                        >
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">
+                                            ID Produit
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            value="#PRD-001"
+                                            disabled
+                                        >
+                                    </div>
+                                    <h5 class="form-section-title">
+                                        Description
+                                    </h5>
+                                    <div class="col-12">
+                                        <label class="form-label">
+                                            Description
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            placeholder="Description du produit..."
+                                        >Savon naturel marocain riche en huiles naturelles et vitamines.</textarea>
+                                    </div>
+                                    <h5 class="form-section-title">
+                                        Publication
+                                    </h5>
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Statut
+                                        </label>
+                                        <select class="form-select">
+                                            <option selected>
+                                                Disponible
+                                            </option>
+                                            <option>
+                                                En attente
+                                            </option>
+                                            <option>
+                                                Rupture
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Producteur
+                                        </label>
+                                        <select class="form-select">
+                                            <option>
+                                                Ahmed Bio
+                                            </option>
+                                            <option selected>
+                                                Atlas Nature
+                                            </option>
+                                            <option>
+                                                Bio Maroc
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-end gap-3 mt-4">
+                                            <button
+                                                type="reset"
+                                                class="annul-btn">
+                                                <i class="bi bi-x-circle me-2"></i>
+                                                Annuler
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                class="add-btn">
+                                                <i class="bi bi-check-circle me-2"></i>
+                                                Sauvegarder
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- voir Produit -->
+                <div id="voir-produit" class="section d-none">
+                    <div class="products-page">
+                        <div class="stock-header">
+                        <div class="d-flex align-items-center gap-3">
+                            <div>
+                            <h2 class="mb-1">Détails du produit</h2>
+                            <p class="subtitle mb-0">Consultez toutes les informations du produit.</p>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="showSection('produits')">
+                            <i class="bi bi-arrow-left me-2"></i> Retour
+                        </button>
+                        </div>
+                        <div class="content-card">
+                        <div class="row g-4">
+                            <div class="col-lg-5">
+                            <div class="product-view-image">
+                                <img src="./Produit images/Savon_beldi/SB_nila.jpeg" class="main-product-img" alt="">
+                            </div>
+                            <div class="preview-images d-flex gap-3 mt-3">
+                                <img src="./Produit images/Savon_beldi/SB_nila.jpeg">
+                                <img src="./Produit images/Savon_beldi/SB_akarFasi.jpeg">
+                                <img src="./Produit images/Savon_beldi/SB_nila.jpeg">
+                            </div>
+                            </div>
+                            <div class="col-lg-7">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                <h3 class="fw-bold mb-2">Savon Beldi</h3>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="stock ok">Disponible</span>
+                                    <span class="product-category">Cosmétiques</span>
+                                </div>
+                                </div>
+                                <div>
+                                <span class="product-id">#PRD-001</span>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                <div class="view-box">
+                                    <small>Catégorie</small>
+                                    <h6>Cosmétiques</h6>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="view-box">
+                                    <small>Producteur</small>
+                                    <h6>Atlas Nature</h6>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="view-box">
+                                    <small>Prix</small>
+                                    <h6>120 DH</h6>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="view-box">
+                                    <small>Quantité stock</small>
+                                    <h6>8 unités</h6>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="view-description mt-4">
+                                <h5 class="form-section-title">Description</h5>
+                                <p>
+                                Savon naturel marocain riche en huiles naturelles,
+                                vitamines et ingrédients bio. Idéal pour hydrater
+                                et purifier la peau naturellement.
+                                </p>
+                            </div>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                <div class="view-box text-center">
+                                    <small>Ventes</small>
+                                    <h5 class="fw-bold">320</h5>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="view-box text-center">
+                                    <small>Avis</small>
+                                    <h5 class="fw-bold">4.7
+                                        <i class="bi bi-star-fill"></i>
+                                    </h5>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="view-box text-center">
+                                    <small>Commandes</small>
+                                    <h5 class="fw-bold">120</h5>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="product-meta mt-3">
+                                <p>Ajouté le : <strong>12 Mai 2026</strong></p>
+                                <p>Dernière modification : <strong>16 Mai 2026</strong></p>
+                            </div>
+                            <div class="d-flex gap-3 mt-4">
+                                <button class="add-btn">
+                                    <a href="#" class="btn-link " data-section="modifier-produit">
+                                        <i class="bi bi-pencil-square me-2"></i> Modifier
+                                    </a>
+                                </button>
+                                <button class="annul-btn">
+                                <i class="bi bi-trash me-2"></i> Supprimer
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- voir details commande -->
+                <div id="voir-commande" class="section d-none">
+                    <div class="products-page">
+
+                        <!-- HEADER -->
+                        <div class="stock-header">
+                        <div class="d-flex align-items-center gap-3">
+                            <div>
+                            <h2 class="mb-1">Détails de la commande</h2>
+                            <p class="subtitle mb-0">Consultez toutes les informations de la commande.</p>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="showSection('commandes')">
+                            <i class="bi bi-arrow-left me-2"></i> Retour
+                        </button>
+                        </div>
+
+                        <!-- CONTENT -->
+                        <div class="content-card">
+                        <div class="row g-4">
+
+                            <!-- LEFT -->
+                            <div class="col-lg-8">
+
+                            <!-- COMMANDE INFO -->
+                            <div class="view-description mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-1">Commande #CMD-1524</h4>
+                                    <p class="text-muted mb-0">Passée le 15 Mai 2026</p>
+                                </div>
+                                <span class="stock ok">Livrée</span>
+                                </div>
+
+                                <!-- TABLE -->
+                                <div class="table-responsive mt-4">
+                                <table class="product-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Prix</th>
+                                        <th>Quantité</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                        <div class="product-info">
+                                            <img src="./Produit images/Savon_beldi/SB_nila.jpeg" alt="">
+                                            <div>
+                                            <h6>Savon Beldi</h6>
+                                            <small>#PRD-001</small>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td>120 DH</td>
+                                        <td>2</td>
+                                        <td>240 DH</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <div class="product-info">
+                                            <img src="./Produit images/Argan_oil/Huile d'Argan Bio.png" alt="">
+                                            <div>
+                                            <h6>Huile d'Argan</h6>
+                                            <small>#PRD-221</small>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td>250 DH</td>
+                                        <td>1</td>
+                                        <td>250 DH</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+
+                            <!-- LIVRAISON -->
+                            <div class="livraison-section">
+                                <h5 class="form-section-title">Informations de livraison</h5>
+                                <div class="delivery-grid">
+                                <div class="delivery-card">
+                                    <div class="delivery-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                    <div class="delivery-info">
+                                    <small>Adresse</small>
+                                    <h6>Marrakech, Maroc</h6>
+                                    </div>
+                                </div>
+                                <div class="delivery-card">
+                                    <div class="delivery-icon"><i class="bi bi-telephone-fill"></i></div>
+                                    <div class="delivery-info">
+                                    <small>Téléphone</small>
+                                    <h6>+212 6 12 34 56 78</h6>
+                                    </div>
+                                </div>
+                                <div class="delivery-card">
+                                    <div class="delivery-icon"><i class="bi bi-envelope-fill"></i></div>
+                                    <div class="delivery-info">
+                                    <small>Email</small>
+                                    <h6>sara@gmail.com</h6>
+                                    </div>
+                                </div>
+                                <div class="delivery-card">
+                                    <div class="delivery-icon"><i class="bi bi-calendar-check-fill"></i></div>
+                                    <div class="delivery-info">
+                                    <small>Date de livraison</small>
+                                    <h6>16 Mai 2026</h6>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <!-- TIMELINE -->
+                                <div class="order-timeline mt-4">
+                                <div class="timeline-item done"><i class="bi bi-check-circle-fill"></i> Commande confirmée</div>
+                                <div class="timeline-item done"><i class="bi bi-box-seam"></i> Préparation</div>
+                                <div class="timeline-item done"><i class="bi bi-truck"></i> Expédiée</div>
+                                <div class="timeline-item active"><i class="bi bi-house-check-fill"></i> Livrée</div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- RIGHT -->
+                            <div class="col-lg-4">
+                            <!-- CLIENT -->
+                            <div class="view-box mb-4">
+                                <div class="d-flex align-items-center gap-3">
+                                <div class="avatar">S</div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Sara Alaoui</h6>
+                                    <small class="text-muted">sara@gmail.com</small>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- PAYMENT -->
+                            <div class="view-box mb-4">
+                                <h5 class="form-section-title mb-3">Paiement</h5>
+                                <div class="mb-3">
+                                <small>Méthode</small>
+                                <h6>Visa</h6>
+                                </div>
+                                <div class="mb-3">
+                                <small>Statut</small>
+                                <h6 class="text-success">Payé</h6>
+                                </div>
+                                <div>
+                                <small>Total commande</small>
+                                <h4 class="fw-bold">490 DH</h4>
+                                </div>
+                            </div>
+
+                            <!-- ACTIONS -->
+                            <div class="d-grid gap-3">
+                                <button class="add-btn"><i class="bi bi-printer me-2"></i> Imprimer facture</button>
+                                <button class="annul-btn"><i class="bi bi-x-circle me-2"></i> Annuler commande</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!-- Produits -->
                 <div id="produits" class="section d-none">
+                    <div class="row g-3 mb-3">
+                        <div class="col-lg-3 col-md-6">
+                        <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-box-seam"></i></div>
+                            <div class="content">
+                            <p class="title fw-bold light">Total Products</p>
+                            <h2 class="fw-bold">80</h2>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6">
+                        <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-exclamation-triangle"></i></div>
+                            <div class="content">
+                            <p class="title fw-bold">Low Stock</p>
+                            <h2 class="fw-bold">30</h2>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4">
+                        <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-x-circle"></i></div>
+                            <div class="content">
+                            <p class="title fw-bold">Out Of Stock</p>
+                            <h2 class="fw-bold">15</h2>
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4">
+                            <div class="card-ca h-100">
+                                <div class="icon"><i class="bi-columns-gap"></i></div>
+                                <div class="content">
+                                    <p class="title fw-bold" >Top Category</p>
+                                    <h2 class="fw-bold">355</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="products-page">
                         <div class="stock-header">
                             <div>
@@ -330,8 +925,10 @@
                                     Exporter le rapport
                                 </button>
                                 <button class="add-btn">
-                                    <i class="bi bi-plus-lg me-2"></i>
-                                    Ajouter un produit
+                                    <a href="#" class="btn-link " data-section="ajouter-produit">
+                                        <i class="bi bi-plus-lg me-2"></i>
+                                        Ajouter un produit
+                                    </a>
                                 </button>
                             </div>
                        </div>
@@ -346,10 +943,10 @@
                             <div class="filter-box">
                                 <i class="bi bi-funnel"></i>
                                 <select id="filterCategory">
-                                    <option>Tous les produits</option>
-                                    <option>En stock</option>
-                                    <option>Stock faible</option>
-                                    <option>Rupture de stock</option>
+                                    <option>tous categories</option>
+                                    <option>Artisanat</option>
+                                    <option>Cosmetics</option>
+                                    <option>Mode Traditionnelle</option>
                                 </select>
                             </div>
                         </div>
@@ -384,15 +981,19 @@
                                     <td>
                                         <div class="action-buttons">
 
-                                            <button class="icon-btn view-btn">
-                                            <i class="bi bi-eye"></i>
+                                            <button class="icon-btn  title="Voir details">
+                                                <a href="#" class="btn-link view-btn" data-section="voir-produit">
+                                                    <i class="bi bi-eye" ></i>
+                                                </a>
                                             </button>
 
-                                            <button class="icon-btn edit-btn">
-                                            <i class="bi bi-pencil"></i>
+                                            <button class="icon-btn " title="modifier" >
+                                                <a href="#" class="btn-link edit-btn" data-section="modifier-produit">
+                                                    <i class="bi bi-pencil" ></i>
+                                                </a>
                                             </button>
 
-                                            <button class="icon-btn remove-btn">
+                                            <button class="icon-btn remove-btn" title="supprimer">
                                             <i class="bi bi-trash"></i>
                                             </button>
 
@@ -423,13 +1024,19 @@
                                     </td>
                                     <td>
                                     <div class="action-buttons">
-                                        <button class="icon-btn view-btn">
-                                        <i class="bi bi-eye"></i>
+                                        <button class="icon-btn  title="Voir details">
+                                                <a href="#" class="btn-link view-btn" data-section="voir-produit">
+                                                    <i class="bi bi-eye" ></i>
+                                                </a>
                                         </button>
-                                        <button class="icon-btn edit-btn">
-                                        <i class="bi bi-pencil"></i>
+
+                                        <button class="icon-btn " title="modifier" >
+                                            <a href="#" class="btn-link edit-btn" data-section="modifier-produit">
+                                                <i class="bi bi-pencil" ></i>
+                                            </a>
                                         </button>
-                                        <button class="icon-btn remove-btn">
+
+                                        <button class="icon-btn remove-btn" title="supprimer">
                                         <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -458,15 +1065,19 @@
                                     <td>
                                         <div class="action-buttons">
 
-                                            <button class="icon-btn view-btn">
-                                            <i class="bi bi-eye"></i>
+                                            <button class="icon-btn  title="Voir details">
+                                                <a href="#" class="btn-link view-btn" data-section="voir-produit">
+                                                    <i class="bi bi-eye" ></i>
+                                                </a>
                                             </button>
 
-                                            <button class="icon-btn edit-btn">
-                                            <i class="bi bi-pencil"></i>
+                                            <button class="icon-btn " title="modifier" >
+                                                <a href="#" class="btn-link edit-btn" data-section="modifier-produit">
+                                                    <i class="bi bi-pencil" ></i>
+                                                </a>
                                             </button>
 
-                                            <button class="icon-btn remove-btn">
+                                            <button class="icon-btn remove-btn" title="supprimer">
                                             <i class="bi bi-trash"></i>
                                             </button>
 
@@ -512,7 +1123,6 @@
                                 <div class="content">
                                     <p class="title fw-bold light">Total Products</p>
                                     <h2 class="fw-bold">133</h2>
-                                    <p class="growth">+18% <span>↗</span></p>
                                 </div>
                             </div>
                         </div>
@@ -523,18 +1133,16 @@
                                 <div class="content">
                                     <p class="title fw-bold" >Low Stock</p>
                                     <h2 class="fw-bold">30</h2>
-                                    <p class="growth">-10% <span>↘</span></p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-3 col-md-4">
                             <div class="card-ca h-100">
-                                <div class="icon"></i></div>
+                                <div class="icon"><i class="bi bi-x-circle"></i></div>
                                 <div class="content">
                                     <p class="title fw-bold">Out Of Stock</p>
                                     <h2 class="fw-bold">15</h2>
-                                    <p class="growth">+2% <span>↗</span></p>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +1153,6 @@
                                 <div class="content">
                                     <p class="title fw-bold" >Top Category</p>
                                     <h2 class="fw-bold">355</h2>
-                                    <p class="growth">+5% <span>↗</span></p>
                                 </div>
                             </div>
                         </div>
@@ -560,13 +1167,9 @@
                                 </p>
                             </div>
                         <div class="header-actions">
-                        <button class="export-btn">
+                        <button class="add-btn">
                             <i class="bi bi-download me-2"></i>
                             Exporter le rapport
-                        </button>
-                        <button class="add-btn">
-                            <i class="bi bi-plus-lg me-2"></i>
-                            Ajouter un produit
                         </button>
                     </div>
                 </div>
@@ -578,9 +1181,9 @@
                             <div class="filter-box">
                                 <i class="bi bi-funnel"></i>
                                 <select id="filterCategory">
-                                    <option>tous categories</option>
-                                    <option>Artisanat</option>
-                                    <option>Cosmetics</option>
+                                    <option>Tous les produits</option>
+                                    <option>En stock</option>
+                                    <option>Stock faible</option>
                                     <option>Rupture de stock</option>
                                 </select>
                             </div>
@@ -594,7 +1197,7 @@
                                         <th>Stock min.</th>
                                         <th>Statut</th>
                                         <th>Dernière mise à jour</th>
-                                        <th>Action</th>
+                                        <th>mise à jour</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -620,10 +1223,10 @@
                                         </td>
                                         <td>15/06/2025</td>
                                         <td>
-                                            <button class="btn-update">
-                                                <i class="bi bi-pencil-square me-1"></i>
-                                                Modifier
-                                            </button>
+                                            <div class="action-buttons">
+                                                <button class="icon-btn export-btn" title="modifier"><i class="bi bi-box-seam"></i></button>
+                                                <button class="icon-btn remove-btn" title="supprimer"><i class="bi bi-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -647,10 +1250,10 @@
                                         </td>
                                         <td>15/06/2025</td>
                                         <td>
-                                            <button class="btn-update">
-                                                <i class="bi bi-pencil-square me-1"></i>
-                                                Modifier
-                                            </button>
+                                            <div class="action-buttons">
+                                                <button class="icon-btn export-btn" title="modifier"><i class="bi bi-box-seam"></i></button>
+                                                <button class="icon-btn remove-btn" title="supprimer"><i class="bi bi-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -664,10 +1267,10 @@
                                         </td>
                                         <td>15/06/2025</td>
                                         <td>
-                                            <button class="btn-update">
-                                                <i class="bi bi-pencil-square me-1"></i>
-                                                Modifier
-                                            </button>
+                                            <div class="action-buttons">
+                                                <button class="icon-btn export-btn" title="modifier"><i class="bi bi-box-seam"></i></button>
+                                                <button class="icon-btn remove-btn" title="supprimer"><i class="bi bi-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -703,6 +1306,47 @@
 
                 <!-- MES COMMANDES -->
                 <div id="commandes" class="section d-none">
+                    <div class="row g-3 mb-3">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-cart-check"></i></div>
+                            <div class="content">
+                                <p class="title fw-bold">Total Commandes</p>
+                                <h2 class="fw-bold">32</h2>
+                            </div>
+                            </div>
+                    </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-ca h-100">
+                    <div class="icon"><i class="bi bi-hourglass-split"></i></div>
+                    <div class="content">
+                        <p class="title fw-bold">En attente</p>
+                        <h2 class="fw-bold">18</h2>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="card-ca h-100">
+                    <div class="icon"><i class="bi bi-truck"></i></div>
+                    <div class="content">
+                        <p class="title fw-bold">Livrées</p>
+                        <h2 class="fw-bold">25</h2>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="card-ca h-100">
+                    <div class="icon"><i class="bi bi-x-octagon"></i></div>
+                    <div class="content">
+                        <p class="title fw-bold">Annulées</p>
+                        <h2 class="fw-bold">12</h2>
+                    </div>
+                    </div>
+                </div>
+                </div>
                     <div class="products-page">
                         <div class="stock-header">
                             <div>
@@ -718,105 +1362,111 @@
                                 <button class="export-btn">
                                 <i class="bi bi-download me-2"></i>
                                 Exporter le rapport
-                                </button>
-                                <button class="add-btn">
-                                <i class="bi bi-plus-lg me-2"></i>
-                                Ajouter un produit
-                                </button>
+                                </button>  
                             </div>
                         </div>
+
                         <div class="top-bar">
-                            <div class="search-box">
-                                <i class="bi bi-search"></i>
-                                <input
-                                type="text"
-                                placeholder="Rechercher un produit..."
-                                >
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Rechercher une commande...">
+                        </div>
+                        <div class="filter-box">
+                            <i class="bi bi-funnel"></i>
+                            <select id="filterCategory">
+                                <option>Toutes les commandes</option>
+                                    <option>Livrées</option>
+                                    <option>En attente</option>
+                                    <option>Annulées</option>
+                                    <option>Non payées</option>
+                                </select>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="product-table">
-
-                                <thead>
-
-                                <tr>
-                                    <th>Produit</th>
-                                    <th>Client</th>
-                                    <th>Date</th>
-                                    <th>Prix</th>
-                                    <th>Statut</th>
-                                </tr>
-
+                        <table class="product-table">
+                            <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Client</th>
+                                <th>Date</th>
+                                <th>Prix</th>
+                                <th>Paiement</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
                                 </thead>
-
-                                <tbody>
-                                    <tr>
-
-                                        <td>
-
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <div class="product-info">
+                                        <img src="./Produit images/Tagine Terracotta/TT-Inside.jpg" alt="Tagine">
+                                        <div>
+                                        <h6>Tagine Terracotta</h6>
+                                        <small>#PRD-052</small>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
                                         <div class="product-info">
-                                                <img
-                                                src="./Produit images/Tagine Terracotta/TT-Inside.jpg"
-                                                >
-                                                <div>
-                                                <h6>Tagine Terracotta</h6>
-                                                <small>#PRD-052</small>
-                                                </div>
+                                            <div>
+                                            <h6>Ahmadi Ahmad</h6>
+                                            <small>#P-102</small>
                                             </div>
-
+                                        </div>
                                         </td>
-
-                                        <td>sara sarati</td>
-
-                                        <td>12 Mai 2026</td>
-
-                                        <td>45 Mai 2026</td>
-                                        <td><span class="stock ok">Livré</span></td>
-
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="product-info">
-                                                <img
-                                                src="./Produit images/Tagine Terracotta/TT-Inside.jpg"
-                                                >
-                                                <div>
-                                                <h6>Tagine Terracotta</h6>
-                                                <small>#PRD-052</small>
-                                                </div>
+                                    <td>12 Mai 2026</td>
+                                    <td>450 DH</td>
+                                    <td><span class="stock ok">Payé</span></td>
+                                    <td><span class="stock ok">Livré</span></td>
+                                    <td>
+                                    <div class="action-buttons">
+                                        <button class="icon-btn " title="Voir commande">
+                                        <a href="#" class="btn-link view-btn" data-section="voir-commande">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </button>
+                                        <button class="icon-btn edit-btn" title="Changer statut commande "><i class="bi bi-pencil"></i></button>
+                                        <button class="icon-btn export-btn" title="Générer facture"><i class="bi bi-file-earmark-pdf"></i></button>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    <div class="product-info">
+                                        <img src="./Produit images/Tagine Terracotta/TT-Inside.jpg" alt="Tagine">
+                                        <div>
+                                        <h6>Tagine Terracotta</h6>
+                                        <small>#PRD-052</small>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div class="product-info">
+                                            <div>
+                                            <h6>Ahmadi Ahmad</h6>
+                                            <small>#P-102</small>
                                             </div>
-
-                                        </td>
-                                        <td>sara sarati</td>
-                                        <td>12 Mai 2026</td>
-                                        <td>45 Mai 2026</td>
-                                        <td><span class="stock low">En cours</span></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product-info">
-                                                <img
-                                                src="./Produit images/Tagine Terracotta/TT-Inside.jpg"
-                                                >
-                                                <div>
-                                                <h6>Tagine Terracotta</h6>
-                                                <small>#PRD-052</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>sara sarati</td>
-                                        <td>12 Mai 2026</td>
-                                        <td>45 Mai 2026</td>
-                                        <td><span class="stock ok">Livré</span></td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        </div>
+                                    </td>
+                                    <td>12 Mai 2026</td>
+                                    <td>450 DH</td>
+                                    <td><span class="stock out">Non payé</span></td>
+                                    <td><span class="stock low">En cours</span></td>
+                                    <td>
+                                    <div class="action-buttons">
+                                        <button class="icon-btn " title="Voir commande">
+                                        <a href="#" class="btn-link view-btn" data-section="voir-commande">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </button>
+                                        <button class="icon-btn edit-btn" title="Changer statut commande "><i class="bi bi-pencil"></i></button>
+                                        <button class="icon-btn export-btn" title="Générer facture" disabled><i class="bi bi-file-earmark-pdf"></i></button>
+                                    </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                         <!-- PAGINATION -->
                         <div class="custom-pagination">
                             <button class="pagination-arrow">
@@ -841,6 +1491,47 @@
 
                 <!-- Paymaint -->
                 <div id="paimnt" class="section d-none">
+                    <div class="row g-3 mb-3">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-cash-stack"></i></div>
+                            <div class="content">
+                                <p class="title fw-bold">Total Paiements</p>
+                                <h2 class="fw-bold">10 50 DH</h2>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-check-circle"></i></div>
+                            <div class="content">
+                                <p class="title fw-bold">Réussis</p>
+                                <h2 class="fw-bold">20</h2>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4">
+                            <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-hourglass-split"></i></div>
+                            <div class="content">
+                                <p class="title fw-bold">En attente</p>
+                                <h2 class="fw-bold">12</h2>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4">
+                            <div class="card-ca h-100">
+                            <div class="icon"><i class="bi bi-arrow-counterclockwise"></i></div>
+                            <div class="content">
+                                <p class="title fw-bold">Remboursements</p>
+                                <h2 class="fw-bold">2</h2>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="products-page">
                         <div class="stock-header">
                             <div>
@@ -851,114 +1542,96 @@
                                 </p>
                             </div>
                             <div class="header-actions">
-                                <button class="add-btn">
-                                    <i class="bi bi-plus-lg me-2"></i>
-                                    Exporter le rapport
-                                </button>
+                                <button class="export-btn"><i class="bi bi-download me-2"></i>Exporter le rapport</button>
                             </div>
                         </div>
+
                         <div class="top-bar">
-                            <div class="search-box">
-                                <i class="bi bi-search"></i>
-                                <input type="text" placeholder="Rechercher un produit...">
-                            </div>
+                            <div class="search-box"><i class="bi bi-search"></i><input type="text" placeholder="Rechercher un paiement..."></div>
                             <div class="filter-box">
                                 <i class="bi bi-funnel"></i>
                                 <select id="filterCategory">
-                                    <option>tous Statut</option>
+                                    <option>Tous statuts</option>
                                     <option>Payé</option>
                                     <option>En attente</option>
                                     <option>Échoué</option>
+                                    <option>Remboursé</option>
+                                    <option>Litige</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="table-responsive">
                             <table class="product-table">
                                 <thead>
-                                    <tr>
-                                        <th>ID Paiement</th>
-                                        <th>ID Commande</th>
-                                        <th>Client</th>
-                                        <th>Montant</th>
-                                        <th>Méthode</th>
-                                        <th>Statut</th>
-                                        <th>Date</th>
-                                        <th>Facture</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th>ID Paiement</th>
+                                    <th>ID Commande</th>
+                                    <th>Client</th>
+                                    <th>Montant</th>
+                                    <th>Méthode</th>
+                                    <th>Statut</th>
+                                    <th>Date</th>
+                                    <th>Remboursement</th>
+                                    <th>Facture</th>
+                                    <th>Actions</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#PAY0188</td>
-                                        <td>#CMD1524</td>
-                                        <td>Ahmedi Ahmed</td>
-                                        <td>250.00 DH</td>
-                                        <td>Visa</td>
-                                        <td>
-                                            <span class="stock ok">
-                                                Payé
-                                            </span>
-                                        </td>
-                                        <td>15/06/2025</td>
-                                        <td>
-                                            <button class="icon-btn export-btn">
-                                                <i class="bi bi-download me-1"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <div class="action-buttons">
+                                <tr>
+                                    <td>#PAY0188</td>
+                                    <td>#CMD1524</td>
+                                    <td><h6>Sara Sarati</h6><small>#C-102</small></td>
+                                    <td>250.00 DH</td>
+                                    <td>Visa</td>
+                                    <td><span class="stock ok">Payé</span></td>
+                                    <td>15/06/2025</td>
+                                    <td><span class="stock ok">Effectué</span></td>
+                                    <td><button class="icon-btn export-btn" title="Telecharger"><i class="bi bi-download"></i></button></td>
+                                    <td>
+                                    <div class="action-buttons">
+                                        <button class="icon-btn view-btn" title="view details"><i class="bi bi-eye"></i></button>
+                                        <button class="icon-btn export-btn" title="Confirmer" disabled><i class="bi bi-check-circle"></i></button>                                   </div>
+                                    </td>
+                                </tr>
 
+                                <tr>
+                                    <td>#PAY0189</td>
+                                    <td>#CMD1525</td>
+                                    <td><h6>sara Sarati</h6><small>#C-103</small></td>
+                                    <td>400.00 DH</td>
+                                    <td>Visa</td>
+                                    <td><span class="stock ok">payé</span></td>
+                                    <td>16/06/2025</td>
+                                    <td><span class="stock low">En attente</span></td>
+                                    <td><button class="icon-btn export-btn" title="Telecharger" ><i class="bi bi-download"></i></button></td>
+                                    <td>
+                                    <div class="action-buttons">
+                                        <button class="icon-btn view-btn" title="view details"><i class="bi bi-eye"></i></button>
+                                        <button class="icon-btn export-btn" title="Confirmer" disabled><i class="bi bi-check-circle"></i></button>
+                                    </div>
+                                    </td>
+                                </tr>
 
-                                            <button class="icon-btn export-btn">
-                                            <i class="bi bi-check-circle"></i>
-                                            </button>
-
-                                            <button class="icon-btn remove-btn">
-                                            <i class="bi bi-x-circle"></i>
-                                            </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>#PAY0188</td>
-                                        <td>#CMD1524</td>
-                                        <td>Ahmedi Ahmed</td>
-                                        <td>250.00 DH</td>
-                                        <td>Visa</td>
-                                        <td><span class="stock low">En attente</span></td>
-                                        <td>15/06/2025</td>
-                                        <td><button class="icon-btn export-btn"><i class="bi bi-download me-2"></i></button></td>
-
-                                        <td>
-
-                                            <div class="action-buttons">
-
-
-                                            <button class="icon-btn export-btn">
-                                            <i class="bi bi-check-circle"></i>
-                                            </button>
-
-                                            <button class="icon-btn remove-btn">
-                                            <i class="bi bi-x-circle"></i>
-                                            </button>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                    
-
+                                <tr>
+                                    <td>#PAY0190</td>
+                                    <td>#CMD1526</td>
+                                    <td><h6>sara Sarati</h6><small>#C-104</small></td>
+                                    <td>150.00 DH</td>
+                                    <td>Cash</td>
+                                    <td><span class="stock low">En attente</span></td>
+                                    <td>17/06/2025</td>
+                                    <td>—</td>
+                                    <td><button class="icon-btn export-btn" title="Telecharger" disabled><i class="bi bi-download"></i></button></td>
+                                    <td>
+                                    <div class="action-buttons">
+                                        <button class="icon-btn view-btn" title="view details" ><i class="bi bi-eye"></i></button>
+                                        <button class="icon-btn export-btn" title="Confirmer" ><i class="bi bi-check-circle"></i></button>
+                                    </div>
+                                    </td>
+                                </tr>
                                 </tbody>
-
                             </table>
-
                         </div>
                         <!-- PAGINATION -->
                         <div class="custom-pagination">
