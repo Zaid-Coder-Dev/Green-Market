@@ -15,9 +15,7 @@ h1, h2, h3, h4, h5 {
   background-color: #e07b39;
 }
 
-footer {
-  background-color: #D8C3A5;
-}
+
 
 /* Sidebar */
 .profile-sidebar {
@@ -42,8 +40,11 @@ footer {
   justify-content: center;
 }
 
+
 /* Sidebar links */
-.sidebar-link {
+.sidebar-link,.log-out {
+  border: none;
+  background: none;
   display: block;
   padding: 10px 12px;
   border-radius: 8px;
@@ -51,6 +52,8 @@ footer {
   color: #555;
   font-size: 0.875rem;
   transition: background 0.2s;
+    text-align: left;
+  width: 100%;;
 }
 
 .sidebar-link:hover {
@@ -138,4 +141,50 @@ footer {
 .btn-add:hover {
   background-color: #3f683f;
   color: white;
+}
+
+/* ===== FOOTER ===== */
+.footer-top {
+  background-color: #D8C3A5;
+}
+
+.footer-bottom {
+  background-color: #c4aa8a;
+}
+
+.footer-title {
+  color: #2d4a2d;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.footer-text {
+  color: #6b4d3a;
+}
+
+.footer-link {
+  color: #8c7b6a;
+  text-decoration: none;
+  font-size: 0.875rem;
+  display: block;
+  margin-bottom: 4px;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #2d4a2d;
+}
+
+.footer-social {
+  color: #6b4d3a;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.footer-social:hover {
+  color: #2d4a2d;
+}
+
+.footer-bottom-text {
+  color: #6b4d3a;
 }

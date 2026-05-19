@@ -64,26 +64,26 @@
 
                     <!-- Navigation -->
                     <div class="d-flex flex-column gap-1">
-                        <a href="#" class="sidebar-link active" data-section="dashboard">
+                        <button class="sidebar-link active" data-section="dashboard">
                             <i class="bi bi-speedometer2 me-2"></i>Dashboard
-                        </a>
-                        <a href="#" class="sidebar-link" data-section="profil">
+                        </button>
+                        <button class="sidebar-link" data-section="profil">
                             <i class="bi bi-person me-2"></i>Mon Profil
-                        </a>
-                        <a href="#" class="sidebar-link" data-section="commandes">
+                        </button>
+                        <button class="sidebar-link" data-section="commandes">
                             <i class="bi bi-bag me-2"></i>Mes Commandes
-                        </a>
-                        <a href="#" class="sidebar-link" data-section="avis">
+                        </button>
+                        <button class="sidebar-link" data-section="avis">
                             <i class="bi bi-star me-2"></i>Mes Avis
-                        </a>
-                        <a href="#" class="sidebar-link" data-section="favoris">
+                        </button>
+                        <button class="sidebar-link" data-section="favoris">
                             <i class="bi bi-heart me-2"></i>Mes Favoris
-                        </a>
+                        </button>
                     </div>
 
                     <hr>
 
-                    <a href="../Inscription/inscription.html" class="sidebar-link text-danger">
+                    <a href="../Inscription/Inscription.html" class="log-out text-danger">
                         <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                     </a>
 
@@ -101,7 +101,7 @@
                         <div class="col-4">
                             <div class="stat-card">
                                 <small class="text-muted">Commandes</small>
-                                <h3 class="text-success mb-0">8</h3>
+                                <h3 class="text-success mb-0">8</h3>z
                             </div>
                         </div>
                         <div class="col-4">
@@ -358,57 +358,63 @@
 
 
     <!-- FOOTER -->
-    <footer class="py-5">
-        <div class="container">
-            <div class="row g-4">
+    <footer>
+  
+    <div class="footer-top py-5">
+    <div class="container">
+      <div class="row g-4">
 
-                <div class="col-12 col-md-3">
-                    <h5 class="fw-bold">🌿 Green_market</h5>
-                    <p class="text-muted small">Votre marketplace de produits artisanaux marocains, directs des
-                        coopératives.</p>
-                    <div class="d-flex gap-3 mt-3">
-                        <a href="#" class="text-dark"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="text-dark"><i class="bi bi-twitter-x"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-3">
-                    <h6 class="fw-bold mb-3">Liens utiles</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="../Home Page/home.html" class="text-muted text-decoration-none small">Accueil</a>
-                        </li>
-                        <li><a href="Produits.html" class="text-muted text-decoration-none small">Boutique</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none small">À propos</a></li>
-                        <li><a href="../Home Page/home.html#contact"
-                                class="text-muted text-decoration-none small">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-6 col-md-3">
-                    <h6 class="fw-bold mb-3">Catégories</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted text-decoration-none small">Produits Bio</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none small">Cosmétiques</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none small">Artisanat</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none small">Mode Traditionnelle</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <h6 class="fw-bold mb-3">Contact</h6>
-                    <ul class="list-unstyled">
-                        <li class="text-muted small"><i class="bi bi-envelope me-2"></i>contact@greenmarket.ma</li>
-                        <li class="text-muted small"><i class="bi bi-telephone me-2"></i>+212 6 00 00 00 00</li>
-                        <li class="text-muted small"><i class="bi bi-geo-alt me-2"></i>Marrakech, Maroc</li>
-                    </ul>
-                </div>
-
-            </div>
-            <hr class="mt-4">
-            <p class="text-center text-muted small mb-0">&copy; 2024 Green Market. Tous droits réservés.</p>
+        <div class="col-12 col-md-3">
+          <h5 class="footer-title">🌿 Green_market</h5>
+          <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
+          </div>
         </div>
-    </footer>
+
+        <div class="col-6 col-md-3">
+          <h6 class="footer-title">Liens utiles</h6>
+          <ul class="list-unstyled">
+            <li><a href="../Home Page/Home.html" class="footer-link">Accueil</a></li>
+            <li><a href="../Produits/Produits.html" class="footer-link">Boutique</a></li>
+            <li><a href="#" class="footer-link">À propos</a></li>
+            <li><a href="../Home Page/Home.html#contact" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h6 class="footer-title">Catégories</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="footer-link">Produits Bio</a></li>
+            <li><a href="#" class="footer-link">Cosmétiques</a></li>
+            <li><a href="#" class="footer-link">Artisanat</a></li>
+            <li><a href="#" class="footer-link">Mode Traditionnelle</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <h6 class="footer-title">Contact</h6>
+          <ul class="list-unstyled">
+            <li class="footer-text small"><i class="bi bi-envelope me-2"></i>contact@greenmarket.ma</li>
+            <li class="footer-text small"><i class="bi bi-telephone me-2"></i>+212 6 00 00 00 00</li>
+            <li class="footer-text small"><i class="bi bi-geo-alt me-2"></i>Marrakech, Maroc</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="footer-bottom py-3">
+    <div class="container">
+      <p class="text-center mb-0 footer-bottom-text small">&copy; 2024 Green Market. Tous droits réservés.</p>
+    </div>
+  </div>
+
+</footer>
 
 
 

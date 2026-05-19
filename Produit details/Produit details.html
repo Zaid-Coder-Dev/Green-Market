@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Market - Produit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="Produit details.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../Home Page/Home.html">🌿 Green_market</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto gap-3">
+          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.html">Boutique</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Categories/categories.html">Catégories</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html#contact">Contact</a></li>
+        </ul>
+        <a href="../Inscription/inscription.html" class="text-white fs-5 m-3"><i class="bi bi-person"></i></a>
+        <a href="#" class="text-white fs-5 m-3"><i class="bi bi-search"></i></a>
+        <a href="#" class="text-white fs-5 m-3 position-relative"><i class="bi bi-bell"></i><span class="badge cart-badge" id="bell-count">0</span></a>
+        <a href="../Panier/Panier.html" class="text-white fs-5 m-3 position-relative"><i class="bi bi-cart3"></i><span class="badge cart-badge" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PRODUCT -->
+  <section class="container py-5">
+    <div class="row g-5">
+
+      <!-- IMAGE -->
+      <div class="col-lg-5">
+        <div class="product-image position-relative">
+          <span class="sale-badge bg-danger">SOLDE</span>
+          <img id="mainImage" class="img-fluid rounded-4" src="">
+        </div>
+        <div id="SMI" class="small-images mt-3"></div>
+      </div>
+
+      <!-- DETAILS -->
+      <div class="col-lg-7">
+        <p id="ctg" class="category"></p>
+        <h1 id="pro-tit" class="product-title"></h1>
+        <div id="product-stars"></div>
+        <h2 id="prix-p" class="price"></h2>
+        <p id="des-p" class="product-desc"></p>
+
+        <!-- SELECT -->
+        <div id="optionP"></div>
+
+        <!-- QUANTITY -->
+        <div class="quantity-box mb-4">
+          <button id="minusBtn">-</button>
+          <span id="quantity">1</span>
+          <button id="plusBtn">+</button>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="product-actions mb-4">
+          <button class="cart-btn">
+            <i class="bi bi-cart"></i> Ajouter au panier
+          </button>
+          <button class="buy-btn">Acheter maintenant</button>
+          <button class="wishlist-btn">
+            <i class="bi bi-heart"></i>
+          </button>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="features">
+          <div class="feature-item">
+            <i class="bi bi-truck"></i>
+            <div>
+              <h6>Livraison gratuite</h6>
+              <p>dès 500 MAD</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="bi bi-arrow-counterclockwise"></i>
+            <div>
+              <h6>Retour sous 14 jours</h6>
+              <p>Échange garanti</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="bi bi-shield-check"></i>
+            <div>
+              <h6>Paiement sécurisé</h6>
+              <p>100% protégé</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACEABILITE -->
+  <section class="container mb-5">
+    <div class="trace-wrapper">
+      <div class="trace-box">
+        <h3 class="mb-4">
+          <i class="bi bi-shield-check"></i>
+          Traçabilité — de l'artisan vers vous
+        </h3>
+      </div>
+      <div class="trace-boxx">
+
+        <div class="trace-item">
+          <div class="trace-dot"><i class="bi bi-person"></i></div>
+          <div class="trace-card">
+            <img src="Produit images/Tracabilite_step/step-1.png">
+            <div>
+              <div class="trace-meta">
+                <i class="bi bi-calendar"></i> 15 Mars 2024
+                <i class="bi bi-geo-alt"></i> Atlas, Maroc
+              </div>
+              <h5>Récolte / Production</h5>
+              <p>Les matières premières ont été récoltées par la coopérative partenaire.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trace-item">
+          <div class="trace-dot"><i class="bi bi-gear"></i></div>
+          <div class="trace-card">
+            <img src="Produit images/Tracabilite_step/step_2.jpeg">
+            <div>
+              <div class="trace-meta">
+                <i class="bi bi-calendar"></i> 20 Mars 2024
+                <i class="bi bi-geo-alt"></i> Fès, Maroc
+              </div>
+              <h5>Fabrication Artisanale</h5>
+              <p>Création par les maîtres artisans selon les techniques traditionnelles.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trace-item">
+          <div class="trace-dot"><i class="bi bi-box-seam"></i></div>
+          <div class="trace-card">
+            <img src="Produit images/Tracabilite_step/step_3.jpeg">
+            <div>
+              <div class="trace-meta">
+                <i class="bi bi-calendar"></i> 28 Mars 2024
+                <i class="bi bi-geo-alt"></i> Casablanca, Maroc
+              </div>
+              <h5>Contrôle & Emballage</h5>
+              <p>Vérification qualité et conditionnement avec code QR traçabilité.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trace-item">
+          <div class="trace-dot"><i class="bi bi-truck"></i></div>
+          <div class="trace-card">
+            <img src="Produit images/Tracabilite_step/step-4.jpeg">
+            <div>
+              <div class="trace-meta">
+                <i class="bi bi-calendar"></i> En attente
+                <i class="bi bi-geo-alt"></i> Votre adresse
+              </div>
+              <h5>Livraison</h5>
+              <p>Expédié avec soin jusqu'à votre domicile.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="container mb-5">
+    <ul class="nav nav-tabs custom-tabs">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab"
+          data-bs-target="#caracteristiques">Caractéristiques</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#description">Description</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#livraison">Livraison</button>
+      </li>
+    </ul>
+    <div class="tab-content custom-tab-content">
+      <div class="tab-pane fade show active" id="caracteristiques">
+        <h6>Caractéristiques du produit</h6>
+        <ul id="cara-list"></ul>
+      </div>
+      <div class="tab-pane fade" id="description">
+        <p id="des-tab"></p>
+      </div>
+      <div class="tab-pane fade" id="livraison">
+        <h6>Livraison & Retours</h6>
+        <ul>
+          <li>Livraison gratuite dès 500 MAD</li>
+          <li>Délai: 2 à 5 jours ouvrés</li>
+          <li>Retour accepté sous 14 jours</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS CLIENTS -->
+  <section class="container mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold mb-0">Avis clients</h4>
+      <div class="d-flex align-items-center">
+        <span id="global-rating" class="me-2 fs-5 fw-semibold">0.0</span>
+        <div id="global-stars" class="review-stars"></div>
+      </div>
+    </div>
+
+    <div class="review-box d-flex align-items-start">
+      <div class="review-avatar me-3">F</div>
+      <div class="flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div>
+            <h6 class="mb-0">Fatima Z.</h6>
+            <small class="text-muted">Il y a 2 semaines</small>
+          </div>
+          <div class="review-stars">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+        </div>
+        <p class="mb-0">Produit magnifique ! La qualité est exceptionnelle et la traçabilité me rassure sur l'origine.
+        </p>
+      </div>
+    </div>
+
+    <div class="review-box d-flex align-items-start">
+      <div class="review-avatar me-3">A</div>
+      <div class="flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div>
+            <h6 class="mb-0">Ahmed M.</h6>
+            <small class="text-muted">Il y a 1 mois</small>
+          </div>
+          <div class="review-stars">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+        <p class="mb-0">Très satisfait de mon achat. La livraison était rapide et le produit correspond parfaitement à
+          la description.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOUS AIMEREZ AUSSI -->
+  <section class="container mt-5 mb-5">
+    <h4 class="fw-bold mb-4">Vous aimerez aussi</h4>
+    <div class="row">
+
+      <div class="col-md-4 mb-4">
+        <div class="card product-card">
+          <img src="Produit images/aime img/RoseWater.jpg" class="card-img-top product-img">
+          <div class="card-body">
+            <span class="badge badge-nouveau mb-2">Nouveau</span>
+            <span class="badge badge-tracable mb-2">Traçable</span>
+            <p class="text-muted mb-1">Coopérative Kelalat M'gouna</p>
+            <h6 class="fw-bold">Eau de Rose</h6>
+            <div class="review-stars mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+              <small class="text-muted ms-1">4.8 (98)</small>
+            </div>
+            <p class="fw-semibold price-text">65 MAD</p>
+            <div class="d-flex gap-2">
+              <button class="btn-voir w-75">Voir</button>
+              <button class="btn-panier w-25"><i class="bi bi-cart"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card product-card">
+          <img src="Produit images/aime img/RoseWater.jpg" class="card-img-top product-img">
+          <div class="card-body">
+            <span class="badge badge-tracable mb-2">Traçable</span>
+            <p class="text-muted mb-1">Coopérative Fès</p>
+            <h6 class="fw-bold">Ghassoul</h6>
+            <div class="review-stars mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+              <small class="text-muted ms-1">4.7 (76)</small>
+            </div>
+            <p class="fw-semibold price-text">45 MAD</p>
+            <div class="d-flex gap-2">
+              <button class="btn-voir w-75">Voir</button>
+              <button class="btn-panier w-25"><i class="bi bi-cart"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card product-card">
+          <img src="Produit images/Argan_oil/AO_cosmetics.jpg" class="card-img-top product-img">
+          <div class="card-body">
+            <span class="badge badge-tracable mb-2">Traçable</span>
+            <p class="text-muted mb-1">Coopérative Agadir</p>
+            <h6 class="fw-bold">Huile d'Argan Cosmétique</h6>
+            <div class="review-stars mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+              <small class="text-muted ms-1">4.8 (87)</small>
+            </div>
+            <p class="fw-semibold price-text">150 MAD</p>
+            <div class="d-flex gap-2">
+              <button class="btn-voir w-75">Voir</button>
+              <button class="btn-panier w-25"><i class="bi bi-cart"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top py-5">
+      <div class="container">
+        <div class="row g-4">
+
+          <div class="col-12 col-md-3">
+            <h5 class="footer-title">🌿 Green_market</h5>
+            <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
+            <div class="d-flex gap-3 mt-3">
+              <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <h6 class="footer-title">Liens utiles</h6>
+            <ul class="list-unstyled">
+              <li><a href="../Home Page/Home.html" class="footer-link">Accueil</a></li>
+              <li><a href="../Produits/Produits.html" class="footer-link">Boutique</a></li>
+              <li><a href="../Categories/categories.html" class="footer-link">Catégories</a></li>
+              <li><a href="../Home Page/Home.html#contact" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <h6 class="footer-title">Catégories</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="footer-link">Produits Bio</a></li>
+              <li><a href="#" class="footer-link">Cosmétiques</a></li>
+              <li><a href="#" class="footer-link">Artisanat</a></li>
+              <li><a href="#" class="footer-link">Mode Traditionnelle</a></li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <h6 class="footer-title">Contact</h6>
+            <ul class="list-unstyled">
+              <li class="footer-text small"><i class="bi bi-envelope me-2"></i>contact@greenmarket.ma</li>
+              <li class="footer-text small"><i class="bi bi-telephone me-2"></i>+212 6 00 00 00 00</li>
+              <li class="footer-text small"><i class="bi bi-geo-alt me-2"></i>Marrakech, Maroc</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer-bottom py-3">
+      <div class="container">
+        <p class="text-center mb-0 footer-bottom-text small">&copy; 2024 Green Market. Tous droits réservés.</p>
+      </div>
+    </div>
+
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Produit details.js"></script>
+</body>
+
+</html>
