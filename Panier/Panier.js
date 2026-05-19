@@ -1,5 +1,4 @@
 // ===== BOUTONS QUANTITÉ =====
-
 document.querySelectorAll('.btn-qty').forEach(function(btn) {
   btn.addEventListener('click', function() {
 
@@ -20,9 +19,7 @@ document.querySelectorAll('.btn-qty').forEach(function(btn) {
   });
 });
 
-
 // ===== SUPPRIMER UN ARTICLE =====
-
 document.querySelectorAll('.btn-remove').forEach(function(btn) {
   btn.addEventListener('click', function() {
 
@@ -31,7 +28,7 @@ document.querySelectorAll('.btn-remove').forEach(function(btn) {
     let hr = item.nextElementSibling;
 
     item.remove();
-    if (hr) hr.remove();
+    if (hr && hr.tagName === 'HR') hr.remove();
 
   });
 });
