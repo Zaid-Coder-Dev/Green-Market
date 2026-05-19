@@ -6,12 +6,12 @@ const products = [
     price: "45 MAD",
     star: 4,
     images: [
-      "Produit images/Savon_beldi/SB_akarFasi.jpeg",
-      "Produit images/Savon_beldi/SB_flowers.jpeg",
-      "Produit images/Savon_beldi/SB_herbs.jpeg",
-      "Produit images/Savon_beldi/SB_nila.jpeg",
-      "Produit images/Savon_beldi/SB_souffre.jpeg",
-      "Produit images/Savon_beldi/Savon beldi.png"
+      "Produit details images/Savon_beldi/SB_akarFasi.jpeg",
+      "Produit details images/Savon_beldi/SB_flowers.jpeg",
+      "Produit details images/Savon_beldi/SB_herbs.jpeg",
+      "Produit details images/Savon_beldi/SB_nila.jpeg",
+      "Produit details images/Savon_beldi/SB_souffre.jpeg",
+      "Produit details images/Savon_beldi/Savon beldi.png"
     ],
     cara: [
       "Recette traditionnelle marocaine",
@@ -21,14 +21,14 @@ const products = [
     ],
     options: [{label:"Size", values: ["Small","Medium","Large"]}, {label: "Mix with", values: ["BLUE NILLA","Akar FASI","Herbs","Soufre","Fleur","Pure"]}],
     des: "Savon Beldi traditionnel marocain, enrichi à l'huile d'olive naturelle. Il nettoie la peau en profondeur, élimine les cellules mortes et laisse la peau douce, lisse et éclatante. Idéal pour le hammam et les soins du corps.",
-    image: "Produit images/Savon_beldi/Savon beldi.png"},
+    image: "Produit details images/Savon_beldi/Savon beldi.png"},
   {id: 2,
     name: "Huile d'Argan",
     categorie: "Cosmétiques",
     price: "120 MAD",
     star: 5,
     images: [
-      "Produit images/Argan_oil/AO_cosmetics.jpg"
+      "Produit details images/Argan_oil/AO_cosmetics.jpg"
     ],
     cara: [
       "Pressée à froid à partir d'amandons d'argan",
@@ -38,14 +38,14 @@ const products = [
     ],
     options: [{label:"Size", values: ["Small","Medium","Large"]}],
     des: "Huile d'argan pure du Maroc, riche en vitamine E et en antioxydants. Elle hydrate intensément la peau et les cheveux, aide à réparer les pointes abîmées et lutte contre le dessèchement et le vieillissement cutané",
-    image: "Produit images/Argan_oil/Huile d'Argan Bio.png"},
+    image: "Produit details images/Argan_oil/Huile d'Argan Bio.png"},
   {id: 3,
     name: "Tapis Azilal Indigo",
     categorie: "Artisanat",
     price: "2800 MAD",
     images: [
-      "Produit images/Tapis AI/TAI_ALL.jpg",
-      "Produit images/Tapis AI/TAI_Details.jpg"
+      "Produit details images/Tapis AI/TAI_ALL.jpg",
+      "Produit details images/Tapis AI/TAI_Details.jpg"
     ],
     cara: [
       "Laine naturelle de haute qualité",
@@ -56,7 +56,7 @@ const products = [
     options: [{label:"Size", values: ["Small","Medium","Large"]}, {label: "COLOR", values: ["Rouge","Beige","Brown","Blue"]}],
     des: "Tapis berbère artisanal fabriqué à la main dans la région d'Azilal. Il se distingue par ses motifs uniques et ses couleurs vibrantes avec une touche d'indigo. Parfait pour apporter une touche artistique et authentique à votre intérieur.",
     star: 3.5,
-    image: "Produit images/Tapis AI/Tapis Azilal Indigo.png"},
+    image: "Produit details images/Tapis AI/Tapis Azilal Indigo.png"},
   {id: 4,
     name: "Huile d'Olive Vierge",
     categorie: "Artisanat",
@@ -65,7 +65,7 @@ const products = [
     des: "Huile d'olive vierge extra 100% naturelle, obtenue par pression traditionnelle. Elle est reconnue pour ses bienfaits pour la santé, la cuisine et les soins cosmétiques grâce à ses propriétés nourrissantes et protectrices.",
     star: 4.5,
     images: [
-      "Produit images/Olive_oil/OH_bottle.jpeg"
+      "Produit details images/Olive_oil/OH_bottle.jpeg"
     ],
     cara: [
       "Pressée à froid",
@@ -73,16 +73,16 @@ const products = [
       "Saveur fruitée et équilibrée",
       "Riche en antioxydants et vitamines"
     ],
-    image: "Produit images/Olive_oil/Huile d'Olive Vierge.png"},
+    image: "Produit details images/Olive_oil/Huile d'Olive Vierge.png"},
   {id: 5,
     name: "Tagine Terracotta",
     categorie: "Artisanat",
     price: "280 MAD",
     star: 4,
     images: [
-      "Produit images/Tagine Terracotta/TT-Inside.jpg",
-      "Produit images/Tagine Terracotta/TT_Details.jpg",
-      "Produit images/Tagine Terracotta/TT-Size.jpg"
+      "Produit details images/Tagine Terracotta/TT-Inside.jpg",
+      "Produit details images/Tagine Terracotta/TT_Details.jpg",
+      "Produit details images/Tagine Terracotta/TT-Size.jpg"
     ],
     cara: [
       "Terre cuite naturelle",
@@ -92,17 +92,17 @@ const products = [
     ],
     options: [{label:"Size", values: ["Small","Medium","Large"]}, {label: "COLOR", values: ["Rouge","Vert","Blue"]}],
     des: "Tagine marocain traditionnel en terre cuite (terracotta), idéal pour une cuisson lente et savoureuse. Il permet de préserver toutes les saveurs et l'authenticité des plats marocains comme le poulet ou l'agneau au tajine.",
-    image: "Produit images/Tagine Terracotta/Tagine Terracotta.png"},
+    image: "Produit details images/Tagine Terracotta/Tagine Terracotta.png"},
   {id: 6,
     name: "Kaftan Bleu Indigo",
     categorie: "Mode Traditionnelle",
     price: "850 MAD",
     star: 5,
     images: [
-      "Produit images/kaftan/KBI_back.jpeg",
-      "Produit images/kaftan/KBI1.jpeg",
-      "Produit images/kaftan/KBI_style.jpeg",
-      "Produit images/kaftan/KBI.jpeg",
+      "Produit details images/kaftan/KBI_back.jpeg",
+      "Produit details images/kaftan/KBI1.jpeg",
+      "Produit details images/kaftan/KBI_style.jpeg",
+      "Produit details images/kaftan/KBI.jpeg",
     ],
     cara: [
       "Tissu 100% coton léger",
@@ -112,7 +112,7 @@ const products = [
     ],
     options: [{label:"Size", values: ["Small","Medium","Large"]}, {label: "COLOR", values: ["Rouge","beige","Blue"]}],
     des: "Kaftan marocain élégant de couleur bleu indigo, alliant tradition et modernité. Parfait pour les occasions spéciales et les fêtes, il se distingue par ses finitions artisanales et son style raffiné.",
-    image: "Produit images/kaftan/Kaftan Bleu Indigo.png"}
+    image: "Produit details images/kaftan/Kaftan Bleu Indigo.png"}
 ];
 
 // ===== CHARGEMENT DU PRODUIT DEPUIS L'URL =====
@@ -122,6 +122,9 @@ const product = products.find(p => p.id == idp);
 const smallImg = document.getElementById("SMI");
 const optionP = document.getElementById("optionP");
 optionP.innerHTML = "";
+
+console.log("ID:", idp);
+console.log("PRODUCT:", product);
 
 if (product) {
 
@@ -187,6 +190,7 @@ if (product) {
   document.getElementById("prix-p").innerHTML = product.price;
   document.getElementById("des-p").innerHTML = product.des;
   document.getElementById("mainImage").src = product.image;
+  document.getElementById("des-tab").innerHTML = product.des;
   const caraList = document.getElementById("cara-list");
   caraList.innerHTML = product.cara.map(function(item) {
     return `<li>${item}</li>`;
