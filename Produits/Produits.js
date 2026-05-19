@@ -1,8 +1,9 @@
-// 1. Compteur panier (same as home)
-let cartCount = 0;
+// ===== COMPTEUR PANIER =====
 document.querySelectorAll('.btn-add').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    cartCount++;
-    document.querySelector('.cart-badge').textContent = cartCount;
+    // Lire et incrémenter le compteur du panier
+    let badge = document.getElementById('cart-count');
+    let count = parseInt(badge.textContent) || 0;
+    badge.textContent = count + 1;
   });
 });
