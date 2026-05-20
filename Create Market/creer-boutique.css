@@ -1,28 +1,27 @@
 /* =====================
-   VARIABLES
+   VARIABLES – 5 couleurs uniquement
 ===================== */
 :root {
-  --green:        #2d4a2d;
-  --green-hover:  #3f683f;
-  --orange:       #e07b39;
-  --beige-light:  #f5ede0;
-  --beige-mid:    #ead4b6;
-  --beige-dark:   #D8C3A5;
-  --beige-footer: #c4aa8a;
-  --brown-title:  #6b4d3a;
-  --brown-text:   #8c7b6a;
+  --green:       #2d4a2d;
+  --green-hover: #3f683f;
+  --cream:       #f5ede0;
+  --sand:        #ead4b6;
+  --ink:         #2a241e;
+  --terracotta:  #e07b39;
 }
 
 /* =====================
    BODY & FONTS
 ===================== */
 body {
-  background-color: var(--beige-light);
+  background-color: var(--cream);
   font-family: 'Lato', sans-serif;
+  color: var(--ink);
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
+  color: var(--green);
 }
 
 /* =====================
@@ -33,17 +32,23 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(245, 237, 224, 0.85);
   transition: color 0.2s ease;
 }
 
-.navbar .nav-link:hover,
+.navbar .nav-link:hover {
+  color: var(--cream);
+  opacity: 0.8;
+}
+
 .navbar .nav-link.active {
-  color: #ffffff;
+  color: var(--cream);
+  border-bottom: 2px solid var(--terracotta);
+  padding-bottom: 2px;
 }
 
 .cart-badge {
-  background-color: var(--orange);
+  background-color: var(--terracotta);
   font-size: 0.6rem;
   position: absolute;
   top: -5px;
@@ -51,13 +56,14 @@ h1, h2, h3, h4, h5 {
   padding: 2px 5px;
   border-radius: 50%;
   line-height: 1;
+  color: var(--cream);
 }
 
 /* =====================
    PAGE HEADER
 ===================== */
 .page-header {
-  background-color: var(--beige-dark);
+  background-color: var(--sand);
 }
 
 .page-header h2 {
@@ -65,7 +71,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .label-orange {
-  color: var(--orange);
+  color: var(--terracotta);
   letter-spacing: 2px;
   font-size: 0.8rem;
 }
@@ -77,7 +83,7 @@ h1, h2, h3, h4, h5 {
   background: #fff;
   border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(42, 36, 30, 0.06);
 }
 
 .form-card-header {
@@ -110,15 +116,15 @@ h1, h2, h3, h4, h5 {
 }
 
 .form-card-subtitle {
-  color: var(--brown-text);
+  color: rgba(42, 36, 30, 0.55);
   font-size: 0.85rem;
   margin: 0;
 }
 
 .form-badge {
   margin-left: auto;
-  background-color: var(--beige-mid);
-  color: var(--brown-title);
+  background-color: var(--sand);
+  color: var(--ink);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 4px 12px;
@@ -133,8 +139,8 @@ h1, h2, h3, h4, h5 {
 .input-group-custom {
   display: flex;
   align-items: center;
-  background-color: var(--beige-light);
-  border: 1px solid var(--beige-dark);
+  background-color: #fff;
+  border: 1px solid rgba(42, 36, 30, 0.15);
   border-radius: 10px;
   padding: 10px 14px;
   gap: 10px;
@@ -158,16 +164,16 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
-  color: var(--brown-title);
+  color: var(--ink);
 }
 
 .custom-input::placeholder {
-  color: #bbb;
+  color: rgba(42, 36, 30, 0.3);
 }
 
 .textarea-group-custom {
-  background-color: var(--beige-light);
-  border: 1px solid var(--beige-dark);
+  background-color: #fff;
+  border: 1px solid rgba(42, 36, 30, 0.15);
   border-radius: 10px;
   padding: 12px 14px;
   transition: border-color 0.2s ease;
@@ -185,18 +191,18 @@ h1, h2, h3, h4, h5 {
   resize: none;
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
-  color: var(--brown-title);
+  color: var(--ink);
 }
 
 .custom-textarea::placeholder {
-  color: #bbb;
+  color: rgba(42, 36, 30, 0.3);
 }
 
 /* =====================
    LOGO UPLOAD
 ===================== */
 .upload-zone {
-  border: 2px dashed var(--beige-dark);
+  border: 2px dashed rgba(42, 36, 30, 0.2);
   border-radius: 14px;
   height: 280px;
   display: flex;
@@ -207,7 +213,7 @@ h1, h2, h3, h4, h5 {
   position: relative;
   overflow: hidden;
   transition: border-color 0.2s ease, background-color 0.2s ease;
-  background-color: var(--beige-light);
+  background-color: var(--cream);
 }
 
 .upload-zone:hover {
@@ -223,7 +229,7 @@ h1, h2, h3, h4, h5 {
 .upload-icon-circle {
   width: 72px;
   height: 72px;
-  background-color: var(--beige-mid);
+  background-color: var(--sand);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -264,9 +270,9 @@ h1, h2, h3, h4, h5 {
 ===================== */
 .btn-add-img {
   margin-left: auto;
-  background-color: var(--beige-mid);
+  background-color: var(--sand);
   color: var(--green);
-  border: 1px solid var(--beige-dark);
+  border: 1px solid rgba(42, 36, 30, 0.15);
   border-radius: 8px;
   font-weight: 600;
   transition: background-color 0.2s ease;
@@ -336,12 +342,12 @@ h1, h2, h3, h4, h5 {
 }
 
 .edit-btn {
-  background-color: var(--beige-mid);
+  background-color: var(--sand);
   color: var(--green);
 }
 
 .edit-btn:hover {
-  background-color: var(--beige-dark);
+  background-color: var(--cream);
 }
 
 .delete-btn {
@@ -354,10 +360,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .preview-card {
-  background-color: var(--beige-light);
+  background-color: var(--cream);
   border-radius: 14px;
   padding: 16px;
-  border: 1px solid var(--beige-dark);
+  border: 1px solid rgba(42, 36, 30, 0.12);
 }
 
 .preview-image-box {
@@ -394,13 +400,8 @@ h1, h2, h3, h4, h5 {
   background-color: var(--green-hover);
 }
 
-.preview-arrow.left {
-  left: 10px;
-}
-
-.preview-arrow.right {
-  right: 10px;
-}
+.preview-arrow.left  { left: 10px; }
+.preview-arrow.right { right: 10px; }
 
 /* =====================
    STATUS TOGGLE
@@ -409,17 +410,16 @@ h1, h2, h3, h4, h5 {
   display: flex;
   align-items: center;
   gap: 14px;
-  background-color: var(--beige-light);
-  border: 1px solid var(--beige-dark);
+  background-color: #fff;
+  border: 1px solid rgba(42, 36, 30, 0.15);
   border-radius: 10px;
   padding: 10px 14px;
-  margin-top: 0;
   height: 46px;
 }
 
 .status-label {
   font-size: 0.9rem;
-  color: var(--brown-title);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -428,7 +428,7 @@ h1, h2, h3, h4, h5 {
   height: 30px;
   border: none;
   border-radius: 50px;
-  background-color: var(--beige-dark);
+  background-color: rgba(42, 36, 30, 0.15);
   position: relative;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -458,7 +458,7 @@ h1, h2, h3, h4, h5 {
    RULES CARD
 ===================== */
 .rules-card {
-  background-color: var(--beige-mid);
+  background-color: var(--sand);
   border-radius: 16px;
   padding: 28px 30px;
 }
@@ -470,11 +470,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .rules-list li {
-  padding: 8px 0;
-  color: var(--brown-title);
+  padding: 8px 0 8px 20px;
+  color: var(--ink);
   font-size: 0.9rem;
-  border-bottom: 1px solid var(--beige-dark);
-  padding-left: 20px;
+  border-bottom: 1px solid rgba(42, 36, 30, 0.12);
   position: relative;
 }
 
@@ -494,22 +493,22 @@ h1, h2, h3, h4, h5 {
    ACTION BUTTONS
 ===================== */
 .btn-annuler {
-  background-color: var(--beige-mid);
-  color: var(--brown-title);
-  border: 1px solid var(--beige-dark);
+  background-color: var(--cream);
+  color: var(--ink);
+  border: 1px solid var(--green);
   border-radius: 10px;
   padding: 10px 28px;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-annuler:hover {
-  background-color: var(--beige-dark);
-  color: var(--brown-title);
+  background-color: var(--green);
+  color: white;
 }
 
 .btn-creer {
-  background-color: var(--green);
+  background-color: var(--terracotta);
   color: white;
   border-radius: 10px;
   padding: 10px 32px;
@@ -518,61 +517,117 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn-creer:hover {
-  background-color: var(--green-hover);
+  background-color: #c96a2e;
   color: white;
 }
 
 /* =====================
    FOOTER
 ===================== */
-.footer-top {
-  background-color: var(--beige-dark);
-  padding: 50px 0;
+footer {
+  background-color: var(--green);
 }
 
-.footer-bottom {
-  background-color: var(--beige-footer);
-  padding: 15px 0;
+.footer-top {
+  padding: 0 0 40px;
+}
+
+.footer-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--terracotta) 0%, transparent 55%);
+  margin-bottom: 40px;
+}
+
+.footer-logo img {
+  height: 38px;
+  width: auto;
+  margin-bottom: 12px;
 }
 
 .footer-title {
-  color: var(--green);
+  color: var(--cream);
   font-weight: 700;
   font-family: 'Playfair Display', serif;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
 }
 
 .footer-text {
-  color: var(--brown-title);
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .footer-link {
-  color: var(--brown-text);
+  color: rgba(245, 237, 224, 0.65);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-  color: var(--green);
+  color: var(--terracotta);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 8px;
 }
 
 .footer-social {
-  color: var(--brown-title);
-  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 237, 224, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(245, 237, 224, 0.7);
+  font-size: 0.95rem;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .footer-social:hover {
-  color: var(--green);
+  color: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.footer-contact-item i {
+  color: var(--terracotta);
+  font-size: 0.95rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(245, 237, 224, 0.1);
+  margin-top: 32px;
+}
+
+.footer-bottom {
+  background-color: #1e3320;
+  padding: 14px 0;
 }
 
 .footer-bottom-text {
-  color: var(--brown-title);
-  font-size: 0.85rem;
+  color: rgba(245, 237, 224, 0.4);
+  font-size: 0.8rem;
   margin: 0;
+  text-align: center;
 }
 
 /* =====================
@@ -593,5 +648,13 @@ h1, h2, h3, h4, h5 {
 
   .form-badge {
     display: none;
+  }
+
+  .footer-top {
+    padding: 0 0 28px;
+  }
+
+  .footer-logo img {
+    height: 32px;
   }
 }
