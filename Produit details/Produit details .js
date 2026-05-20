@@ -244,3 +244,26 @@ document.querySelectorAll('.cart-btn').forEach(function(btn) {
     badge.textContent = count + 1;
   });
 });
+
+// ===== STAR RATING =====
+const stars = document.querySelectorAll("#starRating i");
+const ratingInput = document.getElementById("commentRating");
+
+stars.forEach(star => {
+  star.addEventListener("click", function () {
+    const value = this.dataset.value;
+    ratingInput.value = value;
+
+    stars.forEach(s => {
+      if (s.dataset.value <= value) {
+        s.classList.add("bi-star-fill");
+        s.classList.remove("bi-star");
+        s.classList.add("text-warning");
+      } else {
+        s.classList.add("bi-star");
+        s.classList.remove("bi-star-fill");
+        s.classList.remove("text-warning");
+      }
+    });
+  });
+});
