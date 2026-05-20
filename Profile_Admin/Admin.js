@@ -18,19 +18,7 @@ function showSection(sectionId) {
   if (activeLink) activeLink.classList.add('active');
 }
 
-<<<<<<< Updated upstream
 // ===== UN SEUL LISTENER POUR TOUS LES ELEMENTS AVEC DATA-SECTION =====
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-// ===== UN SEUL LISTENER POUR TOUS LES ÉLÉMENTS AVEC DATA-SECTION =====
-=======
-// ===== UN SEUL LISTENER POUR TOUS LES ELEMENTS AVEC DATA-SECTION =====
->>>>>>> 25612654b892024e35ca44556b50b5a97cdc5cbf
-=======
-// ===== UN SEUL LISTENER POUR TOUS LES ELEMENTS AVEC DATA-SECTION =====
->>>>>>> 25612654b892024e35ca44556b50b5a97cdc5cbf
->>>>>>> Stashed changes
 document.querySelectorAll('[data-section]').forEach(function(el) {
   el.addEventListener('click', function(e) {
     e.preventDefault();
@@ -39,15 +27,7 @@ document.querySelectorAll('[data-section]').forEach(function(el) {
   });
 });
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 25612654b892024e35ca44556b50b5a97cdc5cbf
->>>>>>> Stashed changes
-// ===== BELL ICON NAVBAR → NOTIFICATIONS =====
+// ===== BELL ICON → NOTIFICATIONS =====
 let bellBtn = document.querySelector('.bell-btn');
 if (bellBtn) {
   bellBtn.addEventListener('click', function(e) {
@@ -56,13 +36,6 @@ if (bellBtn) {
   });
 }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
->>>>>>> 25612654b892024e35ca44556b50b5a97cdc5cbf
-=======
->>>>>>> 25612654b892024e35ca44556b50b5a97cdc5cbf
->>>>>>> Stashed changes
 // ===== NOTIF TABS =====
 document.querySelectorAll('.notif-tabs button').forEach(function(btn) {
   btn.addEventListener('click', function() {
