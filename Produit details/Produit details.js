@@ -237,7 +237,7 @@ document.addEventListener("click", function(e) {
 });
 
 // ===== PANIER =====
-document.querySelectorAll('.btn-add, .btn-panier').forEach(function(btn) {
+document.querySelectorAll('.btn-add').forEach(function(btn) {
   btn.addEventListener('click', function() {
     let badge = document.getElementById('cart-count');
     let count = parseInt(badge.textContent) || 0;
