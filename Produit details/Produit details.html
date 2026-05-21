@@ -16,23 +16,30 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="../Home Page/Home.html">🌿 Green_market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <a class="navbar-brand" href="#">Green Market</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Basculer la navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav mx-auto gap-3">
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#">Cooperatives</a></li>
           <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.html">Boutique</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/categories.html">Catégories</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.html">Categories</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.html">Boutique</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Profile-client/Profile-client.html">Profile</a></li>
+          <li class="nav-item ms-lg-3 d-none d-lg-block">
+            <a href="../Panier/Panier.html" class="position-relative text-decoration-none nav-icon" aria-label="Voir le panier">
+              <i class="bi bi-bag"></i>
+              <span class="cart-badge">0</span>
+            </a>
+            <a href="#" class="text-white fs-5 m-3 position-relative">
+              <i class="bi bi-bell"></i>
+              <span class="badge cart-badge" id="bell-count">0</span>
+          </a>
+          </li>
         </ul>
-        <a href="../Inscription/inscription.html" class="text-white fs-5 m-3"><i class="bi bi-person"></i></a>
-        <a href="#" class="text-white fs-5 m-3"><i class="bi bi-search"></i></a>
-        <a href="#" class="text-white fs-5 m-3 position-relative"><i class="bi bi-bell"></i><span class="badge cart-badge" id="bell-count">0</span></a>
-        <a href="../Panier/Panier.html" class="text-white fs-5 m-3 position-relative"><i class="bi bi-bag"></i><span class="badge cart-badge" id="cart-count">0</span></a>
       </div>
     </div>
   </nav>
@@ -401,14 +408,12 @@
     <div class="footer-top pt-4">
       <div class="footer-stripe"></div>
       <div class="container">
-
-
-
         <div class="row g-4">
 
           <div class="col-12 col-md-3">
-            <div class="footer-logo">
-              <img src="navbar.png" alt="Green Market">
+            <div class="footer-logo d-flex align-items-center">
+              <img src="/Green-Market/navbar.png" alt="Green Market" class="img-fluid">              
+              <h5 class="text-white font-playfair fw-bold mb-2">reen Market</h5>
             </div>
             <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
             <div class="footer-socials">
@@ -421,7 +426,7 @@
 
           <div class="col-6 col-md-3">
             <h6 class="footer-title">Liens utiles</h6>
-            <a href="../Home Page/index.html" class="footer-link">Accueil</a>
+            <a href="#" class="footer-link">Accueil</a>
             <a href="../Produits/Produits.html" class="footer-link">Boutique</a>
             <a href="#" class="footer-link">Catégories</a>
             <a href="#contact" class="footer-link">Contact</a>
@@ -457,7 +462,7 @@
     </div>
     <div class="footer-bottom">
       <div class="container">
-        <p class="footer-bottom-text">&copy; 2024 Green Market. Tous droits réservés.</p>
+        <p class="footer-bottom-text">&copy; 2026 Green Market. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
