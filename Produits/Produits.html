@@ -15,35 +15,49 @@
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
-    <div class="container">
-      <a class="navbar-brand" href="#">Green Market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Basculer la navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-          <li class="nav-item"><a class="nav-link" href="#">Cooperatives</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.html">Categories</a></li>
-          <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.html">Boutique</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Profile-client/Profile-client.html">Profile</a></li>
-          <li class="nav-item ms-lg-3 d-none d-lg-block">
-            <a href="../Panier/Panier.html" class="position-relative text-decoration-none nav-icon" aria-label="Voir le panier">
-              <i class="bi bi-bag"></i>
-              <span class="cart-badge">0</span>
-            </a>
-            <a href="#" class="text-white fs-5 m-3 position-relative">
-              <i class="bi bi-bell"></i>
-              <span class="badge cart-badge" id="bell-count">0</span>
-          </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-home">
+  <div class="container">
 
+    <!-- LEFT: LOGO -->
+    <a class="navbar-brand d-flex align-items-center" href="../Home Page/Home.html">
+  <img src="/Green-Market/logo_Qofa.png" alt="Green Market" class="navbar-logo">Green Market
+</a>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <!-- CENTER: LINKS -->
+      <ul class="navbar-nav mx-auto nav-links">
+        <li class="nav-item"><a class="nav-link" href="#">Cooperatives</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Categories/Categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.html">Boutique</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Profile-client/Profile-client.html">Profile</a></li>
+      </ul>
+
+      <!-- RIGHT: ICONS -->
+      <div class="d-flex align-items-center gap-3">
+        <a href="../Panier/Panier.html" class="position-relative text-decoration-none nav-icon">
+          <i class="bi bi-cart3"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+
+        <a href="#" class="position-relative text-decoration-none nav-icon">
+          <i class="bi bi-bell"></i>
+          <span class="cart-badge" id="bell-count">0</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    <!-- TITRE -->
     <section class="py-4 page-header">
         <div class="container">
             <h2 class="mb-0">Tous nos produits</h2>
@@ -51,13 +65,15 @@
         </div>
     </section>
 
+    <!-- CONTENU -->
     <section class="py-5">
         <div class="container">
             <div class="row g-4">
-
+                <!-- SIDEBAR -->
                 <div class="col-12 col-md-3">
                     <form class="sidebar p-3" id="filter-form">
 
+                        <!-- Catégories - checkbox -->
                         <div class="mb-4">
                             <h6 class="fw-bold sidebar-title">Catégories</h6>
                             <div class="form-check">
@@ -80,6 +96,7 @@
 
                         <hr>
 
+                        <!-- Prix - radio -->
                         <div class="mb-4">
                             <h6 class="fw-bold sidebar-title">Prix</h6>
                             <div class="form-check">
@@ -102,6 +119,7 @@
 
                         <hr>
 
+                        <!-- Coopérative - radio -->
                         <div class="mb-4">
                             <h6 class="fw-bold sidebar-title">Coopérative</h6>
                             <div class="form-check">
@@ -120,6 +138,7 @@
 
                         <hr>
 
+                        <!-- Tracabilité - checkbox -->
                         <div class="mb-4">
                             <h6 class="fw-bold sidebar-title">Tracabilité</h6>
                             <div class="form-check">
@@ -130,6 +149,7 @@
 
                         <hr>
 
+                        <!-- Tags -->
                         <div class="mb-4">
                             <h6 class="fw-bold sidebar-title">Tags</h6>
                             <div class="d-flex flex-wrap gap-2">
@@ -141,7 +161,8 @@
                             </div>
                         </div>
 
-                        <input type="submit" class="btn w-100 btn-outline-white mb-2 btn-add"
+                        <!-- Bouton -->
+                        <input type="submit" class="btn w-100 btn-outline-white mb-2"
                             value="Appliquer les filtres">
                         <input type="reset" class="btn w-100 btn-reset" value="Réinitialiser">
 
@@ -149,6 +170,7 @@
                 </div>
                 <div class="col-12 col-md-9">
 
+                    <!-- Barre du haut -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <span class="text-muted small">Affichage 1-6 sur 19 produits</span>
                         <select class="form-select form-select-sm w-auto trier">
@@ -159,197 +181,173 @@
                         </select>
                     </div>
 
+                    <!-- Grille produits -->
                     <div class="row g-3">
 
-                        <div class="row g-4 product-grid">
-
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <span class="badge-new">Nouveau</span>
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Savon beldi.png" alt="">
+                        <!-- Card 1 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="./Produits images/Savon beldi.png" class="card-img-top product-img"
+                                    alt="Savon Beldi">
+                                <div class="card-body">
+                                    <small class="text-muted">Cosmétiques</small>
+                                    <h6 class="card-title mt-1">Savon Beldi</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(24)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Cosmétiques</span>
-                                        <h6 class="product-title">Savon Beldi</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
-                                            <small>(24)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">45 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=1"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">45 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=1" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <span class="badge-new badge-green">Top Vente</span>
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Huile d'Argan Bio.png" alt="">
+                        <!-- Card 2 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge bg-danger position-absolute m-2">Solde</span>
+                                <img src="./Produits images/Huile d'Argan Bio.png" class="card-img-top product-img"
+                                    alt="Huile Argan">
+                                <div class="card-body">
+                                    <small class="text-muted">Produits Bio</small>
+                                    <h6 class="card-title mt-1">Huile d'Argan</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(58)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Produits Bio</span>
-                                        <h6 class="product-title">Huile d'Argan</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <small>(58)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">120 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=2"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">120 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=2" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Tapis Azilal Indigo.png" alt="">
+                        <!-- Card 3 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./Produits images/Tapis Azilal Indigo.png" class="card-img-top product-img"
+                                    alt="Tapis Azilal Indingo">
+                                <div class="card-body">
+                                    <small class="text-muted">Artisanat</small>
+                                    <h6 class="card-title mt-1">Tapis Azilal Indingo</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(12)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Artisanat</span>
-                                        <h6 class="product-title">Tapis Azilal Indigo</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                            <i class="bi bi-star"></i>
-                                            <small>(12)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">2800 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=3"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">2800 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=3" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <span class="badge-new">Bio</span>
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Huile d'Olive Vierge.png" alt="">
+                        <!-- Card 4 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="./Produits images/Huile d'Olive Vierge.png" class="card-img-top product-img"
+                                    alt="Huile Olive">
+                                <div class="card-body">
+                                    <small class="text-muted">Produits Bio</small>
+                                    <h6 class="card-title mt-1">Huile d'Olive Vierge</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <small class="text-muted">(33)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Produits Bio</span>
-                                        <h6 class="product-title">Huile d'Olive Vierge</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                            <small>(33)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">80 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=4"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">80 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=4" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Tagine Terracotta.png" alt="">
+                        <!-- Card 5 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./Produits images/Tagine Terracotta.png" class=" card-img-top product-img"
+                                    alt="Tagine Terracotta">
+                                <div class="card-body">
+                                    <small class="text-muted">Poterie</small>
+                                    <h6 class="card-title mt-1">Tagine Terracotta</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(18)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Poterie</span>
-                                        <h6 class="product-title">Tagine Terracotta</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
-                                            <small>(18)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">280 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=5"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">280 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=5" class="btn btn-sm  w-75 btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6 col-md-4 product-item">
-                                <div class="product-card">
-                                    <span class="badge-new">Nouveau</span>
-                                    <div class="product-img-wrapper">
-                                        <img src="./Produits images/Kaftan Bleu Indigo.png" alt="">
+                        <!-- Card 6 -->
+                        <div class="col-6 col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+                                <img src="./Produits images/Kaftan Bleu Indigo.png" class=" card-img-top product-img"
+                                    alt="Kaftan Bleu Indigo">
+                                <div class="card-body">
+                                    <small class="text-muted">Mode Traditionnelle</small>
+                                    <h6 class="card-title mt-1">Kaftan Bleu Indigo</h6>
+                                    <div class="mb-1">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(7)</small>
                                     </div>
-                                    <div class="product-body">
-                                        <span class="product-cat">Mode Traditionnelle</span>
-                                        <h6 class="product-title">Kaftan Bleu Indigo</h6>
-
-                                        <div class="product-rating">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <small>(7)</small>
-                                        </div>
-
-                                        <div class="product-footer">
-                                            <span class="price">850 MAD</span>
-                                            <div class="actions">
-                                                <a href="../Produit details/Produit details.html?id=6"
-                                                    class="btn-view">Voir</a>
-                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
-                                            </div>
-                                        </div>
+                                    <p class="text-success fw-bold mb-2">850 MAD</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="../Produit details/Produit details.html?id=6"
+                                            class="btn btn-sm  w-75 btn-voir btn-voir btn-voir">Voir</a>
+                                        <button class="btn btn-sm text-white btn-add w-25"><i
+                                                class="bi bi-cart"></i></button>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
+
+                    <!-- Pagination -->
                     <nav class="mt-5 d-flex justify-content-center">
                         <ul class="pagination">
                             <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
@@ -362,8 +360,11 @@
 
                 </div>
             </div>
+
+
         </div>
     </section>
+
 
 
 <!-- FOOTER -->
@@ -430,10 +431,8 @@
     </div>
   </footer>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="Produits.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

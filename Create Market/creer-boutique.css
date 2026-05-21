@@ -25,41 +25,6 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =====================
-   NAVBAR
-===================== */
-.navbar {
-  background-color: var(--green);
-}
-
-.navbar .nav-link {
-  color: rgba(245, 237, 224, 0.85);
-  transition: color 0.2s ease;
-}
-
-.navbar .nav-link:hover {
-  color: var(--cream);
-  opacity: 0.8;
-}
-
-.navbar .nav-link.active {
-  color: var(--cream);
-  border-bottom: 2px solid var(--terracotta);
-  padding-bottom: 2px;
-}
-
-.cart-badge {
-  background-color: var(--terracotta);
-  font-size: 0.6rem;
-  position: absolute;
-  top: -5px;
-  right: -8px;
-  padding: 2px 5px;
-  border-radius: 50%;
-  line-height: 1;
-  color: var(--cream);
-}
-
-/* =====================
    PAGE HEADER
 ===================== */
 .page-header {

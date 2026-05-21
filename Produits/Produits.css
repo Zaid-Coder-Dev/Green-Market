@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SECTION 1 : CONFIGURATION DES VARIABLES GLOBALES (:ROOT)
+    : CONFIGURATION DES VARIABLES GLOBALES (:ROOT)
    ========================================================================== */
 :root {
   --green:       #2d4a2d;
@@ -12,7 +12,7 @@
 
 
 /* ==========================================================================
-   SECTION 2 : STYLES DU CORPS ET POLICES (BODY & FONTS)
+    : STYLES DU CORPS ET POLICES (BODY & FONTS)
    ========================================================================== */
 body {
   background-color: var(--cream);
@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5 {
 
 
 /* ==========================================================================
-   SECTION 3 : BARRE DE NAVIGATION (NAVBAR)
+    : BARRE DE NAVIGATION (NAVBAR)
    ========================================================================== */
 
 .navbar {
@@ -43,17 +43,28 @@ h1, h2, h3, h4, h5 {
   backdrop-filter: none !important;
 }
 
+.navbar-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
 .navbar-brand {
   color: var(--cream) !important;
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.navbar .nav-link {
+.nav-links {
+  gap: 18px;
+}
+
+.nav-links .nav-link {
+  padding: 8px 6px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
   color: rgba(245, 237, 224, 0.85);
   font-weight: 400;
-  margin: 0 10px;
-  transition: color 0.2s ease;
 }
 
 .navbar .nav-link:hover,
@@ -70,6 +81,7 @@ h1, h2, h3, h4, h5 {
   font-size: 1.25rem;
   transition: color 0.2s ease;
 }
+
 .nav-icon:hover { color: var(--terracotta); }
 
 .cart-badge {
@@ -85,9 +97,9 @@ h1, h2, h3, h4, h5 {
 }
 
 
-/* ==========================================================================
-   SECTION 4 : EN-TÊTE DE LA PAGE (PAGE HEADER)
-   ========================================================================== */
+/* =====================
+   PAGE HEADER
+===================== */
 .page-header {
   background-color: var(--sand);
 }
@@ -97,13 +109,13 @@ h1, h2, h3, h4, h5 {
 }
 
 
-/* ==========================================================================
-   SECTION 5 : BLOC PANNEAU DE FILTRES (SIDEBAR)
-   ========================================================================== */
+/* =====================
+   SIDEBAR
+===================== */
 .sidebar {
   background-color: white;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(42, 36, 30, 0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   position: sticky;
   top: 20px;
 }
@@ -113,19 +125,18 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 10px;
 }
 
-/* Modification de la couleur des boutons à cocher natifs */
 .form-check-input:checked {
   background-color: var(--green);
   border-color: var(--green);
 }
 
 
-/* ==========================================================================
-   SECTION 6 : PETITS BADGES MOTS-CLÉS (TAGS)
-   ========================================================================== */
+/* =====================
+   TAGS
+===================== */
 .tag {
-  background-color: var(--cream);
-  border: 1px solid rgba(42, 36, 30, 0.15);
+  background-color: var(--sand);
+  border: 1px solid var(--cream);
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 0.75rem;
@@ -139,10 +150,9 @@ h1, h2, h3, h4, h5 {
 }
 
 
-/* ==========================================================================
-   SECTION 7 : ENSEMBLE DES BOUTONS (BUTTONS)
-   ========================================================================== */
-/* Bouton vert principal "Appliquer les filtres" / "Ajouter au panier" */
+/* =====================
+   BUTTONS
+===================== */
 .btn-add {
   background-color: var(--green);
   color: white;
@@ -156,21 +166,19 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* Bouton secondaire clair "Voir" */
 .btn-voir {
-  background-color: var(--cream);
+  background-color: var(--sand);
   border: 1px solid var(--green);
   color: var(--green);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-voir:hover {
-  background-color: var(--green);
-  border-color: var(--green);
+  background-color: var(--green-hover);
+  border-color: var(--green-hover);
   color: white;
 }
 
-/* Bouton de remise à zéro des filtres */
 .btn-reset {
   background-color: var(--sand);
   color: var(--green);
@@ -185,193 +193,47 @@ h1, h2, h3, h4, h5 {
 }
 
 
-/* ==========================================================================
-   SECTION 8 : MENU DÉROULANT DE TRI (SORT DROPDOWN)
-   ========================================================================== */
+/* =====================
+   SORT DROPDOWN
+===================== */
 .trier {
-  background-color: white;
-  box-shadow: 0 2px 12px rgba(42, 36, 30, 0.07);
-  border-color: rgba(42, 36, 30, 0.15);
+  background-color: var(--sand);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border-color: var(--cream);
   color: var(--ink);
 }
 
 
-/* ==========================================================================
-   SECTION 9 : COMPOSANTS DES CARTES PRODUIT (PRODUCT CARDS)
-   ========================================================================== */
-.product-grid {
-  animation: fadeUp 0.8s ease both;
-}
-
-.product-item {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: cardIn 0.6s ease forwards;
-}
-
-.product-item:nth-child(1) { animation-delay: 0.05s; }
-.product-item:nth-child(2) { animation-delay: 0.10s; }
-.product-item:nth-child(3) { animation-delay: 0.15s; }
-.product-item:nth-child(4) { animation-delay: 0.20s; }
-.product-item:nth-child(5) { animation-delay: 0.25s; }
-.product-item:nth-child(6) { animation-delay: 0.30s; }
-
-.product-card {
-  background: white;
-  border-radius: 18px;
+/* =====================
+   PRODUCT CARDS
+===================== */
+.card {
   overflow: hidden;
-  position: relative;
-  border:15px solid rgba(255,255,255,.8);
-  box-shadow: 0 10px 25px rgba(42, 36, 30, 0.08);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.product-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 16px 35px rgba(42,36,30,.12);
+.card-body {
+  background-color: var(--sand);
 }
 
-
-.product-img-wrapper {
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: #faf8f5;
-  border-radius:10px ;
+.badge-nouveau {
+  background-color: var(--terracotta);
 }
 
-.product-img-wrapper img {
+.product-img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4/3;
   object-fit: cover;
-  transition: transform 0.55s ease;
+  transition: transform 0.4s ease;
 }
 
-.product-card:hover img {
-  transform: scale(1.08);
+.card:hover .product-img {
+  transform: scale(1.07);
 }
 
-.product-body {
-  padding: 14px;
-}
 
-.product-cat {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--terracotta);
-  font-weight: 700;
-}
-
-.product-title {
-  margin: 6px 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--green);
-}
-
-.product-rating {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin: 8px 0;
-  color: #f4b400;
-  font-size: 0.9rem;
-}
-
-.product-rating small {
-  color: rgba(42,36,30,.55);
-  margin-left: 4px;
-}
-
-.product-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.price {
-  color: var(--green);
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-.btn-view {
-  background-color: var(--cream);
-  border: 1px solid var(--green);
-  color: var(--green);
-  text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.btn-view:hover {
-  background-color: var(--green);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(45,74,45,.18);
-}
-
-.btn-cart {
-  background-color: var(--green);
-  color: white;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  transition: background-color 0.25s ease, transform 0.25s ease;
-}
-
-.btn-cart:hover {
-  background-color: var(--terracotta);
-  transform: translateY(-2px);
-}
-
-.badge-new {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: var(--terracotta);
-  color: white;
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 8px;
-  z-index: 2;
-}
-
-.badge-green {
-  background-color: var(--green);
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes cardIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* ==========================================================================
-   SECTION 10 : NAVIGATION BASSE (PAGINATION)
-   ========================================================================== */
+/* =====================
+   PAGINATION
+===================== */
 .page-item.active .page-link {
   background-color: var(--green);
   border-color: var(--green);
@@ -385,9 +247,8 @@ h1, h2, h3, h4, h5 {
   color: var(--green-hover);
 }
 
-
 /* ==========================================================================
-   SECTION 11 : COMPOSANTS DU PIED DE PAGE (FOOTER)
+    : COMPOSANTS DU PIED DE PAGE (FOOTER)
    ========================================================================== */
 footer {
   background-color: var(--green);
@@ -495,7 +356,7 @@ footer {
   text-align: center;
 }
 /* ==========================================================================
-   SECTION 12 : REQUÊTES MÉDIAS POUR ÉCRANS MOBILES (RESPONSIVE)
+    : REQUÊTES MÉDIAS POUR ÉCRANS MOBILES (RESPONSIVE)
    ========================================================================== */
 @media (max-width: 768px) {
   .sidebar {

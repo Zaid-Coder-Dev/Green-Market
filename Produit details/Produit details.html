@@ -16,38 +16,52 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
-    <div class="container">
-      <a class="navbar-brand" href="#">Green Market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Basculer la navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-          <li class="nav-item"><a class="nav-link" href="#">Cooperatives</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.html">Categories</a></li>
-          <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.html">Boutique</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Profile-client/Profile-client.html">Profile</a></li>
-          <li class="nav-item ms-lg-3 d-none d-lg-block">
-            <a href="../Panier/Panier.html" class="position-relative text-decoration-none nav-icon" aria-label="Voir le panier">
-              <i class="bi bi-bag"></i>
-              <span class="cart-badge">0</span>
-            </a>
-            <a href="#" class="text-white fs-5 m-3 position-relative">
-              <i class="bi bi-bell"></i>
-              <span class="badge cart-badge" id="bell-count">0</span>
-          </a>
-          </li>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-home">
+  <div class="container">
+
+    <!-- LEFT: LOGO -->
+    <a class="navbar-brand d-flex align-items-center" href="../Home Page/Home.html">
+  <img src="/Green-Market/logo_Qofa.png" alt="Green Market" class="navbar-logo">Green Market
+</a>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <!-- CENTER: LINKS -->
+      <ul class="navbar-nav mx-auto nav-links">
+        <li class="nav-item"><a class="nav-link" href="#">Cooperatives</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Home Page/Home.html">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Categories/Categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.html">Boutique</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Profile-client/Profile-client.html">Profile</a></li>
+      </ul>
+
+      <!-- RIGHT: ICONS -->
+      <div class="d-flex align-items-center gap-3">
+        <a href="../Panier/Panier.html" class="position-relative text-decoration-none nav-icon">
+          <i class="bi bi-cart3"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+
+        <a href="#" class="position-relative text-decoration-none nav-icon">
+          <i class="bi bi-bell"></i>
+          <span class="cart-badge" id="bell-count">0</span>
+        </a>
       </div>
+
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- PRODUCT -->
   <section class="container py-5">
     <div class="row g-5">
-
+ 
       <!-- IMAGE -->
       <div class="col-lg-5">
         <div class="product-image position-relative">
@@ -56,7 +70,7 @@
         </div>
         <div id="SMI" class="small-images mt-3"></div>
       </div>
-
+ 
       <!-- DETAILS -->
       <div class="col-lg-7">
         <p id="ctg" class="category"></p>
@@ -64,28 +78,28 @@
         <div id="product-stars"></div>
         <h2 id="prix-p" class="price"></h2>
         <p id="des-p" class="product-desc"></p>
-
+ 
         <!-- SELECT -->
         <div id="optionP"></div>
-
+ 
         <!-- QUANTITY -->
         <div class="quantity-box mb-4">
           <button id="minusBtn">-</button>
           <span id="quantity">1</span>
           <button id="plusBtn">+</button>
         </div>
-
+ 
         <!-- BUTTONS -->
         <div class="product-actions mb-4">
-          <button class="cart-btn">
-            <i class="bi bi-bag-plus"></i> Ajouter au panier
+          <button class="btn-add">
+            <i class="bi bi-cart3"></i> Ajouter au panier
           </button>
           <button class="buy-btn">Acheter maintenant</button>
           <button class="wishlist-btn">
             <i class="bi bi-heart"></i>
           </button>
         </div>
-
+ 
         <!-- FEATURES -->
         <div class="features">
           <div class="feature-item">
@@ -110,11 +124,10 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
-
+ 
   <!-- TRACEABILITE -->
   <section class="container mb-5">
     <div class="trace-wrapper">
@@ -125,7 +138,7 @@
         </h3>
       </div>
       <div class="trace-boxx">
-
+ 
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-person"></i></div>
           <div class="trace-card">
@@ -140,7 +153,7 @@
             </div>
           </div>
         </div>
-
+ 
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-gear"></i></div>
           <div class="trace-card">
@@ -155,7 +168,7 @@
             </div>
           </div>
         </div>
-
+ 
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-box-seam"></i></div>
           <div class="trace-card">
@@ -170,7 +183,7 @@
             </div>
           </div>
         </div>
-
+ 
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-truck"></i></div>
           <div class="trace-card">
@@ -185,17 +198,16 @@
             </div>
           </div>
         </div>
-
+ 
       </div>
     </div>
   </section>
-
+ 
   <!-- TABS -->
   <section class="container mb-5">
     <ul class="nav nav-tabs custom-tabs">
       <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab"
-          data-bs-target="#caracteristiques">Caractéristiques</button>
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#caracteristiques">Caractéristiques</button>
       </li>
       <li class="nav-item">
         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#description">Description</button>
@@ -222,7 +234,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- AVIS CLIENTS -->
   <section class="container mb-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -232,7 +244,7 @@
         <div id="global-stars" class="review-stars"></div>
       </div>
     </div>
-
+ 
     <div class="review-box d-flex align-items-start">
       <div class="review-avatar me-3">F</div>
       <div class="flex-grow-1">
@@ -242,18 +254,15 @@
             <small class="text-muted">Il y a 2 semaines</small>
           </div>
           <div class="review-stars">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
           </div>
         </div>
-        <p class="mb-0">Produit magnifique ! La qualité est exceptionnelle et la traçabilité me rassure sur l'origine.
-        </p>
+        <p class="mb-0">Produit magnifique ! La qualité est exceptionnelle et la traçabilité me rassure sur l'origine.</p>
       </div>
     </div>
-
+ 
     <div class="review-box d-flex align-items-start">
       <div class="review-avatar me-3">A</div>
       <div class="flex-grow-1">
@@ -263,143 +272,121 @@
             <small class="text-muted">Il y a 1 mois</small>
           </div>
           <div class="review-stars">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
             <i class="bi bi-star"></i>
           </div>
         </div>
-        <p class="mb-0">Très satisfait de mon achat. La livraison était rapide et le produit correspond parfaitement à
-          la description.</p>
+        <p class="mb-0">Très satisfait de mon achat. La livraison était rapide et le produit correspond parfaitement à la description.</p>
       </div>
     </div>
-    <!-- COMMENT SECTION -->
-<section class="container mb-5">
-
-  <h4 class="fw-bold mb-3">Ajouter un avis</h4>
-
-  <!-- FORM -->
-  <div class="card comment-form-card mb-4">
-    <form id="commentForm">
-
-      <div class="mb-3">
-        <label class="form-label">Nom</label>
-        <input type="text" class="form-control" id="commentName" placeholder="Votre nom">
-      </div>
-
-
-      <div class="mb-3">
-        <label class="form-label">Note</label>
-
-        <div id="starRating" class="star-rating">
-          <i class="bi bi-star" data-value="1"></i>
-          <i class="bi bi-star" data-value="2"></i>
-          <i class="bi bi-star" data-value="3"></i>
-          <i class="bi bi-star" data-value="4"></i>
-          <i class="bi bi-star" data-value="5"></i>
-        </div>
-
-  <input type="hidden" id="commentRating" value="0">
-</div>
-
-      <div class="mb-3">
-        <label class="form-label">Commentaire</label>
-        <textarea class="form-control" id="commentText" rows="3"
-          placeholder="Écrivez votre avis..."></textarea>
-      </div>
-
-      <button type="submit" class="comment-btn">
-        Publier l'avis
-      </button>
-
-    </form>
-  </div>
-
-  <!-- NEW COMMENTS LIST -->
-  <div id="newComments"></div>
-
-</section>
   </section>
-
+ 
+  <!-- COMMENT SECTION -->
+  <section class="container mb-5">
+    <h4 class="fw-bold mb-3">Ajouter un avis</h4>
+    <div class="card comment-form-card mb-4">
+      <form id="commentForm">
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input type="text" class="form-control" id="commentName" placeholder="Votre nom">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Note</label>
+          <div id="starRating" class="star-rating">
+            <i class="bi bi-star" data-value="1"></i>
+            <i class="bi bi-star" data-value="2"></i>
+            <i class="bi bi-star" data-value="3"></i>
+            <i class="bi bi-star" data-value="4"></i>
+            <i class="bi bi-star" data-value="5"></i>
+          </div>
+          <input type="hidden" id="commentRating" value="0">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Commentaire</label>
+          <textarea class="form-control" id="commentText" rows="3" placeholder="Écrivez votre avis..."></textarea>
+        </div>
+        <button type="submit" class="comment-btn">Publier l'avis</button>
+      </form>
+    </div>
+    <div id="newComments"></div>
+  </section>
+ 
   <!-- VOUS AIMEREZ AUSSI -->
   <section class="container mt-5 mb-5">
     <h4 class="fw-bold mb-4">Vous aimerez aussi</h4>
-    <div class="row">
-
-      <div class="col-md-4 mb-4">
-        <div class="card product-card">
-          <img src="Produit details images/aime img/RoseWater.jpg" class="card-img-top product-img">
+    <div class="row g-4">
+ 
+      <div class="col-6 col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
+          <img src="Produit details images/Savon_beldi/Savon beldi.png" class="card-img-top product-img" alt="Savon Beldi">
           <div class="card-body">
-            <span class="badge badge-nouveau mb-2">Nouveau</span>
-            <span class="badge badge-tracable mb-2">Traçable</span>
-            <p class="text-muted mb-1">Coopérative Kelalat M'gouna</p>
-            <h6 class="fw-bold">Eau de Rose</h6>
-            <div class="review-stars mb-2">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star"></i>
-              <small class="text-muted ms-1">4.8 (98)</small>
+            <small class="text-muted">Cosmétiques</small>
+            <h6 class="card-title mt-1">Savon Beldi</h6>
+            <div class="mb-1">
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star text-warning"></i>
+              <small class="text-muted">(24)</small>
             </div>
-            <p class="fw-semibold price-text">65 MAD</p>
+            <p class="fw-bold price-text mb-2">45 MAD</p>
             <div class="d-flex gap-2">
-              <button class="btn-voir w-75">Voir</button>
-              <button class="btn-panier w-25"><i class="bi bi-bag-plus"></i></button>
+              <a href="../Produit details/Produit details.html?id=1" class="btn btn-sm w-75 btn-voir">Voir</a>
+              <button class="btn btn-sm btn-add w-25"><i class="bi bi-cart3"></i></button>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card product-card">
-          <img src="Produit details images/aime img/RoseWater.jpg" class="card-img-top product-img">
+ 
+      <div class="col-6 col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img src="Produit details images/aime img/RoseWater.jpg" class="card-img-top product-img" alt="Eau de Rose">
           <div class="card-body">
-            <span class="badge badge-tracable mb-2">Traçable</span>
-            <p class="text-muted mb-1">Coopérative Fès</p>
-            <h6 class="fw-bold">Ghassoul</h6>
-            <div class="review-stars mb-2">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star"></i>
-              <small class="text-muted ms-1">4.7 (76)</small>
+            <small class="text-muted">Coopérative Fès</small>
+            <h6 class="card-title mt-1">Ghassoul</h6>
+            <div class="mb-1">
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star text-warning"></i>
+              <small class="text-muted">(76)</small>
             </div>
-            <p class="fw-semibold price-text">45 MAD</p>
+            <p class="fw-bold price-text mb-2">45 MAD</p>
             <div class="d-flex gap-2">
-              <button class="btn-voir w-75">Voir</button>
-              <button class="btn-panier w-25"><i class="bi bi-bag-plus"></i></button>
+              <button class="btn btn-sm w-75 btn-voir">Voir</button>
+              <button class="btn btn-sm btn-add w-25"><i class="bi bi-cart3"></i></button>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card product-card">
-          <img src="Produit details images/Argan_oil/AO_cosmetics.jpg" class="card-img-top product-img">
+ 
+      <div class="col-6 col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img src="Produit details images/Argan_oil/AO_cosmetics.jpg" class="card-img-top product-img" alt="Huile d'Argan">
           <div class="card-body">
-            <span class="badge badge-tracable mb-2">Traçable</span>
-            <p class="text-muted mb-1">Coopérative Agadir</p>
-            <h6 class="fw-bold">Huile d'Argan Cosmétique</h6>
-            <div class="review-stars mb-2">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star"></i>
-              <small class="text-muted ms-1">4.8 (87)</small>
+            <small class="text-muted">Cosmétiques</small>
+            <h6 class="card-title mt-1">Huile d'Argan Cosmétique</h6>
+            <div class="mb-1">
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star text-warning"></i>
+              <small class="text-muted">(87)</small>
             </div>
-            <p class="fw-semibold price-text">150 MAD</p>
+            <p class="fw-bold price-text mb-2">150 MAD</p>
             <div class="d-flex gap-2">
-              <button class="btn-voir w-75">Voir</button>
-              <button class="btn-panier w-25"><i class="bi bi-bag-plus"></i></button>
+              <a href="../Produit details/Produit details.html?id=2" class="btn btn-sm w-75 btn-voir">Voir</a>
+              <button class="btn btn-sm btn-add w-25"><i class="bi bi-cart3"></i></button>
             </div>
           </div>
         </div>
       </div>
-
+ 
     </div>
   </section>
 
@@ -468,7 +455,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="Produit details .js"></script>
+  <script src="Produit details.js"></script>
 </body>
 
 </html>

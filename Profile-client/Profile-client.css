@@ -39,17 +39,28 @@ h1, h2, h3, h4, h5 {
   backdrop-filter: none !important;
 }
 
+.navbar-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
 .navbar-brand {
   color: var(--cream) !important;
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.navbar .nav-link {
+.nav-links {
+  gap: 18px;
+}
+
+.nav-links .nav-link {
+  padding: 8px 6px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
   color: rgba(245, 237, 224, 0.85);
   font-weight: 400;
-  margin: 0 10px;
-  transition: color 0.2s ease;
 }
 
 .navbar .nav-link:hover,
