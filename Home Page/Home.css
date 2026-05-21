@@ -1,239 +1,676 @@
-/* =====================
-   VARIABLES
-===================== */
+/* ==========================================================================
+   VARIABLES — Palette Organique et Naturelle
+   ========================================================================== */
 :root {
-  --green:        #2d4a2d;
-  --green-hover:  #3f683f;
-  --orange:       #e07b39;
-  --beige-light:  #f5ede0;
-  --beige-mid:    #ead4b6;
-  --beige-dark:   #D8C3A5;
-  --beige-footer: #c4aa8a;
-  --brown-title:  #6b4d3a;
-  --brown-text:   #8c7b6a;
+  --green:       #2d4a2d;
+  --green-hover: #3f683f;
+  --cream:       #f5ede0;
+  --sand:        #ead4b6;
+  --ink:         #2a241e;
+  --terracotta:  #e07b39;
 }
 
-/* =====================
-   BODY & FONTS
-===================== */
+/* ==========================================================================
+   STYLES DE BASE ET COMMONS
+   ========================================================================== */
+* { 
+  box-sizing: border-box; 
+}
+
 body {
-  background-color: var(--beige-light);
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   font-family: 'Lato', sans-serif;
+  color: var(--ink);
+  background-color: var(--cream);
+  scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
+  color: var(--green);
+  margin: 0;
 }
 
-/* =====================
-   NAVBAR
-===================== */
+a { 
+  text-decoration: none; 
+}
+
+.section-label {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--terracotta);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* BOUTONS GÉNÉRAUX */
+.btn-terracotta {
+  background: var(--terracotta);
+  color: #fff;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-terracotta:hover { 
+  background: #c96a2e; 
+  color: #fff; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(224, 123, 57, 0.3);
+}
+
+.btn-outline-cream {
+  border: 2px solid var(--cream);
+  color: var(--cream);
+  font-weight: 700;
+  background: transparent;
+  transition: all 0.2s ease, transform 0.2s ease;
+}
+.btn-outline-cream:hover { 
+  background: var(--cream); 
+  color: var(--ink); 
+  transform: translateY(-2px);
+}
+
+
+/* ==========================================================================
+   SECTION 1 : BARRE DE NAVIGATION (NAVBAR)
+   ========================================================================== */
 .navbar {
-  background-color: var(--green);
+  /* Default styling for inner pages (e.g. Produits.html) */
+  background-color: rgba(45, 74, 45, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 0;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 1000;
+}
+
+/* Home-page modifier: fully transparent to show image bleed-through */
+.navbar-home {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.navbar-brand {
+  color: var(--cream) !important;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(245, 237, 224, 0.85);
+  font-weight: 400;
+  margin: 0 10px;
   transition: color 0.2s ease;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-  color: #ffffff;
+  color: var(--cream);
 }
 
+.navbar-home .nav-link.active {
+  border-bottom: 2px solid var(--terracotta);
+}
+
+.nav-icon {
+  color: var(--cream);
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+.nav-icon:hover { color: var(--terracotta); }
+
 .cart-badge {
-  background-color: var(--orange);
-  font-size: 0.6rem;
   position: absolute;
-  top: -5px;
+  top: -6px;
   right: -8px;
-  padding: 2px 5px;
+  background: var(--terracotta);
+  color: var(--cream);
+  font-size: 0.65rem;
+  padding: 2px 6px;
   border-radius: 50%;
   line-height: 1;
 }
 
-/* =====================
-   HERO CAROUSEL
-===================== */
-.hero-img {
-  height: 480px;
+
+/* ==========================================================================
+   SECTION 2 : BANNIÈRE PRINCIPALE (HERO — HIGH-END EDITORIAL STYLE)
+   ========================================================================== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  z-index: 0;
+  animation: kenBurns 24s ease-in-out infinite alternate;
 }
 
-/* =====================
-   BADGES
-===================== */
-.badge-nouveau {
-  background-color: var(--orange);
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 1rem;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-label {
+  display: inline-block;
+  color: var(--terracotta);
+  font-size: 0.85rem;
+  letter-spacing: 5px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  opacity: 0;
+  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-title {
+  color: var(--cream);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  max-width: 680px;
+  margin: 0 auto 40px;
+  color: rgba(245, 237, 224, 0.9);
+  line-height: 1.7;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.45s forwards;
+}
+
+/* Crisp, premium geometric layout for buttons */
+.hero-buttons .btn {
+  border-radius: 4px;
+  padding: 14px 36px !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--cream);
+  font-size: 1.8rem;
+  z-index: 2;
+  animation: bounce 2s infinite;
 }
 
 
-/* =====================
-   PRODUCT CARDS
-===================== */
-.card {
+/* ==========================================================================
+   SECTION 3 : PRODUITS PHARES (STYLE DE CARTES STACK INTERACTIF)
+   ========================================================================== */
+.products-section {
+  padding: 130px 0;
+  background: var(--cream);
   overflow: hidden;
 }
 
-.card-body {
-  background-color: var(--beige-mid);
+.section-title-stack {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--green);
+  margin-top: 10px;
 }
 
-.product-img {
+.section-title-stack span:nth-child(even) {
+  color: var(--terracotta);
+}
+
+.section-sub-stack {
+  color: var(--ink);
+  opacity: 0.85;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 440px;
+}
+
+.btn-discover-more {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 1.05rem;
+  border-bottom: 2px solid var(--terracotta);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-discover-more:hover {
+  color: var(--terracotta);
+  border-bottom-color: var(--green);
+  padding-left: 6px;
+}
+
+.card-interactive-stack {
+  position: relative;
+  height: 580px;
   width: 100%;
-  aspect-ratio: 4/3;
+  margin-top: 30px;
+}
+
+.stack-card {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 40px rgba(42, 36, 30, 0.06);
+  border: 1px solid rgba(42, 36, 30, 0.04);
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), 
+              box-shadow 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+              z-index 0.3s ease;
+  width: 310px;
+}
+
+.stack-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.stack-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
-.card:hover .product-img {
-  transform: scale(1.07);
+.stack-body {
+  padding: 16px 6px 6px;
 }
 
-
-.btn-add {
-  background-color: var(--green);
-  color: white;
-  transition: background-color 0.2s ease;
+.stack-cat {
+  font-size: 0.75rem;
+  color: var(--terracotta);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.btn-add:hover {
-  background-color: var(--green-hover);
-  color: white;
+.stack-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 4px 0 16px;
 }
 
-.btn-more {
-  background-color: var(--green);
-  color: white;
-  transition: background-color 0.2s ease;
+.stack-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.btn-more:hover {
-  background-color: var(--green-hover);
-  color: white;
+.stack-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green);
 }
 
-/* =====================
-   CATEGORIES SECTION
-===================== */
-.categories-section {
-  background-color: var(--beige-light);
+.stack-actions-group {
+  display: flex;
+  gap: 8px;
 }
 
-.category-overlay {
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+.btn-circle-action {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  border: none;
 }
 
-.category-link {
-  color: var(--orange);
-  transition: color 0.2s ease;
-}
-
-.category-link:hover {
+.btn-view {
+  background-color: var(--ink);
   color: #fff;
 }
-
-/* =====================
-   STEPS SECTION
-===================== */
-.steps {
-  background-color: var(--beige-dark);
+.btn-view:hover {
+  background-color: var(--terracotta);
+  color: #fff;
+  transform: rotate(45deg) scale(1.05);
 }
 
-.coop {
+.btn-cart {
+  background-color: var(--cream);
+  color: var(--green);
+  border: 1px solid rgba(45, 74, 45, 0.25);
+}
+.btn-cart:hover {
   background-color: var(--green);
-  width: 55px;
-  height: 55px;
+  color: #fff;
+  border-color: var(--green);
+  transform: scale(1.05);
 }
 
-/* =====================
-   NEWSLETTER
-===================== */
-.newsletter-section {
-  background-image: url('./Home images/Newsletter.png');
-  background-size: cover;
-  background-position: center;
+.stack-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.badge-new { background: var(--terracotta); }
+.badge-sale { background: var(--green); }
+
+/* Stack card placements */
+.card-bg-top {
+  z-index: 1;
+  top: 20px;
+  right: 30px;
+  transform: rotate(5deg);
 }
 
-.newsletter-label {
-  color: var(--orange);
-  border: 1px solid var(--orange);
-  background-color: rgba(224, 123, 57, 0.3);
+.card-foreground {
+  z-index: 3;
+  top: 130px;
+  left: 40px;
+  transform: rotate(-3deg);
+  width: 330px; 
 }
 
-.btn-subscribe {
-  background-color: var(--orange);
-  color: white;
-  transition: background-color 0.2s ease;
+.card-bg-bottom {
+  z-index: 2;
+  bottom: 20px;
+  right: 70px;
+  transform: rotate(-6deg);
 }
 
-.btn-subscribe:hover {
-  background-color: #c96a2a;
-  color: white;
+/* Fan hover transitions */
+.card-interactive-stack:hover .card-foreground {
+  transform: translate(-25px, -10px) rotate(-5deg);
+  box-shadow: 0 20px 50px rgba(42, 36, 30, 0.14);
 }
 
-/* =====================
-   FOOTER
-===================== */
+.card-interactive-stack:hover .card-bg-top {
+  transform: translate(45px, -35px) rotate(10deg);
+  z-index: 4;
+  box-shadow: 0 20px 50px rgba(42, 36, 30, 0.14);
+}
+
+.card-interactive-stack:hover .card-bg-bottom {
+  transform: translate(35px, 45px) rotate(-2deg);
+  box-shadow: 0 20px 50px rgba(42, 36, 30, 0.14);
+}
+
+.stack-card:hover {
+  z-index: 10 !important;
+}
+.stack-card:hover .stack-img {
+  transform: scale(1.05);
+}
+
+
+/* ==========================================================================
+   SECTION 4 : À PROPOS (HISTOIRE COOPÉRATIVE)
+   ========================================================================== */
+.about-section {
+  padding: 100px 0;
+  background: var(--sand);
+}
+
+.about-img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(42,36,30,0.1);
+}
+
+.about-text {
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.stats { 
+  border-top: 1px solid rgba(45,74,45,0.2); 
+  padding-top: 24px; 
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  color: var(--green);
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+
+/* ==========================================================================
+   SECTION 5 : PIED DE PAGE (FOOTER)
+   ========================================================================== */
+footer {
+  background-color: var(--green);
+}
+
 .footer-top {
-  background-color: var(--beige-dark);
-  padding: 50px 0;
+  padding: 0 0 40px;
 }
 
-.footer-bottom {
-  background-color: var(--beige-footer);
-  padding: 15px 0;
+.footer-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--terracotta) 0%, transparent 55%);
+  margin-bottom: 40px;
 }
 
 .footer-title {
-  color: var(--green);
+  color: var(--cream);
   font-weight: 700;
   font-family: 'Playfair Display', serif;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
 }
 
 .footer-text {
-  color: var(--brown-title);
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .footer-link {
-  color: var(--brown-text);
+  color: rgba(245, 237, 224, 0.65);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-  color: var(--green);
+  color: var(--terracotta);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 8px;
 }
 
 .footer-social {
-  color: var(--brown-title);
-  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 237, 224, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(245, 237, 224, 0.7);
+  font-size: 0.95rem;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .footer-social:hover {
-  color: var(--green);
+  color: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.footer-contact-item i {
+  color: var(--terracotta);
+  font-size: 0.95rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(245, 237, 224, 0.1);
+  margin-top: 32px;
+}
+
+.footer-bottom {
+  background-color: #1e3320;
+  padding: 14px 0;
 }
 
 .footer-bottom-text {
-  color: var(--brown-title);
-  font-size: 0.85rem;
+  color: rgba(245, 237, 224, 0.4);
+  font-size: 0.8rem;
   margin: 0;
+  text-align: center;
 }
 
-/* =====================
-   RESPONSIVE
-===================== */
+
+/* ==========================================================================
+   CORE ANIMATION SYSTEM
+   ========================================================================== */
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 8px); }
+}
+
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .card-interactive-stack {
+    height: 520px;
+    max-width: 460px;
+    margin: 60px auto 0;
+  }
+  .stack-card { width: 250px; }
+  .card-foreground { width: 270px; top: 110px; left: 20px; }
+  .card-bg-top { right: 10px; }
+  .card-bg-bottom { right: 30px; }
+}
+
 @media (max-width: 768px) {
-  .hero-img {
-    height: 280px;
+  .hero { 
+    height: auto; 
+    padding: 140px 16px 80px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .hero-buttons .btn {
+    width: 100%;
+  }
+  .products-section, .about-section { padding: 75px 0; }
+  .navbar .nav-link.active { border-bottom: none; color: var(--terracotta); }
+}
+
+@media (max-width: 576px) {
+  .card-interactive-stack {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 28px;
+  }
+  .stack-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+  .card-interactive-stack:hover .stack-card {
+    transform: none !important;
   }
 }

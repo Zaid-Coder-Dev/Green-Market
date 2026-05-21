@@ -9,19 +9,34 @@ let cartCount = 0;
 });
 
 
-// ===== NEWSLETTER =====
+// ===== 1. SMOOTH SCROLL for anchor links (#products, #about) =====
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    if (targetId.length > 1) {
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+});
 
+// ===== 2. REVEAL ELEMENTS ON SCROLL =====
+// Any element with class "reveal" fades up when it enters the screen.
+const revealItems = document.querySelectorAll('.reveal');
 
-document.querySelector('.btn-subscribe').addEventListener('click', function() {
-  
-  let email = document.querySelector('#newsletter-form input').value;
-  
-  if (email === '') {
-    alert('Veuillez entrer votre email!');
-    return; }
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      // Small stagger so cards appear one after the other
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, index * 120);
+      observer.unobserve(entry.target); // animate only once
+    }
+  });
+}, { threshold: 0.15 });
 
-  // cache le formulaire
-  document.querySelector('#newsletter-form').classList.add('d-none');
-
-  // affiche le message de succes
-  document.querySelector('#newsletter-success').classList.remove('d-none'); } );
+revealItems.forEach(item => observer.observe(item));

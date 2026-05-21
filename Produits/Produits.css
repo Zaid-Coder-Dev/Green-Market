@@ -1,49 +1,56 @@
-/* =====================
-   VARIABLES
-===================== */
+/* ==========================================================================
+   SECTION 1 : CONFIGURATION DES VARIABLES GLOBALES (:ROOT)
+   ========================================================================== */
 :root {
-  --green:        #2d4a2d;
-  --green-hover:  #3f683f;
-  --orange:       #e07b39;
-  --beige-light:  #f5ede0;
-  --beige-mid:    #ead4b6;
-  --beige-dark:   #D8C3A5;
-  --beige-footer: #c4aa8a;
-  --brown-title:  #6b4d3a;
-  --brown-text:   #8c7b6a;
+  --green:       #2d4a2d;
+  --green-hover: #3f683f;
+  --cream:       #f5ede0;
+  --sand:        #ead4b6;
+  --ink:         #2a241e;
+  --terracotta:  #e07b39;
 }
 
-/* =====================
-   BODY & FONTS
-===================== */
+
+/* ==========================================================================
+   SECTION 2 : STYLES DU CORPS ET POLICES (BODY & FONTS)
+   ========================================================================== */
 body {
-  background-color: var(--beige-light);
+  background-color: var(--cream);
   font-family: 'Lato', sans-serif;
+  color: var(--ink);
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
+  color: var(--green);
 }
 
-/* =====================
-   NAVBAR
-===================== */
+
+/* ==========================================================================
+   SECTION 3 : BARRE DE NAVIGATION (NAVBAR)
+   ========================================================================== */
 .navbar {
   background-color: var(--green);
 }
 
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(245, 237, 224, 0.85);
   transition: color 0.2s ease;
 }
 
-.navbar .nav-link:hover,
-.navbar .nav-link.active {
-  color: #ffffff;
+.navbar .nav-link:hover {
+  color: var(--cream);
 }
 
+.navbar .nav-link.active {
+  color: var(--cream);
+  border-bottom: 2px solid var(--terracotta);
+  padding-bottom: 2px;
+}
+
+/* Pastilles numériques rouges/oranges sur les icônes panier et cloche */
 .cart-badge {
-  background-color: var(--orange);
+  background-color: var(--terracotta);
   font-size: 0.6rem;
   position: absolute;
   top: -5px;
@@ -51,26 +58,29 @@ h1, h2, h3, h4, h5 {
   padding: 2px 5px;
   border-radius: 50%;
   line-height: 1;
+  color: var(--cream);
 }
 
-/* =====================
-   PAGE HEADER
-===================== */
+
+/* ==========================================================================
+   SECTION 4 : EN-TÊTE DE LA PAGE (PAGE HEADER)
+   ========================================================================== */
 .page-header {
-  background-color: var(--beige-dark);
+  background-color: var(--sand);
 }
 
 .page-header h2 {
   color: var(--green);
 }
 
-/* =====================
-   SIDEBAR
-===================== */
+
+/* ==========================================================================
+   SECTION 5 : BLOC PANNEAU DE FILTRES (SIDEBAR)
+   ========================================================================== */
 .sidebar {
-  background-color: var(--beige-light);
+  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 2px 12px rgba(42, 36, 30, 0.07);
   position: sticky;
   top: 20px;
 }
@@ -80,17 +90,19 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 10px;
 }
 
+/* Modification de la couleur des boutons à cocher natifs */
 .form-check-input:checked {
   background-color: var(--green);
   border-color: var(--green);
 }
 
-/* =====================
-   TAGS
-===================== */
+
+/* ==========================================================================
+   SECTION 6 : PETITS BADGES MOTS-CLÉS (TAGS)
+   ========================================================================== */
 .tag {
-  background-color: var(--beige-light);
-  border: 1px solid var(--beige-dark);
+  background-color: var(--cream);
+  border: 1px solid rgba(42, 36, 30, 0.15);
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 0.75rem;
@@ -103,9 +115,11 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* =====================
-   BUTTONS
-===================== */
+
+/* ==========================================================================
+   SECTION 7 : ENSEMBLE DES BOUTONS (BUTTONS)
+   ========================================================================== */
+/* Bouton vert principal "Appliquer les filtres" / "Ajouter au panier" */
 .btn-add {
   background-color: var(--green);
   color: white;
@@ -119,21 +133,23 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
+/* Bouton secondaire clair "Voir" */
 .btn-voir {
-  background-color: var(--beige-light);
+  background-color: var(--cream);
   border: 1px solid var(--green);
   color: var(--green);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-voir:hover {
-  background-color: var(--green-hover);
-  border-color: var(--green-hover);
+  background-color: var(--green);
+  border-color: var(--green);
   color: white;
 }
 
+/* Bouton de remise à zéro des filtres */
 .btn-reset {
-  background-color: var(--beige-dark);
+  background-color: var(--sand);
   color: var(--green);
   font-weight: 600;
   border-radius: 8px;
@@ -141,35 +157,43 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn-reset:hover {
-  background-color: var(--beige-mid);
+  background-color: var(--cream);
   color: var(--green-hover);
 }
 
-/* =====================
-   SORT DROPDOWN
-===================== */
+
+/* ==========================================================================
+   SECTION 8 : MENU DÉROULANT DE TRI (SORT DROPDOWN)
+   ========================================================================== */
 .trier {
-  background-color: var(--beige-light);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  border-color: var(--beige-dark);
-  color: var(--brown-title);
+  background-color: white;
+  box-shadow: 0 2px 12px rgba(42, 36, 30, 0.07);
+  border-color: rgba(42, 36, 30, 0.15);
+  color: var(--ink);
 }
 
-/* =====================
-   PRODUCT CARDS
-===================== */
+
+/* ==========================================================================
+   SECTION 9 : COMPOSANTS DES CARTES PRODUIT (PRODUCT CARDS)
+   ========================================================================== */
 .card {
   overflow: hidden;
 }
 
 .card-body {
-  background-color: var(--beige-mid);
+  background-color: white;
+}
+
+.text-prix {
+  color: var(--terracotta);
 }
 
 .badge-nouveau {
-  background-color: var(--orange);
+  background-color: var(--terracotta);
+  color: white;
 }
 
+/* Gestion du format des images des produits et effet d'échelle (Zoom) */
 .product-img {
   width: 100%;
   aspect-ratio: 4/3;
@@ -181,9 +205,10 @@ h1, h2, h3, h4, h5 {
   transform: scale(1.07);
 }
 
-/* =====================
-   PAGINATION
-===================== */
+
+/* ==========================================================================
+   SECTION 10 : NAVIGATION BASSE (PAGINATION)
+   ========================================================================== */
 .page-item.active .page-link {
   background-color: var(--green);
   border-color: var(--green);
@@ -197,62 +222,124 @@ h1, h2, h3, h4, h5 {
   color: var(--green-hover);
 }
 
-/* =====================
-   FOOTER
-===================== */
-.footer-top {
-  background-color: var(--beige-dark);
-  padding: 50px 0;
+
+/* ==========================================================================
+   SECTION 11 : COMPOSANTS DU PIED DE PAGE (FOOTER)
+   ========================================================================== */
+footer {
+  background-color: var(--green);
 }
 
-.footer-bottom {
-  background-color: var(--beige-footer);
-  padding: 15px 0;
+.footer-top {
+  padding: 0 0 40px;
+}
+
+/* Bande de couleur dégradée décorative sous le contenu principal */
+.footer-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--terracotta) 0%, transparent 55%);
+  margin-bottom: 40px;
+}
+
+.footer-logo img {
+  height: 38px;
+  width: auto;
+  margin-bottom: 12px;
 }
 
 .footer-title {
-  color: var(--green);
+  color: var(--cream);
   font-weight: 700;
   font-family: 'Playfair Display', serif;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
 }
 
 .footer-text {
-  color: var(--brown-title);
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .footer-link {
-  color: var(--brown-text);
+  color: rgba(245, 237, 224, 0.65);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-  color: var(--green);
+  color: var(--terracotta);
+}
+
+/* Zone des boutons ronds d'icônes sociales */
+.footer-socials {
+  display: flex;
+  gap: 8px;
 }
 
 .footer-social {
-  color: var(--brown-title);
-  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 237, 224, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(245, 237, 224, 0.7);
+  font-size: 0.95rem;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .footer-social:hover {
-  color: var(--green);
+  color: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+/* Liens textuels d'informations à puces (adresse mail, tel, lieu) */
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgba(245, 237, 224, 0.65);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.footer-contact-item i {
+  color: var(--terracotta);
+  font-size: 0.95rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(245, 237, 224, 0.1);
+  margin-top: 32px;
+}
+
+/* Section finale noire/sombre tout en bas */
+.footer-bottom {
+  background-color: #1e3320;
+  padding: 14px 0;
 }
 
 .footer-bottom-text {
-  color: var(--brown-title);
-  font-size: 0.85rem;
+  color: rgba(245, 237, 224, 0.4);
+  font-size: 0.8rem;
   margin: 0;
+  text-align: center;
 }
 
-/* =====================
-   RESPONSIVE
-===================== */
+
+/* ==========================================================================
+   SECTION 12 : REQUÊTES MÉDIAS POUR ÉCRANS MOBILES (RESPONSIVE)
+   ========================================================================== */
 @media (max-width: 768px) {
   .sidebar {
     position: static;
