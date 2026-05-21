@@ -1,42 +1,36 @@
-// ===== COMPTEUR DU PANIER =====
-
-
+// ===== PANIER =====
 let cartCount = 0;
-    document.querySelectorAll('.btn-add').forEach(function(btn) {
-    btn.addEventListener('click', function() {
+const cartBadge = document.querySelector('.cart-badge');
+
+document.querySelectorAll('.btn-cart').forEach(btn => {
+  btn.addEventListener('click', () => {
     cartCount++;
-    document.querySelector('.cart-badge').textContent = cartCount;});
+    if (cartBadge) cartBadge.textContent = cartCount;
+  });
 });
 
-
-// ===== 1. SMOOTH SCROLL for anchor links (#products, #about) =====
+// ===== DEFILEMENT FLUIDE (SMOOTH SCROLL) =====
 document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function (e) {
+  link.addEventListener('click', function(e) {
     const targetId = this.getAttribute('href');
-    if (targetId.length > 1) {
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (targetId === '#') return; // FIX: Prevents crash on empty anchor links
+
+    const target = document.querySelector(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
 
-// ===== 2. REVEAL ELEMENTS ON SCROLL =====
-// Any element with class "reveal" fades up when it enters the screen.
-const revealItems = document.querySelectorAll('.reveal');
-
+// ===== ANIMATIONS AU SCROLL =====
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
-      // Small stagger so cards appear one after the other
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, index * 120);
-      observer.unobserve(entry.target); // animate only once
+      setTimeout(() => entry.target.classList.add('visible'), index * 120);
+      observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.15 });
 
-revealItems.forEach(item => observer.observe(item));
+document.querySelectorAll('.reveal').forEach(item => observer.observe(item));

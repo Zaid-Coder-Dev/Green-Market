@@ -176,36 +176,176 @@ h1, h2, h3, h4, h5 {
 /* ==========================================================================
    SECTION 9 : COMPOSANTS DES CARTES PRODUIT (PRODUCT CARDS)
    ========================================================================== */
-.card {
+.product-grid {
+  animation: fadeUp 0.8s ease both;
+}
+
+.product-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardIn 0.6s ease forwards;
+}
+
+.product-item:nth-child(1) { animation-delay: 0.05s; }
+.product-item:nth-child(2) { animation-delay: 0.10s; }
+.product-item:nth-child(3) { animation-delay: 0.15s; }
+.product-item:nth-child(4) { animation-delay: 0.20s; }
+.product-item:nth-child(5) { animation-delay: 0.25s; }
+.product-item:nth-child(6) { animation-delay: 0.30s; }
+
+.product-card {
+  background: white;
+  border-radius: 18px;
   overflow: hidden;
+  position: relative;
+  border:15px solid rgba(255,255,255,.8);
+  box-shadow: 0 10px 25px rgba(42, 36, 30, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.card-body {
-  background-color: white;
+.product-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 35px rgba(42,36,30,.12);
 }
 
-.text-prix {
+
+.product-img-wrapper {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #faf8f5;
+  border-radius:10px ;
+}
+
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+.product-body {
+  padding: 14px;
+}
+
+.product-cat {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   color: var(--terracotta);
+  font-weight: 700;
 }
 
-.badge-nouveau {
+.product-title {
+  margin: 6px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 8px 0;
+  color: #f4b400;
+  font-size: 0.9rem;
+}
+
+.product-rating small {
+  color: rgba(42,36,30,.55);
+  margin-left: 4px;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.price {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-view {
+  background-color: var(--cream);
+  border: 1px solid var(--green);
+  color: var(--green);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-view:hover {
+  background-color: var(--green);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(45,74,45,.18);
+}
+
+.btn-cart {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.btn-cart:hover {
+  background-color: var(--terracotta);
+  transform: translateY(-2px);
+}
+
+.badge-new {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   background-color: var(--terracotta);
   color: white;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  z-index: 2;
 }
 
-/* Gestion du format des images des produits et effet d'échelle (Zoom) */
-.product-img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+.badge-green {
+  background-color: var(--green);
 }
 
-.card:hover .product-img {
-  transform: scale(1.07);
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* ==========================================================================
    SECTION 10 : NAVIGATION BASSE (PAGINATION)
    ========================================================================== */

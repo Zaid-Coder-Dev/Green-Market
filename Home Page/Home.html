@@ -29,30 +29,47 @@
               <i class="bi bi-bag"></i>
               <span class="cart-badge">0</span>
             </a>
+            <a href="#" class="text-white fs-5 m-3 position-relative">
+              <i class="bi bi-bell"></i>
+              <span class="badge cart-badge" id="bell-count">0</span>
+          </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <header class="hero">
-    <img src="/Green-Market/Home Page/Home images/Trésors du Désert.jpg" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="container">
-      <div class="hero-content">
-        <span class="hero-label">AUTHENTIQUE & BIOLOGIQUE</span>
-        <h1 class="hero-title">Green Market</h1>
-        <p class="hero-subtitle">Des siècles de savoir-faire artisanal marocain, de soins cosmétiques faits maison et de pièces uniques, livrés directement depuis nos coopératives locales jusqu'à chez vous.</p>
-        <div class="hero-buttons">
-          <a href="../Produits/Produits.html" class="btn btn-terracotta">Découvrir la Boutique</a>
-          <a href="#about" class="btn btn-outline-cream">Notre Histoire</a>
-        </div>
+<header class="hero">
+  <img src="./Home images/Trésors du Désert.jpg" class="hero-bg">
+  <div class="hero-overlay"></div>
+  
+  <div class="container h-100 relative-container">
+    
+    <div class="hero-content">
+      <span class="hero-label">AUTHENTIQUE & BIOLOGIQUE</span>
+      <h1 class="hero-title">Green Market</h1>
+      <p class="hero-subtitle">Des siècles de savoir-faire artisanal marocain, de soins cosmétiques faits maison et de pièces uniques, livrés directement depuis nos coopératives locales jusqu'à chez vous.</p>
+      <div class="hero-buttons">
+        <a href="../Produits/Produits.html" class="btn btn-terracotta">Découvrir la Boutique</a>
+        <a href="#about" class="btn btn-outline-cream">Notre Histoire</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <i class="bi bi-chevron-down"></i>
+
+    <div class="hero-coop-widget">
+      <span class="widget-title">Réseaux des Artisans</span>
+      <p class="widget-desc">Soutenez nos coopératives en direct</p>
+      <div class="widget-links">
+        <a href="#" class="coop-link" target="_blank" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="coop-link" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      </div>
     </div>
-  </header>
+
+  </div>
+
+  <a href="#products" class="hero-scroll" aria-label="Défiler vers le bas">
+    <i class="bi bi-chevron-down"></i>
+  </a>
+</header>
 
   <section class="products-section" id="products">
     <div class="container">
@@ -186,8 +203,9 @@
         <div class="row g-4">
 
           <div class="col-12 col-md-3">
-            <div class="footer-logo">
-              <h5 class="text-white font-playfair fw-bold mb-2">Green Market</h5>
+            <div class="footer-logo d-flex align-items-center">
+              <img src="./Home images/navbar.png" alt="Green Market" class="img-fluid">              
+              <h5 class="text-white font-playfair fw-bold mb-2">reen Market</h5>
             </div>
             <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
             <div class="footer-socials">

@@ -8,7 +8,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet" />
     <link href="Produits.css" rel="stylesheet" />
 </head>
 
@@ -55,7 +57,7 @@
     <section class="py-5">
         <div class="container">
             <div class="row g-4">
-                
+
                 <div class="col-12 col-md-3">
                     <form class="sidebar p-3" id="filter-form">
 
@@ -142,7 +144,8 @@
                             </div>
                         </div>
 
-                        <input type="submit" class="btn w-100 btn-outline-white mb-2 btn-add" value="Appliquer les filtres">
+                        <input type="submit" class="btn w-100 btn-outline-white mb-2 btn-add"
+                            value="Appliquer les filtres">
                         <input type="reset" class="btn w-100 btn-reset" value="Réinitialiser">
 
                     </form>
@@ -161,146 +164,192 @@
 
                     <div class="row g-3">
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
-                                <img src="./Produits images/Savon beldi.png" class="card-img-top product-img" alt="Savon Beldi">
-                                <div class="card-body">
-                                    <small class="text-muted">Cosmétiques</small>
-                                    <h6 class="card-title mt-1">Savon Beldi</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star text-warning"></i>
-                                        <small class="text-muted">(24)</small>
-                                    </div>
-                                    <p class="text-prix fw-bold mb-2">45 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=1" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row g-4 product-grid">
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <span class="badge bg-danger position-absolute m-2">Solde</span>
-                                <img src="./Produits images/Huile d'Argan Bio.png" class="card-img-top product-img" alt="Huile Argan">
-                                <div class="card-body">
-                                    <small class="text-muted">Produits Bio</small>
-                                    <h6 class="card-title mt-1">Huile d'Argan</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <small class="text-muted">(58)</small>
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <span class="badge-new">Nouveau</span>
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Savon beldi.png" alt="">
                                     </div>
-                                    <p class="text-prix fw-bold mb-2">120 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=2" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Cosmétiques</span>
+                                        <h6 class="product-title">Savon Beldi</h6>
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <img src="./Produits images/Tapis Azilal Indigo.png" class="card-img-top product-img" alt="Tapis Azilal Indingo">
-                                <div class="card-body">
-                                    <small class="text-muted">Artisanat</small>
-                                    <h6 class="card-title mt-1">Tapis Azilal Indingo</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-half text-warning"></i>
-                                        <i class="bi bi-star text-warning"></i>
-                                        <small class="text-muted">(12)</small>
-                                    </div>
-                                    <p class="text-prix fw-bold mb-2">2800 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=3" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                            <small>(24)</small>
+                                        </div>
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
-                                <img src="./Produits images/Huile d'Olive Vierge.png" class="card-img-top product-img" alt="Huile Olive">
-                                <div class="card-body">
-                                    <small class="text-muted">Produits Bio</small>
-                                    <h6 class="card-title mt-1">Huile d'Olive Vierge</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-half text-warning"></i>
-                                        <small class="text-muted">(33)</small>
-                                    </div>
-                                    <p class="text-prix fw-bold mb-2">80 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=4" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
+                                        <div class="product-footer">
+                                            <span class="price">45 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=1"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <img src="./Produits images/Tagine Terracotta.png" class="card-img-top product-img" alt="Tagine Terracotta">
-                                <div class="card-body">
-                                    <small class="text-muted">Poterie</small>
-                                    <h6 class="card-title mt-1">Tagine Terracotta</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star text-warning"></i>
-                                        <small class="text-muted">(18)</small>
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <span class="badge-new badge-green">Top Vente</span>
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Huile d'Argan Bio.png" alt="">
                                     </div>
-                                    <p class="text-prix fw-bold mb-2">280 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=5" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Produits Bio</span>
+                                        <h6 class="product-title">Huile d'Argan</h6>
 
-                        <div class="col-6 col-md-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <span class="badge position-absolute m-2 badge-nouveau">Nouveau</span>
-                                <img src="./Produits images/Kaftan Bleu Indigo.png" class="card-img-top product-img" alt="Kaftan Bleu Indigo">
-                                <div class="card-body">
-                                    <small class="text-muted">Mode Traditionnelle</small>
-                                    <h6 class="card-title mt-1">Kaftan Bleu Indigo</h6>
-                                    <div class="mb-1">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <small class="text-muted">(7)</small>
-                                    </div>
-                                    <p class="text-prix fw-bold mb-2">850 MAD</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.html?id=6" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm text-white btn-add w-25"><i class="bi bi-bag-plus"></i></button>
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <small>(58)</small>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="price">120 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=2"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Tapis Azilal Indigo.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Artisanat</span>
+                                        <h6 class="product-title">Tapis Azilal Indigo</h6>
+
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-half"></i>
+                                            <i class="bi bi-star"></i>
+                                            <small>(12)</small>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="price">2800 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=3"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <span class="badge-new">Bio</span>
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Huile d'Olive Vierge.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Produits Bio</span>
+                                        <h6 class="product-title">Huile d'Olive Vierge</h6>
+
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-half"></i>
+                                            <small>(33)</small>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="price">80 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=4"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Tagine Terracotta.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Poterie</span>
+                                        <h6 class="product-title">Tagine Terracotta</h6>
+
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                            <small>(18)</small>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="price">280 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=5"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-4 product-item">
+                                <div class="product-card">
+                                    <span class="badge-new">Nouveau</span>
+                                    <div class="product-img-wrapper">
+                                        <img src="./Produits images/Kaftan Bleu Indigo.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <span class="product-cat">Mode Traditionnelle</span>
+                                        <h6 class="product-title">Kaftan Bleu Indigo</h6>
+
+                                        <div class="product-rating">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <small>(7)</small>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <span class="price">850 MAD</span>
+                                            <div class="actions">
+                                                <a href="../Produit details/Produit details.html?id=6"
+                                                    class="btn-view">Voir</a>
+                                                <button class="btn-cart"><i class="bi bi-bag-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -328,7 +377,8 @@
                         <div class="footer-logo">
                             <img src="navbar.png" alt="Green Market">
                         </div>
-                        <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
+                        <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des
+                            coopératives.</p>
                         <div class="footer-socials">
                             <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
                             <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
@@ -373,7 +423,7 @@
                 <div class="footer-divider"></div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="container">
                 <p class="footer-bottom-text">&copy; 2024 Green Market. Tous droits réservés.</p>
