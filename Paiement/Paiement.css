@@ -1,0 +1,298 @@
+:root {
+    --bg-color: #e5e0d3;          
+    --card-bg: #f5f1e8;          
+    --dark-green: #2d3e24;       
+    --border-green: #8fa683;     
+    --text-muted: #8c7b64;       
+    --text-dark: #3d3021;        
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.payment-container {
+    max-width: 700px;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+.active-crumb {
+    color: var(--dark-green);
+    font-weight: bold;
+}
+
+/* Titles */
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+}
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 35px;
+}
+.section-title {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.payment-section {
+    margin-bottom: 35px;
+}
+
+/* List Boxes */
+.methods-list {
+    border: 1px solid #e0dacb;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #faf8f5;
+}
+
+.method-item, .address-item {
+    border-bottom: 1px solid #e0dacb;
+    background-color: #ffffff;
+}
+.method-item:last-child, .address-item:last-child {
+    border-bottom: none;
+}
+
+.method-header, .address-item {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Active Highlight */
+.active-method, .active-address {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-green);
+    margin: -1px; 
+    position: relative;
+    z-index: 1;
+}
+.active-method {
+    border-radius: 10px 10px 0 0;
+}
+.active-address {
+    border-radius: 10px;
+}
+
+/* Custom Radio Button */
+.radio-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    user-select: none;
+}
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+}
+.radio-container input:checked ~ .checkmark {
+    border-color: var(--dark-green);
+    background-color: #fff;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.radio-container input:checked ~ .checkmark:after {
+    display: block;
+}
+.radio-container .checkmark:after {
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dark-green);
+}
+
+/* Alwan dyal l-brands dyal l-khlas */
+.card-logos {
+    display: flex;
+    gap: 10px;
+    font-size: 1.7rem;
+}
+.card-logos .visa { color: #1A1F71; }          /* Bleu Visa */
+.card-logos .mastercard { color: #EB001B; }    /* Rouge Mastercard (fih hta orange ghalban b l-icon font) */
+.card-logos .amex { color: #016fd0; }          /* Bleu Amex */
+.card-logos .discover { color: #f47a24; }      /* Orange Discover */
+
+.brand-text {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.paypal-text { color: #003087; }               /* Bleu PayPal */
+
+/* Google Pay multi-color look */
+.google-text { color: #5f6368; }
+.g-g { color: #4285F4; }
+.g-r { color: #EA4335; }
+.g-y { color: #FBBC05; }
+.g-l { color: #34A853; }
+
+.klarna-badge {
+    background-color: #ffb3c7;                 /* Rose Klarna original */
+    color: #000;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Card Form Fields */
+.card-form {
+    padding: 0 20px 20px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+input[type="text"]:focus {
+    border-color: var(--dark-green);
+    outline: none;
+}
+.icon-inside {
+    position: absolute;
+    right: 15px;
+    color: #aaa;
+}
+.row-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Footer Section */
+.payment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+.btn-back {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.btn-back:hover {
+    color: var(--dark-green);
+}
+.pay-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 320px;
+}
+.btn-pay {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    transition: 0.2s ease;
+}
+.btn-pay:hover {
+    background-color: #3e5632;
+}
+.terms-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+    line-height: 1.4;
+}
+.terms-text a {
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .payment-footer {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 25px;
+    }
+    .pay-btn-wrapper {
+        align-items: center;
+        width: 100%;
+    }
+    .terms-text {
+        text-align: center;
+    }
+    .card-form {
+        padding: 0 15px 15px 15px;
+    }
+}

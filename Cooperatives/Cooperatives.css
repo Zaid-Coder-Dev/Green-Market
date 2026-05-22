@@ -1,0 +1,159 @@
+:root {
+    --bg-color: #e5e0d3;
+    --card-bg: #f5f1e8;
+    --dark-green: #2d3e24;
+    --text-muted: #8c7b64;
+    --gold: #d4a373;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--dark-green);
+    color: white;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo { font-weight: bold; font-size: 1.2rem; }
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.navbar a.active {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.nav-icons { display: flex; gap: 15px; }
+
+/* Container */
+.container {
+    padding: 40px 10%;
+}
+
+.breadcrumb { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; }
+h1 { margin: 0; color: #5a4a35; }
+.subtitle { color: var(--text-muted); margin-bottom: 30px; }
+
+/* Section Grid de 2 colonnes pour l'affichage horizontal */
+.list-cooperatives {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    gap: 25px;
+}
+
+/* El card l-kbira (Flex horizontal bhal sora 2) */
+.coop-card {
+    display: flex;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* Shkel dyal sora / icon f l-coopérative */
+.card-image {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-store { color: white; font-size: 3rem; opacity: 0.85; }
+
+/* Alwan dyal ga3 l-coopératives men l-sora 1 */
+.color-tiznit { background-color: #8fa683; }
+.color-essaouira { background-color: #a67c00; }
+.color-marrakech { background-color: #8c6a4a; }
+.color-ouarzazate { background-color: #557342; }
+.color-fes { background-color: #6a8c80; }
+.color-agadir { background-color: #8c521a; }
+
+/* Contenu textuel de la card */
+.card-content {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.location { color: var(--gold); font-size: 0.8rem; font-weight: bold; }
+h3 { margin: 8px 0; color: #3d3021; font-size: 1.2rem; }
+.desc { font-size: 0.88rem; color: #666; line-height: 1.4; }
+
+/* Le bas de la card */
+.card-footer {
+    margin-top: 15px;
+}
+
+.meta-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.stars { color: var(--gold); }
+
+/* L-Bouton style dyal Green Market */
+.btn-boutique {
+    width: 100%;
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+}
+
+.btn-boutique:hover { background-color: #3e5632; }
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Responsive: ila kano f tlifon sghir, kaywelli chkel vertical hit l-wsa3 kay9al */
+@media (max-width: 768px) {
+    .coop-card {
+        flex-direction: column;
+    }
+    .card-image {
+        padding: 30px 0;
+    }
+    .list-cooperatives {
+        grid-template-columns: 1fr;
+    }
+}

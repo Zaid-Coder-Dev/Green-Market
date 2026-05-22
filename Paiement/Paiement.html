@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Paiement</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <main class="payment-container">
+        <p class="breadcrumb">Home &gt; Cart &gt; Shipping &gt; <span class="active-crumb">Payment</span></p>
+        
+        <h1 class="page-title">Payment</h1>
+        <p class="subtitle">Your payment information is secure and encrypted.</p>
+
+        <section class="payment-section">
+            <h2 class="section-title">1. Payment Method</h2>
+
+            <div class="methods-list">
+                <div class="method-item active-method">
+                    <div class="method-header">
+                        <label class="radio-container">
+                            <input type="radio" name="payment_method" checked>
+                            <span class="checkmark"></span>
+                            <span class="method-name">Credit / Debit Card</span>
+                        </label>
+                        <div class="card-logos">
+                            <i class="fa-brands fa-cc-visa visa"></i>
+                            <i class="fa-brands fa-cc-mastercard mastercard"></i>
+                            <i class="fa-brands fa-cc-amex amex"></i>
+                            <i class="fa-brands fa-cc-discover discover"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-form">
+                        <div class="input-group">
+                            <label>Card number</label>
+                            <div class="input-wrapper">
+                                <input type="text" placeholder="1234 1234 1234 1234">
+                                <i class="fa-solid fa-lock icon-inside"></i>
+                            </div>
+                        </div>
+
+                        <div class="row-inputs">
+                            <div class="input-group">
+                                <label>Expiry date</label>
+                                <input type="text" placeholder="MM / YY">
+                            </div>
+                            <div class="input-group">
+                                <label>CVV</label>
+                                <div class="input-wrapper">
+                                    <input type="text" placeholder="123">
+                                    <i class="fa-regular fa-circle-question icon-inside"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Name on card</label>
+                            <input type="text" placeholder="mohamed EL faghloumy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-header">
+                        <label class="radio-container">
+                            <input type="radio" name="payment_method">
+                            <span class="checkmark"></span>
+                            <span class="method-name">PayPal</span>
+                        </label>
+                        <span class="brand-text paypal-text"><i class="fa-brands fa-paypal"></i> PayPal</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-header">
+                        <label class="radio-container">
+                            <input type="radio" name="payment_method">
+                            <span class="checkmark"></span>
+                            <span class="method-name">Apple Pay</span>
+                        </label>
+                        <span class="brand-text"><i class="fa-brands fa-apple"></i> Pay</span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-header">
+                        <label class="radio-container">
+                            <input type="radio" name="payment_method">
+                            <span class="checkmark"></span>
+                            <span class="method-name">Google Pay</span>
+                        </label>
+                        <span class="brand-text google-text">
+                            <span class="g-g">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-g">g</span><span class="g-l">l</span><span class="g-r">e</span> Pay
+                        </span>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="method-header">
+                        <label class="radio-container">
+                            <input type="radio" name="payment_method">
+                            <span class="checkmark"></span>
+                            <span class="method-name">Klarna - Pay in 4</span>
+                        </label>
+                        <span class="klarna-badge">Klarna.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="payment-section">
+            <h2 class="section-title">2. Billing Address</h2>
+            <div class="methods-list">
+                <div class="address-item active-address">
+                    <label class="radio-container">
+                        <input type="radio" name="billing_address" checked>
+                        <span class="checkmark"></span>
+                        <span>Same as shipping address</span>
+                    </label>
+                </div>
+                <div class="address-item">
+                    <label class="radio-container">
+                        <input type="radio" name="billing_address">
+                        <span class="checkmark"></span>
+                        <span>Use a different billing address</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <footer class="payment-footer">
+            <a href="#" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back to Shipping</a>
+            <div class="pay-btn-wrapper">
+                <button class="btn-pay">
+                    <i class="fa-solid fa-lock"></i> Pay Now 
+                </button>
+                <p class="terms-text">By completing your purchase, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+            </div>
+        </footer>
+    </main>
+
+</body>
+</html>
