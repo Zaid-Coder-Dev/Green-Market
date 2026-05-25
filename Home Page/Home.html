@@ -54,22 +54,76 @@
 </nav>
 
 <header class="hero">
-  <img src="./Home images/Trésors du Désert.jpg" class="hero-bg">
-  <div class="hero-overlay"></div>
-  
-  <div class="container h-100 relative-container">
+  <div id="heroCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="6000" style="position: absolute; inset: 0; width: 100%;">
     
-    <div class="hero-content">
-      <span class="hero-label">AUTHENTIQUE & BIOLOGIQUE</span>
-      <h1 class="hero-title">Green Market</h1>
-      <p class="hero-subtitle">Des siècles de savoir-faire artisanal marocain, de soins cosmétiques faits maison et de pièces uniques, livrés directement depuis nos coopératives locales jusqu'à chez vous.</p>
-      <div class="hero-buttons">
-        <a href="../Produits/Produits.html" class="btn btn-terracotta">Découvrir la Boutique</a>
-        <a href="#about" class="btn btn-outline-cream">Notre Histoire</a>
-      </div>
+    <div class="carousel-indicators" style="margin-bottom: 30px;">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
 
-    <div class="hero-coop-widget">
+    <div class="carousel-inner h-100">
+
+      <div class="carousel-item active h-100">
+        <img src="./Home images/Trésors du Désert.jpg" class="d-block w-100 hero-bg" alt="Trésors du Désert">
+        <div class="hero-overlay"></div>
+        <div class="container h-100 relative-container">
+          <div class="hero-content">
+            <span class="hero-label">AUTHENTIQUE & BIOLOGIQUE</span>
+            <h1 class="hero-title">Green Market</h1>
+            <p class="hero-subtitle">Des siècles de savoir-faire artisanal marocain, de soins cosmétiques faits maison et de pièces uniques, livrés directement depuis nos coopératives locales jusqu'à chez vous.</p>
+            <div class="hero-buttons">
+              <a href="../Produits/Produits.html" class="btn btn-terracotta">Découvrir la Boutique</a>
+              <a href="#about" class="btn btn-outline-cream">Notre Histoire</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item h-100">
+        <img src="./Home images/Tagine.png" class="d-block w-100 hero-bg" alt="Artisans au travail">
+        <div class="hero-overlay"></div>
+        <div class="container h-100 relative-container">
+          <div class="hero-content">
+            <span class="hero-label">FAIT MAIN AVEC AMOUR</span>
+            <h1 class="hero-title">Soutenez Nos Artisans</h1>
+            <p class="hero-subtitle">Chaque achat contribue directement au développement des communautés rurales et à la préservation du patrimoine marocain.</p>
+            <div class="hero-buttons">
+              <a href="../Cooperatives/Cooperatives.html" class="btn btn-terracotta">Voir les Coopératives</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item h-100">
+        <img src="./Home images/Belgha.png" class="d-block w-100 hero-bg" alt="Créations Naturelles">
+        <div class="hero-overlay"></div>
+        <div class="container h-100 relative-container">
+          <div class="hero-content">
+            <span class="hero-label">NATUREL & ÉCORESPONSABLE</span>
+            <h1 class="hero-title">Beauté Naturelle</h1>
+            <p class="hero-subtitle">Découvrez notre gamme de produits cosmétiques 100% bio, issus des meilleures terres de notre région.</p>
+            <div class="hero-buttons">
+              <a href="../Categories/Categories.html" class="btn btn-terracotta">Explorer les Catégories</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" style="z-index: 10;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" style="z-index: 10;">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
+
+  </div>
+  <div class="container h-100 relative-container" style="position: absolute; inset: 0; pointer-events: none;">
+    <div class="hero-coop-widget" style="pointer-events: auto;">
       <span class="widget-title">Réseaux des Artisans</span>
       <p class="widget-desc">Soutenez nos coopératives en direct</p>
       <div class="widget-links">
@@ -77,10 +131,9 @@
         <a href="#" class="coop-link" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
       </div>
     </div>
-
   </div>
 
-  <a href="#products" class="hero-scroll" aria-label="Défiler vers le bas">
+  <a href="#products" class="hero-scroll" aria-label="Défiler vers le bas" style="z-index: 10;">
     <i class="bi bi-chevron-down"></i>
   </a>
 </header>

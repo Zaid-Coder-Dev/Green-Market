@@ -176,6 +176,9 @@ a {
   text-align: left;
 }
 
+/* ==========================================================================
+   CAROUSEL & TEXT ANIMATION LOGIC
+   ========================================================================== */
 .hero-label {
   display: inline-block;
   color: var(--terracotta);
@@ -183,8 +186,7 @@ a {
   letter-spacing: 5px;
   margin-bottom: 16px;
   font-weight: 700;
-  opacity: 0;
-  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  opacity: 0; 
 }
 
 .hero-title {
@@ -193,8 +195,7 @@ a {
   font-weight: 700;
   margin-bottom: 20px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+  opacity: 0; 
 }
 
 .hero-subtitle {
@@ -203,8 +204,7 @@ a {
   color: rgba(245, 237, 224, 0.9);
   line-height: 1.7;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+  opacity: 0; 
 }
 
 .hero-buttons {
@@ -212,8 +212,7 @@ a {
   gap: 20px;
   justify-content: flex-start;
   align-items: center;
-  opacity: 0;
-  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.45s forwards;
+  opacity: 0; 
 }
 
 .hero-buttons .btn {
@@ -225,6 +224,34 @@ a {
   font-size: 0.85rem;
 }
 
+.carousel-item.active .hero-label,
+.carousel-item.active .hero-title,
+.carousel-item.active .hero-subtitle,
+.carousel-item.active .hero-buttons {
+  animation: heroFadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.carousel-item.active .hero-title    { animation-delay: 0.15s; }
+.carousel-item.active .hero-subtitle { animation-delay: 0.3s; }
+.carousel-item.active .hero-buttons  { animation-delay: 0.45s; }
+
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--cream);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  margin: 0 6px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: var(--terracotta);
+  opacity: 1;
+  transform: scale(1.2);
+}
 /* Artisan Social Widget */
 .hero-coop-widget {
   position: absolute;
