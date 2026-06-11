@@ -1,5 +1,5 @@
 /* ==========================================================================
-    : CONFIGURATION DES VARIABLES GLOBALES (:ROOT)
+   VARIABLES
    ========================================================================== */
 :root {
   --green:       #2d4a2d;
@@ -10,9 +10,8 @@
   --terracotta:  #e07b39;
 }
 
-
 /* ==========================================================================
-    : STYLES DU CORPS ET POLICES (BODY & FONTS)
+   BASE
    ========================================================================== */
 body {
   background-color: var(--cream);
@@ -25,22 +24,17 @@ h1, h2, h3, h4, h5 {
   color: var(--green);
 }
 
-
-/* ==========================================================================
-    : BARRE DE NAVIGATION (NAVBAR)
-   ========================================================================== */
-
-.navbar {
-  background-color: var(--green);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 16px 0;
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
-  z-index: 1000;
+.text-muted-ink {
+  color: rgba(42, 36, 30, 0.55);
 }
 
-.navbar-home {
-  backdrop-filter: none !important;
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
+.navbar {
+  background-color: var(--green);
+  padding: 16px 0;
+  z-index: 1000;
 }
 
 .navbar-logo {
@@ -53,6 +47,7 @@ h1, h2, h3, h4, h5 {
   color: var(--cream) !important;
   font-size: 1.5rem;
   font-weight: 700;
+  font-family: 'Playfair Display', serif;
 }
 
 .nav-links {
@@ -61,18 +56,15 @@ h1, h2, h3, h4, h5 {
 
 .nav-links .nav-link {
   padding: 8px 6px;
-  white-space: nowrap;
-  transition: color 0.2s ease;
   color: rgba(245, 237, 224, 0.85);
   font-weight: 400;
+  transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
   color: var(--cream);
-}
-
-.navbar-home .nav-link.active {
   border-bottom: 2px solid var(--terracotta);
 }
 
@@ -82,7 +74,9 @@ h1, h2, h3, h4, h5 {
   transition: color 0.2s ease;
 }
 
-.nav-icon:hover { color: var(--terracotta); }
+.nav-icon:hover {
+  color: var(--terracotta);
+}
 
 .cart-badge {
   position: absolute;
@@ -96,10 +90,9 @@ h1, h2, h3, h4, h5 {
   line-height: 1;
 }
 
-
-/* =====================
+/* ==========================================================================
    PAGE HEADER
-===================== */
+   ========================================================================== */
 .page-header {
   background-color: var(--sand);
 }
@@ -108,21 +101,65 @@ h1, h2, h3, h4, h5 {
   color: var(--green);
 }
 
+.label-orange {
+  color: var(--terracotta);
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+}
 
-/* =====================
+/* ==========================================================================
    SIDEBAR
-===================== */
+   ========================================================================== */
 .sidebar {
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   position: sticky;
   top: 20px;
 }
 
 .sidebar-title {
   color: var(--green);
-  margin-bottom: 10px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.sidebar-divider {
+  border-color: rgba(42, 36, 30, 0.08);
+  margin: 0 0 16px 0;
+}
+
+/* Search */
+.search-input {
+  border-color: var(--sand);
+  background-color: var(--cream);
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+
+.search-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(45, 74, 45, 0.12);
+  background-color: white;
+}
+
+.btn-search {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-search:hover {
+  background-color: var(--green-hover);
+  color: white;
+}
+
+/* Radio buttons */
+.form-check {
+  margin-bottom: 6px;
 }
 
 .form-check-input:checked {
@@ -130,60 +167,41 @@ h1, h2, h3, h4, h5 {
   border-color: var(--green);
 }
 
-
-/* =====================
-   TAGS
-===================== */
-.tag {
-  background-color: var(--sand);
-  border: 1px solid var(--cream);
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(45, 74, 45, 0.12);
+  border-color: var(--green);
 }
 
-.tag:hover {
-  background-color: var(--green);
-  color: white;
+.form-check-label {
+  color: var(--ink);
 }
 
-
-/* =====================
-   BUTTONS
-===================== */
+/* Buttons sidebar */
 .btn-add {
-  background-color: var(--green);
+  background-color: var(--terracotta);
   color: white;
-  font-weight: 600;
+  border: none;
   border-radius: 8px;
+  font-size: 0.85rem;
   transition: background-color 0.2s ease;
 }
 
 .btn-add:hover {
-  background-color: var(--green-hover);
+  background-color: #c96828;
   color: white;
 }
 
-.btn-voir {
-  background-color: var(--sand);
-  border: 1px solid var(--green);
-  color: var(--green);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-voir:hover {
-  background-color: var(--green-hover);
-  border-color: var(--green-hover);
-  color: white;
+.btn-clicked {
+    transform: scale(0.9);
+    opacity: 0.7;
 }
 
 .btn-reset {
   background-color: var(--sand);
   color: var(--green);
-  font-weight: 600;
+  border: none;
   border-radius: 8px;
+  font-size: 0.85rem;
   transition: background-color 0.2s ease;
 }
 
@@ -192,31 +210,43 @@ h1, h2, h3, h4, h5 {
   color: var(--green-hover);
 }
 
-
-/* =====================
+/* ==========================================================================
    SORT DROPDOWN
-===================== */
+   ========================================================================== */
 .trier {
-  background-color: var(--sand);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  border-color: var(--cream);
+  background-color: white;
+  border-color: var(--sand);
   color: var(--ink);
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
+.trier:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(45, 74, 45, 0.12);
+}
 
-/* =====================
+/* ==========================================================================
    PRODUCT CARDS
-===================== */
+   ========================================================================== */
 .card {
   overflow: hidden;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13) !important;
+  transform: translateY(-3px);
 }
 
 .card-body {
   background-color: var(--sand);
 }
 
-.badge-nouveau {
-  background-color: var(--terracotta);
+.img-wrapper {
+  overflow: hidden;
 }
 
 .product-img {
@@ -224,40 +254,80 @@ h1, h2, h3, h4, h5 {
   aspect-ratio: 4/3;
   object-fit: cover;
   transition: transform 0.4s ease;
+  display: block;
 }
 
 .card:hover .product-img {
   transform: scale(1.07);
 }
 
+.badge-nouveau {
+  background-color: var(--terracotta);
+  font-size: 0.7rem;
+  z-index: 1;
+}
 
-/* =====================
-   PAGINATION
-===================== */
-.page-item.active .page-link {
+.price-text {
+  color: var(--terracotta);
+  font-size: 1rem;
+}
+
+.boutique-name {
+  color: rgba(42, 36, 30, 0.45);
+  font-size: 0.75rem;
+  display: block;
+}
+
+.btn-voir {
+  background-color: var(--cream);
+  color: var(--green);
+  border: 1px solid var(--green);
+  font-size: 0.8rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-voir:hover {
   background-color: var(--green);
+  color: white;
   border-color: var(--green);
 }
 
+/* ==========================================================================
+   PAGINATION
+   ========================================================================== */
 .page-link {
   color: var(--green);
+  border-color: var(--sand);
+  background-color: white;
+  font-size: 0.875rem;
+  padding: 6px 14px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .page-link:hover {
-  color: var(--green-hover);
+  background-color: var(--sand);
+  color: var(--green);
+  border-color: var(--sand);
+}
+
+.page-item.active .page-link {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.page-item.disabled .page-link {
+  color: rgba(42, 36, 30, 0.3);
+  background-color: white;
+  border-color: var(--sand);
 }
 
 /* ==========================================================================
-    : COMPOSANTS DU PIED DE PAGE (FOOTER)
+   FOOTER
    ========================================================================== */
 footer {
   background-color: var(--green);
-}
-
-.footer-logo img {
-  height: 38px;
-  width: auto;
-  margin-bottom: 12px;
 }
 
 .footer-top {
@@ -355,11 +425,21 @@ footer {
   margin: 0;
   text-align: center;
 }
+
 /* ==========================================================================
-    : REQUÊTES MÉDIAS POUR ÉCRANS MOBILES (RESPONSIVE)
+   RESPONSIVE
    ========================================================================== */
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .sidebar {
     position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 0.875rem;
+  }
+  .price-text {
+    font-size: 0.9rem;
   }
 }
