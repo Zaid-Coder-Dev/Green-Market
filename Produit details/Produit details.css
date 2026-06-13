@@ -219,13 +219,14 @@ h1, h2, h3, h4, h5 {
   background: var(--terracotta);
   color: white;
   border: none;
-  padding: 12px 28px;
+  padding: 5px 28px 4px;
   border-radius: 6px;
   transition: background-color 0.2s ease;
   flex: 2;
-  height: 52px;
+  height: auto;
   cursor: pointer;
   font-weight: 600;
+  
 }
 
 .btn-add:hover {
@@ -329,7 +330,7 @@ h1, h2, h3, h4, h5 {
 .trace-boxx {
   position: relative;
   background: var(--sand);
-  padding: 20px 20px 40px 70px;
+  padding: 20px 20px 40px 80px;
   border-radius: 15px;
   border: solid 2px var(--sand);
 }
@@ -337,25 +338,26 @@ h1, h2, h3, h4, h5 {
 .trace-boxx::after {
   content: "";
   position: absolute;
-  left: 95px;
-  top: 50px;
+  left: 57px;
+  top: 40px;
+  height: calc(100% - 140px);
   width: 3px;
-  height: calc(100% - 80px);
+  height: calc(100% - 70px);
   background: var(--green);
   z-index: 1;
 }
 
 .trace-item {
   position: relative;
-  margin-bottom: 35px;
+  margin-bottom: 24px;
 }
 
 .trace-dot {
   position: absolute;
-  left: 5px;
+  left: -41px;
   width: 36px;
   height: 36px;
-  top: 20%;
+  top: 50%;
   transform: translateY(-50%);
   background: var(--green);
   border-radius: 50%;
@@ -578,24 +580,45 @@ h1, h2, h3, h4, h5 {
 
 
 /* =====================
-   VOUS AIMEREZ AUSSI 
+   VOUS AIMEREZ AUSSI
 ===================== */
 .card {
   overflow: hidden;
+  border-radius: 12px;
+}
+
+.card:not(.comment-form-card):hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13) !important;
 }
 
 .card:not(.comment-form-card) .card-body {
   background-color: var(--sand);
 }
 
+.badges-wrapper {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1;
+}
+
 .badge-nouveau {
   background-color: var(--terracotta);
   color: white;
+  font-size: 0.7rem;
 }
 
-.badge-tracable {
-  background-color: var(--green);
-  color: white;
+.badge-epuise {
+  background-color: var(--ink);
+  color: var(--cream);
+  font-size: 0.7rem;
+}
+
+.img-wrapper {
+  overflow: hidden;
 }
 
 .product-img {
@@ -603,29 +626,38 @@ h1, h2, h3, h4, h5 {
   aspect-ratio: 4/3;
   object-fit: cover;
   transition: transform 0.4s ease;
+  display: block;
 }
 
 .card:hover .product-img {
-  transform: scale(1.07);
+  transform: scale(1.05);
+}
+
+.boutique-name {
+  color: rgba(42, 36, 30, 0.45);
+  font-size: 0.75rem;
+  display: block;
 }
 
 .price-text {
   color: var(--terracotta);
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .btn-voir {
   background-color: var(--cream);
-  border: 1px solid var(--green);
   color: var(--green);
-  font-weight: 600;
-  border-radius: 8px;
+  border: 1px solid var(--green);
+  font-size: 0.8rem;
+  border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-voir:hover {
   background-color: var(--green);
   color: white;
+  border-color: var(--green);
 }
 
 /* =====================
