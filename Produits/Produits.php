@@ -36,7 +36,7 @@ if ($page < 1) {
     $page = 1;
 }
 
-$par_page = 6; // NOMBRE DES PRODUITS PAR PAGE
+$par_page = 6;
 
 // ===== REQUÊTE PRODUITS =====
 $sql = "SELECT p.*, c.nom_Categ, b.nom_boutique
@@ -77,7 +77,6 @@ if ($tri == 'prix_asc') {
     $sql .= " ORDER BY p.date_ajout_Prod DESC";
 }
 
-// Total pour pagination
 $req_total = $pdo->prepare($sql);
 $req_total->execute($params);
 $total = $req_total->rowCount();
@@ -90,7 +89,6 @@ if ($page > $nb_pages) {
     $page = $nb_pages;
 }
 
-// Requête paginée
 $offset = ($page - 1) * $par_page;
 $sql .= " LIMIT ? OFFSET ?";
 $params[] = $par_page;
@@ -114,6 +112,13 @@ $boutiques = $req_bouts->fetchAll(PDO::FETCH_ASSOC);
 function build_url($p) {
     $_GET['page'] = $p;
     return 'Produits.php?' . http_build_query($_GET);
+}
+
+// ===== ROLE CHECK =====
+if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+    $btn_class = '';
+} else {
+    $btn_class = 'd-none';
 }
 ?>
 <!doctype html>
@@ -146,17 +151,26 @@ function build_url($p) {
                 <li class="nav-item"><a class="nav-link active" href="Produits.php">Boutique</a></li>
             </ul>
             <div class="d-flex align-items-center gap-3">
-                <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-                    <i class="bi bi-cart3"></i>
-                    <span class="cart-badge" id="cart-count">0</span>
-                </a>
+                <?php
+                if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+                    echo '
+                    <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+                        <i class="bi bi-cart3"></i>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>';
+                }
+                ?>
                 <a href="#" class="position-relative text-decoration-none nav-icon">
                     <i class="bi bi-bell"></i>
                     <span class="cart-badge" id="bell-count">0</span>
                 </a>
-                <a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon">
-                    <i class="bi bi-person"></i>
-                </a>
+                <?php
+                if (isset($_SESSION['id_utili'])) {
+                    echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+                } else {
+                    echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -291,13 +305,13 @@ function build_url($p) {
                         ?>
                     </span>
                     <select class="form-select form-select-sm w-auto trier" id="sort-select">
-                        <option value=""            <?php if ($tri == '') echo 'selected'; ?>> Les plus récents</option>
+                        <option value=""            <?php if ($tri == '') echo 'selected'; ?>>Les plus récents</option>
                         <option value="prix_asc"    <?php if ($tri == 'prix_asc') echo 'selected'; ?>>Prix croissant</option>
                         <option value="prix_desc"   <?php if ($tri == 'prix_desc') echo 'selected'; ?>>Prix décroissant</option>
                     </select>
                 </div>
 
-                <!-- Grille -->
+                <!-- GRILLE -->
                 <div class="row g-3 product-grid">
 
                     <?php if (count($produits) == 0) { ?>
@@ -312,7 +326,7 @@ function build_url($p) {
                         <div class="col-6 col-md-4">
                             <div class="card border-0 shadow-sm h-100">
 
-                                <!-- Badges -->
+                                <!-- BADGES -->
                                 <div class="badges-wrapper">
                                     <?php if (strtotime($p['date_ajout_Prod']) > strtotime('-30 days')) { ?>
                                         <span class="badge badge-nouveau">Nouveau</span>
@@ -331,12 +345,13 @@ function build_url($p) {
                                     <small class="boutique-name mb-2"><?= $p['nom_boutique'] ?></small>
                                     <p class="fw-bold price-text mb-3 mt-auto"><?= number_format($p['Prix'], 2) ?> MAD</p>
                                     <div class="d-flex gap-2">
-                                        <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>" class="btn btn-sm w-75 btn-voir">Voir</a>
-                                        <button class="btn btn-sm btn-add w-25" data-id="<?= $p['ID_Prod'] ?>">
+                                        <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>" class="btn btn-sm btn-voir <?php if ($btn_class == 'd-none') echo 'w-100'; else echo 'w-75'; ?>">Voir</a>
+                                        <button class="btn btn-sm btn-add w-25 <?= $btn_class ?>" data-id="<?= $p['ID_Prod'] ?>">
                                             <i class="bi bi-cart"></i>
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     <?php } ?>

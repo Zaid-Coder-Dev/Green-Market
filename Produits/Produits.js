@@ -1,3 +1,4 @@
+
 // ===== TRI : change l'URL quand on sélectionne une option =====
 document.getElementById('sort-select').addEventListener('change', function () {
     const url = new URL(window.location.href);
