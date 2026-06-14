@@ -1,5 +1,5 @@
 /* =====================
-   VARIABLES – 5 couleurs uniquement
+   VARIABLES
 ===================== */
 :root {
   --green:       #2d4a2d;
@@ -23,20 +23,18 @@ h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
   color: var(--green);
 }
+
+.text-muted-ink {
+  color: rgba(42, 36, 30, 0.55);
+}
+
 /* =====================
    NAVBAR
 ===================== */
 .navbar {
   background-color: var(--green);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   padding: 16px 0;
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
   z-index: 1000;
-}
-
-.navbar-home {
-  backdrop-filter: none !important;
 }
 
 .navbar-logo {
@@ -51,9 +49,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
 }
 
-.nav-links {
-  gap: 18px;
-}
+.nav-links { gap: 18px; }
 
 .nav-links .nav-link {
   padding: 8px 6px;
@@ -91,47 +87,51 @@ h1, h2, h3, h4, h5 {
   line-height: 1;
 }
 
-
-
-
-
-/* Sidebar */
+/* =====================
+   SIDEBAR
+===================== */
 .profile-sidebar {
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
   position: sticky;
-  top: 20px;
+  top: 24px;
+}
+
+.sidebar-divider {
+  border-color: rgba(42, 36, 30, 0.08);
+  margin: 12px 0;
 }
 
 /* Avatar */
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   background-color: var(--green);
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Playfair Display', serif;
 }
 
-
 /* Sidebar links */
-.sidebar-link,.log-out {
+.sidebar-link {
   border: none;
   background: none;
   display: block;
   padding: 10px 12px;
   border-radius: 8px;
   text-decoration: none;
-  color: #555;
+  color: rgba(42, 36, 30, 0.65);
   font-size: 0.875rem;
-  transition: background 0.2s;
-    text-align: left;
-  width: 100%;;
+  transition: background 0.2s, color 0.2s;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
 }
 
 .sidebar-link:hover {
@@ -144,28 +144,110 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* Stat cards */
+.log-out {
+  border: none;
+  background: none;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #c0392b;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.log-out:hover {
+  background-color: #fff0f0;
+  color: #c0392b;
+}
+
+/* =====================
+   STAT CARDS
+===================== */
 .stat-card {
   background-color: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-radius: 14px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  text-align: center;
 }
 
-/* Content card */
+.stat-icon {
+  font-size: 1.4rem;
+  color: var(--terracotta);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--green);
+  font-family: 'Playfair Display', serif;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: rgba(42, 36, 30, 0.55);
+  margin-top: 4px;
+}
+
+/* =====================
+   CONTENT CARD
+===================== */
 .content-card {
   background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
-/* Status badges */
+.content-card-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(42, 36, 30, 0.08);
+  margin-bottom: 4px;
+}
+
+/* =====================
+   TABLE
+===================== */
+.table-header-row th {
+  color: rgba(42, 36, 30, 0.5);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(42, 36, 30, 0.08);
+}
+
+.table tbody tr td {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(42, 36, 30, 0.05);
+  font-size: 0.9rem;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================
+   STATUS BADGES
+===================== */
 .badge-statut {
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
+  display: inline-block;
 }
 
 .badge-statut.livré {
@@ -183,9 +265,32 @@ h1, h2, h3, h4, h5 {
   color: #c62828;
 }
 
-/* Save button */
+/* =====================
+   FORM
+===================== */
+.form-control-profile {
+  border: 1px solid rgba(42, 36, 30, 0.15);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  color: var(--ink);
+  background-color: var(--cream);
+  transition: border-color 0.2s;
+}
+
+.form-control-profile:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(45, 74, 45, 0.12);
+  background-color: white;
+}
+
 .btn-save {
   background-color: var(--green);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
 }
 
 .btn-save:hover {
@@ -193,18 +298,87 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* Product image */
+/* =====================
+   ALERTS
+===================== */
+.alert-success-custom {
+  background-color: #e8f5e9;
+  color: var(--green);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  border-left: 3px solid var(--green);
+}
+
+.alert-error-custom {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  border-left: 3px solid #c62828;
+}
+
+/* =====================
+   AVIS
+===================== */
+.avis-item { padding: 4px 0; }
+
+.avis-divider {
+  border-color: rgba(42, 36, 30, 0.08);
+  margin: 4px 0;
+}
+
+.stars-display {
+  color: var(--terracotta);
+  font-size: 0.85rem;
+}
+
+/* =====================
+   PRODUCT CARDS (Favoris)
+===================== */
+.card {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.13) !important;
+}
+
+.card .card-body {
+  background-color: var(--sand);
+}
+
+.img-wrapper { overflow: hidden; }
+
 .product-img {
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
 }
-.card-body{background-color: var(--sand) ;}
+
+.card:hover .product-img { transform: scale(1.05); }
+
+.boutique-name {
+  color: rgba(42, 36, 30, 0.45);
+  font-size: 0.75rem;
+  display: block;
+}
+
+.price-text {
+  color: var(--terracotta);
+  font-size: 1rem;
+  font-weight: bold;
+}
 
 .btn-voir {
   background-color: var(--cream);
   color: var(--green);
   border: 1px solid var(--green);
+  border-radius: 8px;
 }
 
 .btn-voir:hover {
@@ -213,28 +387,26 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn-add {
-  background-color: var(--green);
+  background-color: var(--terracotta);
+  color: white;
+  border: none;
+  border-radius: 8px;
 }
 
 .btn-add:hover {
-  background-color: var(--green-hover);
+  background-color: #c96d30;
   color: white;
 }
 
-/* ===== FOOTER ===== */
+/* =====================
+   FOOTER
+===================== */
 footer {
   background-color: var(--green);
+  margin-top: 60px;
 }
 
-.footer-logo img {
-  height: 38px;
-  width: auto;
-  margin-bottom: 12px;
-}
-
-.footer-top {
-  padding: 0 0 40px;
-}
+.footer-top { padding: 0 0 40px; }
 
 .footer-stripe {
   height: 3px;
@@ -266,14 +438,9 @@ footer {
   transition: color 0.2s ease;
 }
 
-.footer-link:hover {
-  color: var(--terracotta);
-}
+.footer-link:hover { color: var(--terracotta); }
 
-.footer-socials {
-  display: flex;
-  gap: 8px;
-}
+.footer-socials { display: flex; gap: 8px; }
 
 .footer-social {
   width: 32px;
