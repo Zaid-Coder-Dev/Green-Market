@@ -100,7 +100,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
         foreach ($boutiques as $b) {
         ?>
           <div class="carousel-item <?php if ($i == 0) echo 'active'; ?> h-100">
-            <img src="../uploads/boutiques/<?= $b['image_banner'] ? $b['image_banner'] : 'default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
+            <img src="<?=$b['image_banner'] ? $b['image_banner'] : '../uploads/boutiques_images/banner_default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
             <div class="hero-overlay"></div>
             <div class="container h-100 relative-container">
               <div class="hero-content">
@@ -159,7 +159,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
               <div class="stack-card <?= $classes[$i] ?>">
                 <div class="stack-img-wrap">
                   <span class="stack-badge badge-sale">Top Vente</span>
-                  <img src="../uploads/produits/<?= $p['Prod_img'] ?>" alt="Produit" class="stack-img">
+                  <img src="<?= $p['Prod_img'] ?>" alt="Produit" class="stack-img">
                 </div>
                 <div class="stack-body">
                   <span class="stack-cat"><?= $p['nom_Categ'] ?></span>
@@ -190,7 +190,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-12 col-md-6">
-          <img src="./Home images/Production.jpg" class="about-img">
+          <img src="../uploads/about_us.png" class="about-img">
         </div>
         <div class="col-12 col-md-6">
           <span class="section-label d-block mb-2">NOS RACINES</span>

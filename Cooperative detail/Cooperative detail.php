@@ -69,7 +69,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="Cooperative detail.css">
 </head>
 <body>
 
@@ -239,7 +239,7 @@ if ($boutique['description_boutique']) {
             echo '
                     </div>
                     <div class="img-wrapper">
-                        <img src="../uploads/produits/' . $p['Prod_img'] . '" class="card-img-top product-img" alt="' . $p['nom_Prod'] . '">
+                        <img src="' . $p['Prod_img'] . '" class="card-img-top product-img" alt="' . $p['nom_Prod'] . '">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <small class="text-muted-ink">' . $p['nom_Categ'] . '</small>
@@ -308,6 +308,6 @@ if ($boutique['description_boutique']) {
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="detail.js"></script>
+<script src="Cooperative detail.js"></script>
 </body>
 </html>
