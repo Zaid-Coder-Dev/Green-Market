@@ -2,38 +2,79 @@
 session_start();
 require_once '../connexion.php';
 
+// PRODUCT ID
 $id_prod = 0;
 if (isset($_GET['id'])) {
     $id_prod = $_GET['id'];
 }
 
 if ($id_prod == 0) {
-    echo "<b>ERREUR :</b> Aucun ID produit dans l'URL. Exemple correct : <code>Produit details.php?id=1</code>";
+    die("Produit introuvable.");
 }
 
-$req = $pdo->prepare("
-    SELECT p.*, c.nom_Categ, b.nom_boutique
-    FROM Produit p
-    JOIN Categorie c ON p.ID_Categ = c.ID_Categ
-    JOIN Boutique b ON p.ID_boutique = b.ID_boutique
-    WHERE p.ID_Prod = ?
-");
-$req->execute([$id_prod]);
-$produit = $req->fetch(PDO::FETCH_ASSOC);
+// ROLE CHECK
+if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+    $btn_class = '';
+} else {
+    $btn_class = 'd-none';
+}
+
+// SUBMIT AVIS
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'avis') {
+    $note = 0;
+    if (isset($_POST['note'])) {
+        $note = (int)$_POST['note'];
+    }
+    $commentaire = '';
+    if (isset($_POST['commentaire'])) {
+        $commentaire = trim($_POST['commentaire']);
+    }
+
+    if ($note >= 1 && $note <= 5 && $commentaire != '') {
+        try {
+            $req_ins = $pdo->prepare("INSERT INTO Avis (note, commentaire, ID_utili, ID_Prod) VALUES (?, ?, ?, ?)");
+            $req_ins->execute([$note, $commentaire, $_SESSION['id_utili'], $id_prod]);
+        } catch (PDOException $e) {
+            die("Erreur : " . $e->getMessage());
+        }
+        header('Location: Produit details.php?id=' . $id_prod . '#avis');
+        exit();
+    }
+}
+
+// PRODUIT
+try {
+    $req1 = $pdo->prepare("
+        SELECT p.*, c.nom_Categ, b.nom_boutique
+        FROM Produit p
+        JOIN Categorie c ON p.ID_Categ = c.ID_Categ
+        JOIN Boutique b ON p.ID_boutique = b.ID_boutique
+        WHERE p.ID_Prod = ?
+    ");
+    $req1->execute([$id_prod]);
+    $produit = $req1->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 
 if (!$produit) {
-    echo "<b>ERREUR :</b> Aucun produit trouvé avec ID = <b>" . $id_prod . "</b>. Vérifie que cet ID existe dans la table Produit.";
+    die("Produit introuvable.");
 }
 
-$req2 = $pdo->prepare("
-    SELECT a.*, u.nom, u.prenom
-    FROM Avis a
-    JOIN Utilisateur u ON a.ID_utili = u.ID_utili
-    WHERE a.ID_Prod = ?
-    ORDER BY a.date_avis DESC
-");
-$req2->execute([$id_prod]);
-$avis = $req2->fetchAll(PDO::FETCH_ASSOC);
+// AVIS
+try {
+    $req2 = $pdo->prepare("
+        SELECT a.*, u.nom, u.prenom
+        FROM Avis a
+        JOIN Utilisateur u ON a.ID_utili = u.ID_utili
+        WHERE a.ID_Prod = ?
+        ORDER BY a.date_avis DESC
+    ");
+    $req2->execute([$id_prod]);
+    $avis = $req2->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 
 $note_moyenne = 0;
 if (count($avis) > 0) {
@@ -44,24 +85,27 @@ if (count($avis) > 0) {
     $note_moyenne = $total / count($avis);
 }
 
-$req3 = $pdo->prepare("
-    SELECT p.*, c.nom_Categ, b.nom_boutique
-    FROM Produit p
-    JOIN Categorie c ON p.ID_Categ = c.ID_Categ
-    JOIN Boutique b ON p.ID_boutique = b.ID_boutique
-    WHERE p.ID_Categ = ? AND p.ID_Prod != ?
-    ORDER BY RAND()
-    LIMIT 3
-");
-$req3->execute([$produit['ID_Categ'], $id_prod]);
-$similaires = $req3->fetchAll(PDO::FETCH_ASSOC);
+// SIMILAIRES
+try {
+    $req3 = $pdo->prepare("
+        SELECT p.*, c.nom_Categ, b.nom_boutique
+        FROM Produit p
+        JOIN Categorie c ON p.ID_Categ = c.ID_Categ
+        JOIN Boutique b ON p.ID_boutique = b.ID_boutique
+        WHERE p.ID_Categ = ? AND p.ID_Prod != ?
+        ORDER BY RAND()
+        LIMIT 3
+    ");
+    $req3->execute([$produit['ID_Categ'], $id_prod]);
+    $similaires = $req3->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 
+// NOUVEAU BADGE
 $est_nouveau = false;
 if (isset($produit['date_ajout_Prod'])) {
-    $dateAjout = new DateTime($produit['date_ajout_Prod']);
-    $maintenant = new DateTime();
-    
-    $diff = date_diff($dateAjout, $maintenant)->days;
+    $diff = (time() - strtotime($produit['date_ajout_Prod'])) / 86400;
     if ($diff < 30) {
         $est_nouveau = true;
     }
@@ -69,7 +113,6 @@ if (isset($produit['date_ajout_Prod'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +122,6 @@ if (isset($produit['date_ajout_Prod'])) {
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="Produit details.css">
 </head>
-
 <body>
 
   <!-- NAVBAR -->
@@ -99,17 +141,26 @@ if (isset($produit['date_ajout_Prod'])) {
           <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.php">Boutique</a></li>
         </ul>
         <div class="d-flex align-items-center gap-3">
-          <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-            <i class="bi bi-cart3"></i>
-            <span class="cart-badge" id="cart-count">0</span>
-          </a>
+          <?php
+          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+              echo '
+              <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+                  <i class="bi bi-cart3"></i>
+                  <span class="cart-badge" id="cart-count">0</span>
+              </a>';
+          }
+          ?>
           <a href="#" class="position-relative text-decoration-none nav-icon">
             <i class="bi bi-bell"></i>
             <span class="cart-badge" id="bell-count">0</span>
           </a>
-          <a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon">
-            <i class="bi bi-person"></i>
-          </a>
+          <?php
+          if (isset($_SESSION['id_utili'])) {
+              echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          } else {
+              echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -140,14 +191,14 @@ if (isset($produit['date_ajout_Prod'])) {
         <p id="ctg" class="category"><?= $produit['nom_Categ'] ?></p>
         <h1 id="pro-tit" class="product-title"><?= $produit['nom_Prod'] ?></h1>
 
-        <!-- ÉTOILES -->
+        <!-- STARS -->
         <div id="product-stars" class="stars mb-2">
           <?php
           $note = round($note_moyenne * 2) / 2;
           for ($i = 1; $i <= 5; $i++) {
               if ($i <= floor($note)) {
                   echo '<i class="bi bi-star-fill text-warning"></i>';
-              } elseif ($i - $note < 1) {
+              } else if ($i - $note < 1) {
                   echo '<i class="bi bi-star-half text-warning"></i>';
               } else {
                   echo '<i class="bi bi-star text-warning"></i>';
@@ -162,27 +213,29 @@ if (isset($produit['date_ajout_Prod'])) {
         <p class="mb-3"><small class="text-muted-ink"><i class="bi bi-shop me-1"></i><?= $produit['nom_boutique'] ?></small></p>
 
         <!-- QUANTITY -->
-        <div class="quantity-box mb-4">
-          <button id="minusBtn">-</button>
-          <span id="quantity">1</span>
-          <button id="plusBtn">+</button>
-        </div>
+        <?php if ($btn_class == '') { ?>
+          <div class="quantity-box mb-4">
+            <button id="minusBtn">-</button>
+            <span id="quantity">1</span>
+            <button id="plusBtn">+</button>
+          </div>
+        <?php } ?>
 
         <!-- BUTTONS -->
         <div class="product-actions mb-4">
-          <?php if ($produit['Stock'] == 0) { ?>
-            <button class="btn-add" disabled style="opacity:0.5;cursor:not-allowed;">
-              <i class="bi bi-cart3"></i> Stock épuisé
-            </button>
-          <?php } else { ?>
-            <button class="btn-add" data-id="<?= $produit['ID_Prod'] ?>">
-              <i class="bi bi-cart3"></i> Ajouter au panier
-            </button>
+          <?php if ($btn_class == '') { ?>
+            <?php if ($produit['Stock'] == 0) { ?>
+              <button class="btn-add" disabled style="opacity:0.5;cursor:not-allowed;">
+                <i class="bi bi-cart3"></i> Stock épuisé
+              </button>
+            <?php } else { ?>
+              <button class="btn-add" data-id="<?= $produit['ID_Prod'] ?>">
+                <i class="bi bi-cart3"></i> Ajouter au panier
+              </button>
+            <?php } ?>
+            <button class="buy-btn">Acheter maintenant</button>
+            <button class="wishlist-btn"><i class="bi bi-heart"></i></button>
           <?php } ?>
-          <button class="buy-btn">Acheter maintenant</button>
-          <button class="wishlist-btn">
-            <i class="bi bi-heart"></i>
-          </button>
         </div>
 
         <!-- FEATURES -->
@@ -223,7 +276,6 @@ if (isset($produit['date_ajout_Prod'])) {
         </h3>
       </div>
       <div class="trace-boxx">
-
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-person"></i></div>
           <div class="trace-card">
@@ -238,7 +290,6 @@ if (isset($produit['date_ajout_Prod'])) {
             </div>
           </div>
         </div>
-
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-gear"></i></div>
           <div class="trace-card">
@@ -253,7 +304,6 @@ if (isset($produit['date_ajout_Prod'])) {
             </div>
           </div>
         </div>
-
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-box-seam"></i></div>
           <div class="trace-card">
@@ -268,7 +318,6 @@ if (isset($produit['date_ajout_Prod'])) {
             </div>
           </div>
         </div>
-
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-truck"></i></div>
           <div class="trace-card">
@@ -283,7 +332,6 @@ if (isset($produit['date_ajout_Prod'])) {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -326,7 +374,7 @@ if (isset($produit['date_ajout_Prod'])) {
   </section>
 
   <!-- AVIS CLIENTS -->
-  <section class="container mb-5">
+  <section class="container mb-5" id="avis">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="fw-bold mb-0">Avis clients</h4>
       <div class="d-flex align-items-center">
@@ -337,7 +385,7 @@ if (isset($produit['date_ajout_Prod'])) {
           for ($i = 1; $i <= 5; $i++) {
               if ($i <= floor($note)) {
                   echo '<i class="bi bi-star-fill text-warning"></i>';
-              } elseif ($i - $note < 1) {
+              } else if ($i - $note < 1) {
                   echo '<i class="bi bi-star-half text-warning"></i>';
               } else {
                   echo '<i class="bi bi-star text-warning"></i>';
@@ -347,6 +395,10 @@ if (isset($produit['date_ajout_Prod'])) {
         </div>
       </div>
     </div>
+
+    <?php if (count($avis) == 0) { ?>
+      <p class="text-muted-ink">Aucun avis pour ce produit.</p>
+    <?php } ?>
 
     <?php foreach ($avis as $av) { ?>
       <div class="review-box d-flex align-items-start mb-3">
@@ -371,22 +423,18 @@ if (isset($produit['date_ajout_Prod'])) {
         </div>
       </div>
     <?php } ?>
-
-    <?php if (count($avis) == 0) { ?>
-      <p class="text-muted-ink">Aucun avis pour ce produit.</p>
-    <?php } ?>
   </section>
 
-  <!-- COMMENT SECTION -->
+  <!-- COMMENT FORM -->
+  <?php if ($btn_class == '') { ?>
   <section class="container mb-5">
     <h4 class="fw-bold mb-3">Ajouter un avis</h4>
     <div class="card comment-form-card mb-4">
-      <form id="commentForm">
-        <input type="hidden" name="id_prod" value="<?= $produit['ID_Prod'] ?>">
-        <div class="mb-3">
-          <label class="form-label">Nom</label>
-          <input type="text" class="form-control" id="commentName" placeholder="Votre nom">
-        </div>
+      <form method="POST" action="Produit details.php?id=<?= $id_prod ?>">
+        <input type="hidden" name="action" value="avis">
+        <input type="hidden" name="note" id="commentRating" value="0">
+
+        <!-- STAR RATING -->
         <div class="mb-3">
           <label class="form-label">Note</label>
           <div id="starRating" class="star-rating">
@@ -396,17 +444,19 @@ if (isset($produit['date_ajout_Prod'])) {
             <i class="bi bi-star" data-value="4"></i>
             <i class="bi bi-star" data-value="5"></i>
           </div>
-          <input type="hidden" id="commentRating" value="0">
         </div>
+
+        <!-- COMMENTAIRE -->
         <div class="mb-3">
           <label class="form-label">Commentaire</label>
-          <textarea class="form-control" id="commentText" rows="3" placeholder="Écrivez votre avis..."></textarea>
+          <textarea class="form-control" name="commentaire" rows="3" placeholder="Écrivez votre avis..."></textarea>
         </div>
+
         <button type="submit" class="comment-btn">Publier l'avis</button>
       </form>
     </div>
-    <div id="newComments"></div>
   </section>
+  <?php } ?>
 
   <!-- VOUS AIMEREZ AUSSI -->
   <?php if (count($similaires) > 0) { ?>
@@ -442,8 +492,8 @@ if (isset($produit['date_ajout_Prod'])) {
               <small class="boutique-name mb-2"><?= $s['nom_boutique'] ?></small>
               <p class="fw-bold price-text mb-3 mt-auto"><?= number_format($s['Prix'], 2) ?> MAD</p>
               <div class="d-flex gap-2">
-                <a href="Produit details.php?id=<?= $s['ID_Prod'] ?>" class="btn btn-sm w-75 btn-voir">Voir</a>
-                <button class="btn btn-sm btn-add w-25" data-id="<?= $s['ID_Prod'] ?>"><i class="bi bi-cart"></i></button>
+                <a href="Produit details.php?id=<?= $s['ID_Prod'] ?>" class="btn btn-sm btn-voir <?php if ($btn_class == 'd-none') echo 'w-100'; else echo 'w-75'; ?>">Voir</a>
+                <button class="btn btn-sm btn-add w-25 <?= $btn_class ?>" data-id="<?= $s['ID_Prod'] ?>"><i class="bi bi-cart"></i></button>
               </div>
             </div>
           </div>
@@ -503,5 +553,4 @@ if (isset($produit['date_ajout_Prod'])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="Produit details.js"></script>
 </body>
-
 </html>
