@@ -2,16 +2,31 @@
 session_start();
 require_once '../connexion.php';
 
-$req = $pdo->prepare("SELECT * FROM Boutique ORDER BY RAND() LIMIT 3");
-$req->execute();
-$boutiques = $req->fetchAll(PDO::FETCH_ASSOC);
+// BOUTIQUES CAROUSEL
+try {
+    $req = $pdo->prepare("SELECT * FROM Boutique ORDER BY RAND() LIMIT 3");
+    $req->execute();
+    $boutiques = $req->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 
-$req = $pdo->prepare("SELECT p.*, c.nom_Categ FROM Produit p JOIN Categorie c ON p.ID_Categ = c.ID_Categ LIMIT 3");
-$req->execute();
-$produits = $req->fetchAll(PDO::FETCH_ASSOC);
+// PRODUITS PHARES
+try {
+    $req2 = $pdo->prepare("SELECT p.*, c.nom_Categ FROM Produit p JOIN Categorie c ON p.ID_Categ = c.ID_Categ LIMIT 3");
+    $req2->execute();
+    $produits = $req2->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
+
+// ROLE CHECK
+if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+    $btn_class = '';
+} else {
+    $btn_class = 'd-none';
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -38,23 +53,32 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav mx-auto nav-links">
-          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Cooperatives</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
           <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
           <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
         </ul>
         <div class="d-flex align-items-center gap-3">
-          <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-            <i class="bi bi-cart3"></i>
-            <span class="cart-badge" id="cart-count">0</span>
-          </a>
+          <?php
+          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+              echo '
+              <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+                  <i class="bi bi-cart3"></i>
+                  <span class="cart-badge" id="cart-count">0</span>
+              </a>';
+          }
+          ?>
           <a href="#" class="position-relative text-decoration-none nav-icon">
             <i class="bi bi-bell"></i>
             <span class="cart-badge" id="bell-count">0</span>
           </a>
-          <a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon">
-            <i class="bi bi-person"></i>
-          </a>
+          <?php
+          if (isset($_SESSION['id_utili'])) {
+              echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          } else {
+              echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -66,7 +90,7 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
 
       <div class="carousel-indicators" style="margin-bottom:30px;">
         <?php for ($i = 0; $i < count($boutiques); $i++) { ?>
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="<?= $i ?>" <?= $i == 0 ? 'class="active"' : '' ?>></button>
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="<?= $i ?>" <?php if ($i == 0) echo 'class="active"'; ?>></button>
         <?php } ?>
       </div>
 
@@ -75,8 +99,8 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
         $i = 0;
         foreach ($boutiques as $b) {
         ?>
-          <div class="carousel-item <?= $i == 0 ? 'active' : '' ?> h-100">
-            <img src="../uploads/boutiques/<?= $b['image_banner'] ?>" class="d-block w-100 hero-bg" alt="Boutique">
+          <div class="carousel-item <?php if ($i == 0) echo 'active'; ?> h-100">
+            <img src="../uploads/boutiques/<?= $b['image_banner'] ? $b['image_banner'] : 'default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
             <div class="hero-overlay"></div>
             <div class="container h-100 relative-container">
               <div class="hero-content">
@@ -89,9 +113,7 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
               </div>
             </div>
           </div>
-        <?php $i++;
-        } ?>
-
+        <?php $i++; } ?>
       </div>
 
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -102,8 +124,6 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
       </button>
 
     </div>
-
-
   </header>
 
   <!-- PRODUITS PHARES -->
@@ -131,8 +151,6 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="col-12 col-xl-7">
           <div class="card-interactive-stack">
-
-            <!-- CARDS -->
             <?php
             $classes = ['card-bg-top', 'card-foreground', 'card-bg-bottom'];
             $i = 0;
@@ -147,21 +165,19 @@ $produits = $req->fetchAll(PDO::FETCH_ASSOC);
                   <span class="stack-cat"><?= $p['nom_Categ'] ?></span>
                   <h3 class="stack-name"><?= $p['nom_Prod'] ?></h3>
                   <div class="stack-footer">
-                    <span class="stack-price"><?= $p['Prix'] ?> MAD</span>
+                    <span class="stack-price"><?= number_format($p['Prix'], 2) ?> MAD</span>
                     <div class="stack-actions-group">
                       <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>" class="btn-circle-action btn-view">
                         <i class="bi bi-arrow-up-right"></i>
                       </a>
-                      <button class="btn-circle-action btn-cart">
+                      <button class="btn-circle-action btn-cart <?= $btn_class ?>" data-id="<?= $p['ID_Prod'] ?>">
                         <i class="bi bi-cart3"></i>
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
-            <?php $i++;
-            } ?>
-
+            <?php $i++; } ?>
           </div>
         </div>
 
