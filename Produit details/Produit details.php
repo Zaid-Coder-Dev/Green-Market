@@ -179,10 +179,10 @@ if (isset($produit['date_ajout_Prod'])) {
           <?php if ($produit['Stock'] == 0) { ?>
             <span class="sale-badge" style="background-color: var(--ink); top: <?= $est_nouveau ? '55px' : '15px' ?>;">Épuisé</span>
           <?php } ?>
-          <img id="mainImage" class="img-fluid rounded-4" src="../uploads/produits/<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
+          <img id="mainImage" class="img-fluid rounded-4" src="<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
         </div>
         <div id="SMI" class="small-images mt-3">
-          <img class="small-img active-img" src="../uploads/produits/<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
+          <img class="small-img active-img" src="<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
         </div>
       </div>
 
@@ -484,7 +484,7 @@ if (isset($produit['date_ajout_Prod'])) {
               <?php } ?>
             </div>
             <div class="img-wrapper">
-              <img src="../uploads/produits/<?= $s['Prod_img'] ?>" class="card-img-top product-img" alt="<?= $s['nom_Prod'] ?>">
+              <img src="<?= $s['Prod_img'] ?>" class="card-img-top product-img" alt="<?= $s['nom_Prod'] ?>">
             </div>
             <div class="card-body d-flex flex-column">
               <small class="text-muted-ink"><?= $s['nom_Categ'] ?></small>
