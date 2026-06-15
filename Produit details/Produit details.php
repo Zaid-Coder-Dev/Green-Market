@@ -279,7 +279,7 @@ if (isset($produit['date_ajout_Prod'])) {
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-person"></i></div>
           <div class="trace-card">
-            <img src="../uploads/categories/step-1.png" onerror="this.style.display='none'">
+            <img src="../uploads/traçacilite/Production.jpg" onerror="this.style.display='none'">
             <div>
               <div class="trace-meta">
                 <i class="bi bi-calendar"></i> 15 Mars 2024
@@ -293,7 +293,7 @@ if (isset($produit['date_ajout_Prod'])) {
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-gear"></i></div>
           <div class="trace-card">
-            <img src="../uploads/categories/step_2.jpeg" onerror="this.style.display='none'">
+            <img src="../uploads/traçacilite/Artisanat.jpg" onerror="this.style.display='none'">
             <div>
               <div class="trace-meta">
                 <i class="bi bi-calendar"></i> 20 Mars 2024
@@ -307,7 +307,7 @@ if (isset($produit['date_ajout_Prod'])) {
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-box-seam"></i></div>
           <div class="trace-card">
-            <img src="../uploads/categories/step_3.jpeg" onerror="this.style.display='none'">
+            <img src="../uploads/traçacilite/Emballage.jpg" onerror="this.style.display='none'">
             <div>
               <div class="trace-meta">
                 <i class="bi bi-calendar"></i> 28 Mars 2024
@@ -321,7 +321,7 @@ if (isset($produit['date_ajout_Prod'])) {
         <div class="trace-item">
           <div class="trace-dot"><i class="bi bi-truck"></i></div>
           <div class="trace-card">
-            <img src="../uploads/categories/step-4.jpeg" onerror="this.style.display='none'">
+            <img src="../uploads/traçacilite/Livraison.jpg" onerror="this.style.display='none'">
             <div>
               <div class="trace-meta">
                 <i class="bi bi-calendar"></i> En attente

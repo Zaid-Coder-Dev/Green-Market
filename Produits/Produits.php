@@ -337,7 +337,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
                                 </div>
 
                                 <div class="img-wrapper">
-                                    <img src="../uploads/produits/<?= $p['Prod_img'] ?>" class="card-img-top product-img" alt="<?= $p['nom_Prod'] ?>">
+                                    <img src="<?= $p['Prod_img'] ?>" class="card-img-top product-img" alt="<?= $p['nom_Prod'] ?>">
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <small class="text-muted-ink"><?= $p['nom_Categ'] ?></small>
