@@ -72,7 +72,7 @@ session_start();
                   echo "<div class='text-danger small mt-1'>Login ou mot de passe incorrects</div>";
                 } else {
                   if (password_verify($mdp, $tablog['mot_de_passe'])) {
-                    $_SESSION['ID_utili'] = $tablog['ID_utili'];
+                    $_SESSION['id_utili'] = $tablog['id_utili'];
                     $_SESSION['email'] = $tablog['email'];
                     $_SESSION['role'] = $tablog['role'];
 
@@ -173,7 +173,7 @@ session_start();
                   echo "Echec d'insertion ";
                 } else {
                   $_SESSION['success'] = "Compte créé avec succès !";
-                  header("Location: " . $_SERVER['PHP_SELF']);
+                  header("Location:../Home Page/Home.php");
                   exit;
                 }
               } catch (PDOException $e) {
