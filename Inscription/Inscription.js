@@ -18,12 +18,4 @@ document.querySelectorAll('[data-go="register"]').forEach(el =>
   el.addEventListener('click', showRegister)
 );
 
-formLogin.addEventListener('submit', (e) => {
-  e.preventDefault();
-  alert('Connecte');
-});
 
-formRegister.addEventListener('submit', (e) => {
-  e.preventDefault();
-  alert('Connecte');
-});

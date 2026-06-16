@@ -1,0 +1,255 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Market — Authentification</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="Inscription.css">
+</head>
+<body>
+
+  <div class="page">
+    <a href="../Home Page/Home.html" class="logo-top">✦ GREEN MARKET</a>
+
+    <!-- LEFT -->
+    <div class="left-side">
+      <h1>
+        Produits Marocains Authentiques<br>
+        <span class="text-highlight">Fait avec Tradition</span>
+      </h1>
+      <p>
+        Green Market connecte les coopératives marocaines directement à vous —
+        huile d'argan, poterie, belgha, textiles et cosmétiques naturels,
+        fabriqués à la main avec soin.
+      </p>
+      <a href="#" class="btn btn-form">Explorer les produits →</a>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-side">
+      <div class="form-card">
+
+        <!-- LOGIN -->
+         <?php
+        if(isset($_SESSION['success'])){
+            echo "<div class='alert alert-success'>".$_SESSION['success']."</div>";
+            unset($_SESSION['success']);
+        }
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          extract($_POST);
+          if(isset($login)){
+            $err =[];
+            if(!isset($mail) || empty($mail)) $err['mail']="Veuillez saisir votre e-mail";
+            elseif(!filter_var($mail,FILTER_VALIDATE_EMAIL)) $err['mail']='Veuillez saisir une adresse e-mail valide';
+            else{
+              include("../connexion.php");
+              try{
+                  $req = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
+                  $req->execute([$mail]);
+                  if($req->rowCount()==0) $err['mail']="cette emil n'existe pas ";
+              }catch(PDOException $e){
+                  die('error delection reference :'.$e->getMessage());
+              }
+            }
+              
+            if(!isset($mdp) || empty($mdp)) $err['mdp']="Veuillez saisir votre mot de passe";
+            if(empty($err)){
+              include("../connexion.php");
+              try{
+                $relog = $pdo->prepare("SELECT * FROM utilisateur WHERE est_active=1 AND email = ? ");
+                $relog->execute([$mail]);
+                $tablog = $relog->fetch(PDO::FETCH_ASSOC);
+                if(empty($tablog)){
+                    echo "<div class='text-danger small mt-1'>Login ou mot de passe incorrects</div>";
+                }
+                else {
+                    if( password_verify($mdp,$tablog['mot_de_passe'])) {
+                        $_SESSION['idu']= $tablog['ID_utili'];
+                        $_SESSION['mailu'] = $tablog['email'];
+                        $_SESSION['roleu'] = $tablog['role'];
+
+                        if($tablog['role']=='client'){
+                          header("Location: ../Home Page/Home.html");
+                        }
+                        if($tablog['role']=='producteur'){
+                          header("Location: ../Profile Producteur/Producteur.html");
+                        }
+                        if($tablog['role']=='admin'){
+                          header("Location: ../Profile_Admin/Admin.html");
+                        }
+                      
+                      exit;
+                    }  
+                    else  echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
+                }
+              }
+              catch(PDOException $e) {die("Erreur authentification :".$e->getMessage());}
+            }
+          }
+        }
+        ?>
+        <form method="POST" class="form-panel" id="form-login">
+          <h3>Connexion membre</h3>
+          
+          <?php if(isset($err['mail'])) echo"<div class='text-danger small mt-1'>".$err['mail']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" placeholder="Email" name="mail">
+          </div>
+
+          <?php if(isset($err['mdp'])) echo"<div class='text-danger small mt-1'>".$err['mdp']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" placeholder="Mot de passe" name="mdp">
+          </div>
+          
+          
+          <div class="form-row">
+            <label><input type="checkbox"> Se souvenir de moi</label>
+            <a href="#" class="lien-form">Mot de passe oublié ?</a>
+          </div>
+
+          <button type="submit" class="btn btn-form w-100" name="login">Se connecter</button>
+
+          <p class="form-footer">
+            Pas encore membre ? <a class="lien-form" data-go="register">Créer un compte</a>
+          </p>
+        </form>
+
+        <!-- REGISTER -->
+        <?php
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          extract($_POST);
+          if(isset($inscri)){
+            $err =[];
+            // Validation des données du formulaire
+            if(!isset($nom) || empty($nom)) $err['nom']="Veuillez saisir votre nom";
+            elseif(!preg_match("/^[a-zA-ZÀ-ÿ\s'-]+$/u", $nom))$err['nom'] = "Veuillez saisir un nom valide";
+
+            if(!isset($prenom) || empty($prenom)) $err['prenom']="Veuillez saisir votre prénom";
+            elseif(!preg_match("/^[a-zA-ZÀ-ÿ\s'-]+$/u", $prenom))$err['prenom'] = "Veuillez saisir un prénom valide";
+
+            if(!isset($mail) || empty($mail)) $err['mail']="Veuillez saisir votre adresse e-mail";
+            elseif(!filter_var($mail,FILTER_VALIDATE_EMAIL)) $err['mail']='Veuillez saisir une adresse e-mail valide';
+            else{
+              include("../connexion.php");
+              try{
+                $remail = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
+                $remail->execute([$mail]);
+                if($remail->rowCount()!=0) $err['mail'] = "Cette adresse e-mail est déjà utilisée "; 
+              }
+              catch(PDOException $e){die("Erreur selection reference :".$e->getMessage());}
+            }
+
+            if(!isset($mdp) || empty($mdp)) $err['mdp']="Veuillez saisir un mot de passe";
+            elseif(strlen($mdp) < 8)$err['mdp'] = "Le mot de passe doit contenir au moins 8 caractères";
+            
+            if(!isset($mdpCon) || empty($mdpCon)) $err['mdpCon']="Veuillez confirmer votre mot de passe";
+            elseif($mdp !== $mdpCon)$err['mdpCon']="Les mots de passe ne correspondent pas";
+
+            if(!isset($role) || empty($role)) $err['role']="Veuillez sélectionner un rôle";
+            elseif(!in_array($role, ['client', 'producteur']))$err['role'] = "Veuillez sélectionner un rôle valide";
+            if(empty($err)){
+
+              // nettoyage des donnes
+              $nom = htmlspecialchars(trim($nom));
+              $prenom = htmlspecialchars(trim($prenom));
+
+              //insertion dans la Base des donnees
+              try {
+                $mdp=password_hash($mdp,PASSWORD_ARGON2ID);
+                $date = date("Y-m-d H:i:s");
+                $res = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role,date_inscription) VALUES (?,?,?,?,?,?)");
+                $r= $res->execute([$nom,$prenom,$mail,$mdp,$role,$date]);
+                if($r == False ){
+                  echo "Echec d'insertion ";
+                }else {
+                  $_SESSION['success'] = "Compte créé avec succès !";
+                  header("Location: ".$_SERVER['PHP_SELF']);
+                  exit;
+                }
+              }catch(PDOException $e) {
+                die ("erreur insertion prod : ".$e->getMessage());
+              }
+            }
+          }
+          }
+        
+        
+         ?>
+        <form method="POST"  class="form-panel d-none" id="form-register" action="<?php $_SERVER['PHP_SELF'];?>"  novalidate>
+        <?php
+          if($_SERVER["REQUEST_METHOD"]=="POST" && !empty($err) && isset($inscri)){ 
+        ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            showRegister();
+        });
+        </script>
+        <?php
+        }
+        ?>
+          <h3>Créer un compte</h3>
+
+          <?php if(isset($err['nom'])) echo"<div class='text-danger small mt-1'>".$err['nom']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person" ></i></span>
+            <input type="text" name="nom" class="form-control" value="<?php if (isset($nom))echo $nom?>" placeholder="Nom"  >
+          </div>
+          
+          <?php if(isset($err['prenom'])) echo"<div class='text-danger small mt-1'>".$err['prenom']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" name="prenom" class="form-control" value="<?php if (isset($prenom))echo $prenom?>" placeholder="Prénom" >
+          </div>
+          
+          <?php if(isset($err['mail'])) echo"<div class='text-danger small mt-1'>".$err['mail']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" name="mail" class="form-control" value="<?php if (isset($mail))echo $mail?>" placeholder="Email" >
+          </div>
+         
+          <?php if(isset($err['mdp'])) echo"<div class='text-danger small mt-1'>".$err['mdp']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" name="mdp" class="form-control"  placeholder="Mot de passe" >
+          </div>
+          
+          <?php if(isset($err['mdpCon'])) echo"<div class='text-danger small mt-1'>".$err['mdpCon']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+            <input type="password" name="mdpCon" class="form-control" placeholder="Confirmer le mot de passe" >
+          </div>
+          
+          <?php if(isset($err['role'])) echo"<div class='text-danger small mt-1'>".$err['role']."</div>"?>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+            <select name="role" class="form-control" >
+              <option value="" selected disabled >Choisir un rôle</option>
+              <option value="client" <?= (isset($role) && $role=='client')? 'selected' : '' ?> >Client</option>
+              <option value="producteur" <?= (isset($role) && $role=='producteur') ? 'selected' : '' ?>>Producteur</option>
+            </select>
+          </div>
+          
+
+          <button type="submit" class="btn btn-form w-100 mt-2" name="inscri">S'inscrire</button>
+
+          <p class="form-footer">
+            Déjà membre ? <a class="lien-form" data-go="login">Se connecter</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="Inscription.js"></script>
+</body>
+</html>
