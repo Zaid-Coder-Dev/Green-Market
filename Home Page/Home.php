@@ -53,32 +53,28 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav mx-auto nav-links">
-          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
           <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
           <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
           <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
         </ul>
         <div class="d-flex align-items-center gap-3">
-          <?php
-          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-              echo '
-              <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-                  <i class="bi bi-cart3"></i>
-                  <span class="cart-badge" id="cart-count">0</span>
-              </a>';
-          }
-          ?>
-          <a href="#" class="position-relative text-decoration-none nav-icon">
-            <i class="bi bi-bell"></i>
-            <span class="cart-badge" id="bell-count">0</span>
-          </a>
-          <?php
-          if (isset($_SESSION['id_utili'])) {
-              echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-          } else {
-              echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-          }
-          ?>
+                         <?php
+                if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+                    echo '
+                    <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+                        <i class="bi bi-cart3"></i>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>';
+                }
+                
+                if (isset($_SESSION['id_utili'])) {
+                    echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>
+                    <a href="#" class="position-relative text-decoration-none nav-icon"><i class="bi bi-bell"></i><span class="cart-badge" id="bell-count">0</span></a>';
+                } else {
+                    echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+                }
+                ?>
         </div>
       </div>
     </div>

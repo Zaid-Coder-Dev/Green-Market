@@ -159,14 +159,10 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
                         <span class="cart-badge" id="cart-count">0</span>
                     </a>';
                 }
-                ?>
-                <a href="#" class="position-relative text-decoration-none nav-icon">
-                    <i class="bi bi-bell"></i>
-                    <span class="cart-badge" id="bell-count">0</span>
-                </a>
-                <?php
+                
                 if (isset($_SESSION['id_utili'])) {
-                    echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+                    echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>
+                    <a href="#" class="position-relative text-decoration-none nav-icon"><i class="bi bi-bell"></i><span class="cart-badge" id="bell-count">0</span></a>';
                 } else {
                     echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
                 }
