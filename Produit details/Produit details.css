@@ -39,8 +39,6 @@ h1, h2, h3, h4, h5 {
   object-fit: contain;
 }
 
-
-
 .nav-links {
   gap: 18px;
 }
@@ -52,7 +50,6 @@ h1, h2, h3, h4, h5 {
   color: rgba(245, 237, 224, 0.85);
   font-weight: 400;
 }
-
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
@@ -96,20 +93,6 @@ h1, h2, h3, h4, h5 {
   object-fit: cover;
   background: var(--sand);
   border-radius: 16px;
-}
-
-/* =====================
-   SALE BADGE
-===================== */
-.sale-badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  color: white;
-  padding: 6px 15px;
-  border-radius: 20px;
-  font-size: 13px;
-  z-index: 1;
 }
 
 /* =====================
@@ -157,12 +140,28 @@ h1, h2, h3, h4, h5 {
 .price {
   color: var(--terracotta);
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .product-desc {
   color: rgba(42, 36, 30, 0.65);
   margin-bottom: 25px;
+}
+
+/* =====================
+   BADGES (next to price)
+===================== */
+.badge-nouveau {
+  background-color: var(--terracotta);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-epuise {
+  background-color: var(--ink);
+  color: var(--cream);
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 /* =====================
@@ -226,7 +225,6 @@ h1, h2, h3, h4, h5 {
   height: auto;
   cursor: pointer;
   font-weight: 600;
-  
 }
 
 .btn-add:hover {
@@ -340,7 +338,6 @@ h1, h2, h3, h4, h5 {
   position: absolute;
   left: 57px;
   top: 40px;
-  height: calc(100% - 140px);
   width: 3px;
   height: calc(100% - 70px);
   background: var(--green);
@@ -503,7 +500,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =====================
-   COMMENT SECTION
+   COMMENT FORM
 ===================== */
 .comment-form-card {
   background: white;
@@ -569,16 +566,6 @@ h1, h2, h3, h4, h5 {
   background: #c96a2e;
 }
 
-.comment-box {
-  background: white;
-  border: none;
-  padding: 20px;
-  border-radius: 14px;
-  margin-top: 15px;
-  box-shadow: 0 8px 20px rgba(42, 36, 30, 0.06);
-}
-
-
 /* =====================
    VOUS AIMEREZ AUSSI
 ===================== */
@@ -603,18 +590,6 @@ h1, h2, h3, h4, h5 {
   flex-direction: column;
   gap: 4px;
   z-index: 1;
-}
-
-.badge-nouveau {
-  background-color: var(--terracotta);
-  color: white;
-  font-size: 0.7rem;
-}
-
-.badge-epuise {
-  background-color: var(--ink);
-  color: var(--cream);
-  font-size: 0.7rem;
 }
 
 .img-wrapper {
@@ -643,6 +618,10 @@ h1, h2, h3, h4, h5 {
   color: var(--terracotta);
   font-size: 1rem;
   font-weight: bold;
+}
+
+.text-muted-ink {
+  color: rgba(42, 36, 30, 0.55);
 }
 
 .btn-voir {
@@ -675,12 +654,6 @@ footer {
   height: 3px;
   background: linear-gradient(90deg, var(--terracotta) 0%, transparent 55%);
   margin-bottom: 40px;
-}
-
-.footer-logo img {
-  height: 38px;
-  width: auto;
-  margin-bottom: 12px;
 }
 
 .footer-title {
