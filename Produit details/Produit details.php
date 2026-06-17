@@ -61,6 +61,15 @@ if (!$produit) {
     die("Produit introuvable.");
 }
 
+// GALERIE IMAGES
+try {
+    $req_imgs = $pdo->prepare("SELECT * FROM Produit_image WHERE ID_Prod = ?");
+    $req_imgs->execute([$id_prod]);
+    $galerie = $req_imgs->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
+
 // AVIS
 try {
     $req2 = $pdo->prepare("
@@ -180,7 +189,13 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
                     <img id="mainImage" class="img-fluid rounded-4" src="<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
                 </div>
                 <div id="SMI" class="small-images mt-3">
-                    <img class="small-img active-img" src="<?= $produit['Prod_img'] ?>" alt="<?= $produit['nom_Prod'] ?>">
+                    <?php
+                    $thumbs = '<img class="small-img active-img" src="' . $produit['Prod_img'] . '" alt="' . $produit['nom_Prod'] . '">';
+                    foreach ($galerie as $img) {
+                        $thumbs .= '<img class="small-img" src="' . $img['image'] . '" alt="' . $produit['nom_Prod'] . '">';
+                    }
+                    echo $thumbs;
+                    ?>
                 </div>
             </div>
 
