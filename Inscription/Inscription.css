@@ -1,9 +1,24 @@
+/* =============================================
+   VARIABLES & RESET
+   ============================================= */
+:root {
+  --green:       #2d4a2d;
+  --green-hover: #3f683f;
+  --cream:       #f5ede0;
+  --sand:        #ead4b6;
+  --ink:         #2a241e;
+  --terracotta:  #e07b39;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* =============================================
+   BASE
+   ============================================= */
 body {
   font-family: 'Lato', sans-serif;
 }
@@ -12,9 +27,12 @@ h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
 }
 
+/* =============================================
+   PAGE LAYOUT
+   ============================================= */
 .page {
   min-height: 100vh;
-  background-image: url('Inscription\ background.avif');
+  background-image: url('Inscription background.avif');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -46,7 +64,9 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
 }
 
-/* GAUCHE */
+/* =============================================
+   LEFT SIDE
+   ============================================= */
 .left-side {
   width: 55%;
   position: relative;
@@ -77,7 +97,13 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-/* DROITE */
+.text-highlight {
+  color: var(--terracotta);
+}
+
+/* =============================================
+   RIGHT SIDE
+   ============================================= */
 .right-side {
   width: 45%;
   position: relative;
@@ -86,29 +112,29 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   justify-content: center;
   padding: 40px;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
-.text-highlight {
-  color: #e07b39;
-}
-
-/* CARD */
+/* =============================================
+   FORM CARD
+   ============================================= */
 .form-card {
   border-radius: 16px;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
-  padding: 40px 36px;
+  padding: 32px;
 }
 
-/* PANELS */
+/* =============================================
+   FORM PANELS
+   ============================================= */
 .form-panel {
   color: white;
   animation: fade 1s ease;
 }
-
-
 
 @keyframes fade {
   from { opacity: 0; transform: translateY(8px); }
@@ -117,13 +143,15 @@ h1, h2, h3, h4, h5 {
 
 .form-panel h3 {
   color: white;
-  margin-bottom: 24px;
-  font-size: 1.6rem;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
 }
 
-/* INPUTS — pill avec border unique sans ligne entre icone et input */
+/* =============================================
+   INPUTS
+   ============================================= */
 .input-group {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   border-radius: 100px;
   background-color: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -132,7 +160,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .input-group:focus-within {
-  border-color: #e07b39;
+  border-color: var(--terracotta);
   background-color: rgba(255, 255, 255, 0.18);
 }
 
@@ -151,7 +179,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .form-control {
-  padding: 12px 14px;
+  padding: 9px 14px;
 }
 
 .form-control:focus {
@@ -166,12 +194,14 @@ h1, h2, h3, h4, h5 {
 }
 
 select.form-control option {
-  color: black;
+  color: var(--ink);
 }
 
-/* BOUTON */
+/* =============================================
+   BUTTON
+   ============================================= */
 .btn-form {
-  background-color: #2d4a2d;
+  background-color: var(--green);
   border-radius: 80px;
   padding: 12px;
   color: white;
@@ -179,13 +209,15 @@ select.form-control option {
 }
 
 .btn-form:hover {
-  background-color: #3f683f;
+  background-color: var(--green-hover);
   color: white;
 }
 
-/* LIENS */
+/* =============================================
+   LINKS & FOOTER
+   ============================================= */
 .lien-form {
-  color: #e07b39;
+  color: var(--terracotta);
   text-decoration: none;
   cursor: pointer;
 }
@@ -204,12 +236,16 @@ select.form-control option {
 }
 
 .form-footer {
-  margin-top: 18px;
+  margin-top: 12px;
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 }
 
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
 @media (max-width: 768px) {
   .page {
     flex-direction: column;
@@ -229,10 +265,12 @@ select.form-control option {
   .right-side {
     width: 100%;
     padding: 20px;
+    max-height: none;
+    overflow-y: visible;
   }
 
   .form-card {
-    padding: 28px 20px;
+    padding: 24px 18px;
   }
 
   .logo-top {

@@ -12,10 +12,15 @@ function showRegister() {
 }
 
 document.querySelectorAll('[data-go="login"]').forEach(el =>
-  el.addEventListener('click', showLogin)
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    showLogin();
+  })
 );
 document.querySelectorAll('[data-go="register"]').forEach(el =>
-  el.addEventListener('click', showRegister)
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    showRegister();
+  })
 );
-
 

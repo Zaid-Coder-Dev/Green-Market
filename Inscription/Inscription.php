@@ -1,6 +1,12 @@
 <?php
 session_start();
+
+$emailCookie = "";
+if (isset($_COOKIE['remember_mail'])) {
+    $emailCookie = $_COOKIE['remember_mail'];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -76,6 +82,12 @@ session_start();
                     $_SESSION['email'] = $tablog['email'];
                     $_SESSION['role'] = $tablog['role'];
 
+                    if (isset($remember)) {
+                      setcookie('remember_mail', $mail, time() + 30 * 24 * 60 * 60);
+                    } else {
+                      setcookie('remember_mail', '', time() - 3600);
+                    }
+
                     header("Location: ../Home Page/Home.php");
                     exit;
                   } else  echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
@@ -93,7 +105,7 @@ session_start();
           <?php if (isset($err['mail'])) echo "<div class='text-danger small mt-1'>" . $err['mail'] . "</div>" ?>
           <div class="input-group">
             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-            <input type="email" class="form-control" placeholder="Email" name="mail">
+            <input type="email" class="form-control" placeholder="Email" name="mail" value="<?php echo $emailCookie; ?>">
           </div>
 
           <?php if (isset($err['mdp'])) echo "<div class='text-danger small mt-1'>" . $err['mdp'] . "</div>" ?>
@@ -104,7 +116,7 @@ session_start();
 
 
           <div class="form-row">
-            <label><input type="checkbox"> Se souvenir de moi</label>
+            <label><input type="checkbox" name="remember"> Se souvenir de moi</label>
             <a href="#" class="lien-form">Mot de passe oublié ?</a>
           </div>
 
@@ -199,41 +211,47 @@ session_start();
           ?>
           <h3>Créer un compte</h3>
 
-          <?php if (isset($err['nom'])) echo "<div class='text-danger small mt-1'>" . $err['nom'] . "</div>" ?>
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-person"></i></span>
-            <input type="text" name="nom" class="form-control" value="<?php if (isset($nom)) echo $nom ?>" placeholder="Nom">
-          </div>
-
-          <?php if (isset($err['prenom'])) echo "<div class='text-danger small mt-1'>" . $err['prenom'] . "</div>" ?>
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-person"></i></span>
-            <input type="text" name="prenom" class="form-control" value="<?php if (isset($prenom)) echo $prenom ?>" placeholder="Prénom">
+          <div class="d-flex gap-2">
+            <div class="flex-fill">
+              <?php if (isset($err['nom'])) echo "<div class='text-danger small mt-1'>" . $err['nom'] . "</div>" ?>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" name="nom" class="form-control" value="<?php if (isset($nom)) echo $nom ?>" placeholder="Nom">
+              </div>
+            </div>
+            <div class="flex-fill">
+              <?php if (isset($err['prenom'])) echo "<div class='text-danger small mt-1'>" . $err['prenom'] . "</div>" ?>
+              <div class="input-group">
+                <input type="text" name="prenom" class="form-control" value="<?php if (isset($prenom)) echo $prenom ?>" placeholder="Prénom">
+              </div>
+            </div>
           </div>
 
           <?php if (isset($err['mail'])) echo "<div class='text-danger small mt-1'>" . $err['mail'] . "</div>" ?>
           <div class="input-group">
             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-            <input type="email" name="mail" class="form-control" value="<?php if (isset($mail)) echo $mail ?>" placeholder="Email">
+            <input type="email" name="mail" class="form-control" value="<?php if (isset($inscri) && isset($mail)) echo $mail; ?>" placeholder="Email">
           </div>
 
-          <?php $cities = ["Casablanca","Rabat","Salé","Tanger","Tétouan","Fès","Marrakech","Agadir","Meknès","Oujda","Kenitra","Safi","El Jadida","Nador","Béni Mellal","Khouribga","Errachidia","Ouarzazate","Laâyoune","Dakhla","Settat","Mohammedia","Skhirat","Temara","Larache","Ksar El Kebir","Berkane","Taourirt","Al Hoceïma","Taza","Ifrane","Midelt","Azrou","Chefchaouen","Essaouira","Asilah","Fnideq","Martil","Tan-Tan","Guelmim","Taroudant","Zagora","Oued Zem","Youssoufia","Jerada","Guercif","Sidi Bennour","Sidi Kacem","Sidi Slimane"];
-          if (isset($err['ville'])) echo "<div class='text-danger small mt-1'>" . $err['ville'] . "</div>" ?>
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-            <input list="villes" name="ville" class="form-control" value="<?php if(isset($ville)) echo $ville; ?>" placeholder="Ville">
-          </div>
-
+          <?php $cities = ["Casablanca","Rabat","Salé","Tanger","Tétouan","Fès","Marrakech","Agadir","Meknès","Oujda","Kenitra","Safi","El Jadida","Nador","Béni Mellal","Khouribga","Errachidia","Ouarzazate","Laâyoune","Dakhla","Settat","Mohammedia","Skhirat","Temara","Larache","Ksar El Kebir","Berkane","Taourirt","Al Hoceïma","Taza","Ifrane","Midelt","Azrou","Chefchaouen","Essaouira","Asilah","Fnideq","Martil","Tan-Tan","Guelmim","Taroudant","Zagora","Oued Zem","Youssoufia","Jerada","Guercif","Sidi Bennour","Sidi Kacem","Sidi Slimane"]; ?>
           <datalist id="villes">
-            <?php foreach ($cities as $city): ?>
-              <option value="<?= htmlspecialchars($city) ?>"></option>
-            <?php endforeach; ?>
+            <?php foreach ($cities as $city) { echo "<option value='$city'>"; } ?>
           </datalist>
-
-          <?php if (isset($err['rue'])) echo "<div class='text-danger small mt-1'>" . $err['rue'] . "</div>" ?>
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-house-door"></i></span>
-            <input type="text" name="rue" class="form-control" value="<?php if (isset($rue)) echo $rue; ?>" placeholder="Rue">
+          <div class="d-flex gap-2">
+            <div class="flex-fill">
+              <?php if (isset($err['ville'])) echo "<div class='text-danger small mt-1'>" . $err['ville'] . "</div>" ?>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                <input list="villes" name="ville" class="form-control" value="<?php if(isset($ville)) echo $ville; ?>" placeholder="Ville">
+              </div>
+            </div>
+            <div class="flex-fill">
+              <?php if (isset($err['rue'])) echo "<div class='text-danger small mt-1'>" . $err['rue'] . "</div>" ?>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-house-door"></i></span>
+                <input type="text" name="rue" class="form-control" value="<?php if (isset($rue)) echo $rue; ?>" placeholder="Rue">
+              </div>
+            </div>
           </div>
 
           <?php if (isset($err['mdp'])) echo "<div class='text-danger small mt-1'>" . $err['mdp'] . "</div>" ?>

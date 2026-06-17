@@ -4,27 +4,27 @@ require_once '../connexion.php';
 
 // BOUTIQUES CAROUSEL
 try {
-    $req = $pdo->prepare("SELECT * FROM Boutique ORDER BY RAND() LIMIT 3");
-    $req->execute();
-    $boutiques = $req->fetchAll(PDO::FETCH_ASSOC);
+  $req = $pdo->prepare("SELECT * FROM Boutique ORDER BY RAND() LIMIT 3");
+  $req->execute();
+  $boutiques = $req->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Erreur : " . $e->getMessage());
+  die("Erreur : " . $e->getMessage());
 }
 
 // PRODUITS PHARES
 try {
-    $req2 = $pdo->prepare("SELECT p.*, c.nom_Categ FROM Produit p JOIN Categorie c ON p.ID_Categ = c.ID_Categ LIMIT 3");
-    $req2->execute();
-    $produits = $req2->fetchAll(PDO::FETCH_ASSOC);
+  $req2 = $pdo->prepare("SELECT p.*, c.nom_Categ FROM Produit p JOIN Categorie c ON p.ID_Categ = c.ID_Categ LIMIT 3");
+  $req2->execute();
+  $produits = $req2->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Erreur : " . $e->getMessage());
+  die("Erreur : " . $e->getMessage());
 }
 
 // ROLE CHECK
 if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-    $btn_class = '';
+  $btn_class = '';
 } else {
-    $btn_class = 'd-none';
+  $btn_class = 'd-none';
 }
 ?>
 <!DOCTYPE html>
@@ -46,39 +46,48 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-home">
-    <div class="container">
-      <a class="navbar-brand" href="#">Green Market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav mx-auto nav-links">
-          <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
-        </ul>
-        <div class="d-flex align-items-center gap-3">
-                         <?php
-                if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-                    echo '
-                    <a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-                        <i class="bi bi-cart3"></i>
-                        <span class="cart-badge" id="cart-count">0</span>
-                    </a>';
-                }
-                
-                if (isset($_SESSION['id_utili'])) {
-                    echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>
-                    <a href="#" class="position-relative text-decoration-none nav-icon"><i class="bi bi-bell"></i><span class="cart-badge" id="bell-count">0</span></a>';
-                } else {
-                    echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                }
-                ?>
-        </div>
+  <div class="container">
+    <a class="navbar-brand" href="../Home Page/Home.php">Green Market</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto nav-links">
+        <li class="nav-item"><a class="nav-link active" href="../Home Page/Home.php">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <?php
+        if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+          echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+              <i class="bi bi-cart3"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+          </a>';
+        }
+        if (isset($_SESSION['id_utili'])) {
+          echo '<a href="#" class="position-relative text-decoration-none nav-icon">
+              <i class="bi bi-bell"></i>
+              <span class="cart-badge" id="bell-count">0</span>
+          </a>';
+        }
+        if (isset($_SESSION['id_utili'])) {
+          if ($_SESSION['role'] == 'producteur') {
+            echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          } elseif ($_SESSION['role'] == 'admin') {
+            echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          } else {
+            echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          }
+        } else {
+          echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+        }
+        ?>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- HERO CAROUSEL -->
   <header class="hero">
@@ -96,7 +105,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
         foreach ($boutiques as $b) {
         ?>
           <div class="carousel-item <?php if ($i == 0) echo 'active'; ?> h-100">
-            <img src="<?=$b['image_banner'] ? $b['image_banner'] : '../uploads/boutiques_images/banner_default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
+            <img src="<?= $b['image_banner'] ? $b['image_banner'] : '../uploads/boutiques_images/banner_default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
             <div class="hero-overlay"></div>
             <div class="container h-100 relative-container">
               <div class="hero-content">
@@ -109,7 +118,8 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
               </div>
             </div>
           </div>
-        <?php $i++; } ?>
+        <?php $i++;
+        } ?>
       </div>
 
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -173,7 +183,8 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
                   </div>
                 </div>
               </div>
-            <?php $i++; } ?>
+            <?php $i++;
+            } ?>
           </div>
         </div>
 
