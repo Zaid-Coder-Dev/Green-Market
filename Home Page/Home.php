@@ -26,6 +26,76 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
 } else {
   $btn_class = 'd-none';
 }
+
+// CAROUSEL INDICATORS
+$indicators = '';
+$i = 0;
+foreach ($boutiques as $b) {
+  $active = '';
+  if ($i == 0) {
+    $active = 'class="active"';
+  }
+  $indicators .= '<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="' . $i . '" ' . $active . '></button>';
+  $i++;
+}
+
+// CAROUSEL SLIDES
+$slides = '';
+$i = 0;
+foreach ($boutiques as $b) {
+  $active = '';
+  if ($i == 0) {
+    $active = 'active';
+  }
+  $img = '../uploads/boutiques_images/banner_default.jpg';
+  if ($b['image_banner']) {
+    $img = $b['image_banner'];
+  }
+  $slides .= '<div class="carousel-item ' . $active . ' h-100">
+      <img src="' . $img . '" class="d-block w-100 hero-bg" alt="Boutique">
+      <div class="hero-overlay"></div>
+      <div class="container h-100 relative-container">
+          <div class="hero-content">
+              <span class="hero-label">' . $b['ville'] . '</span>
+              <h1 class="hero-title">' . $b['nom_boutique'] . '</h1>
+              <p class="hero-subtitle">' . $b['description_boutique'] . '</p>
+              <div class="hero-buttons">
+                  <a href="../Cooperatives/Cooperatives.php" class="btn btn-terracotta">Voir la Coopérative</a>
+              </div>
+          </div>
+      </div>
+  </div>';
+  $i++;
+}
+
+// PRODUITS PHARES CARDS
+$classes = ['card-bg-top', 'card-foreground', 'card-bg-bottom'];
+$cards = '';
+$i = 0;
+foreach ($produits as $p) {
+  $cards .= '<div class="stack-card ' . $classes[$i] . '">
+      <div class="stack-img-wrap">
+          <span class="stack-badge badge-sale">Top Vente</span>
+          <img src="' . $p['Prod_img'] . '" alt="Produit" class="stack-img">
+      </div>
+      <div class="stack-body">
+          <span class="stack-cat">' . $p['nom_Categ'] . '</span>
+          <h3 class="stack-name">' . $p['nom_Prod'] . '</h3>
+          <div class="stack-footer">
+              <span class="stack-price">' . number_format($p['Prix'], 2) . ' MAD</span>
+              <div class="stack-actions-group">
+                  <a href="../Produit details/Produit details.php?id=' . $p['ID_Prod'] . '" class="btn-circle-action btn-view">
+                      <i class="bi bi-arrow-up-right"></i>
+                  </a>
+                  <button class="btn-circle-action btn-cart ' . $btn_class . '" data-id="' . $p['ID_Prod'] . '">
+                      <i class="bi bi-cart3"></i>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>';
+  $i++;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -46,80 +116,59 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-home">
-  <div class="container">
-    <a class="navbar-brand" href="../Home Page/Home.php">Green Market</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav mx-auto nav-links">
-        <li class="nav-item"><a class="nav-link active" href="../Home Page/Home.php">Accueil</a></li>
-        <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
-        <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
-        <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
-      </ul>
-      <div class="d-flex align-items-center gap-3">
-        <?php
-        if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-          echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-              <i class="bi bi-cart3"></i>
-              <span class="cart-badge" id="cart-count">0</span>
-          </a>';
-        }
-        if (isset($_SESSION['id_utili'])) {
-          echo '<a href="#" class="position-relative text-decoration-none nav-icon">
-              <i class="bi bi-bell"></i>
-              <span class="cart-badge" id="bell-count">0</span>
-          </a>';
-        }
-        if (isset($_SESSION['id_utili'])) {
-          if ($_SESSION['role'] == 'producteur') {
-            echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-          } elseif ($_SESSION['role'] == 'admin') {
-            echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-          } else {
-            echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+    <div class="container">
+      <a class="navbar-brand" href="../Home Page/Home.php">Green Market</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto nav-links">
+          <li class="nav-item"><a class="nav-link active" href="../Home Page/Home.php">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <?php
+          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+            echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
+                <i class="bi bi-cart3"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>';
           }
-        } else {
-          echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-        }
-        ?>
+          if (isset($_SESSION['id_utili'])) {
+            echo '<a href="#" class="position-relative text-decoration-none nav-icon">
+                <i class="bi bi-bell"></i>
+                <span class="cart-badge" id="bell-count">0</span>
+            </a>';
+          }
+          if (isset($_SESSION['id_utili'])) {
+            if ($_SESSION['role'] == 'producteur') {
+              echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+            } elseif ($_SESSION['role'] == 'admin') {
+              echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+            } else {
+              echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+            }
+          } else {
+            echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+          }
+          ?>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <!-- HERO CAROUSEL -->
   <header class="hero">
     <div id="heroCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="6000" style="position:absolute;inset:0;width:100%;">
 
       <div class="carousel-indicators" style="margin-bottom:30px;">
-        <?php for ($i = 0; $i < count($boutiques); $i++) { ?>
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="<?= $i ?>" <?php if ($i == 0) echo 'class="active"'; ?>></button>
-        <?php } ?>
+        <?= $indicators ?>
       </div>
 
       <div class="carousel-inner h-100">
-        <?php
-        $i = 0;
-        foreach ($boutiques as $b) {
-        ?>
-          <div class="carousel-item <?php if ($i == 0) echo 'active'; ?> h-100">
-            <img src="<?= $b['image_banner'] ? $b['image_banner'] : '../uploads/boutiques_images/banner_default.jpg' ?>" class="d-block w-100 hero-bg" alt="Boutique">
-            <div class="hero-overlay"></div>
-            <div class="container h-100 relative-container">
-              <div class="hero-content">
-                <span class="hero-label"><?= $b['ville'] ?></span>
-                <h1 class="hero-title"><?= $b['nom_boutique'] ?></h1>
-                <p class="hero-subtitle"><?= $b['description_boutique'] ?></p>
-                <div class="hero-buttons">
-                  <a href="../Cooperatives/Cooperatives.php" class="btn btn-terracotta">Voir la Coopérative</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php $i++;
-        } ?>
+        <?= $slides ?>
       </div>
 
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -157,34 +206,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
 
         <div class="col-12 col-xl-7">
           <div class="card-interactive-stack">
-            <?php
-            $classes = ['card-bg-top', 'card-foreground', 'card-bg-bottom'];
-            $i = 0;
-            foreach ($produits as $p) {
-            ?>
-              <div class="stack-card <?= $classes[$i] ?>">
-                <div class="stack-img-wrap">
-                  <span class="stack-badge badge-sale">Top Vente</span>
-                  <img src="<?= $p['Prod_img'] ?>" alt="Produit" class="stack-img">
-                </div>
-                <div class="stack-body">
-                  <span class="stack-cat"><?= $p['nom_Categ'] ?></span>
-                  <h3 class="stack-name"><?= $p['nom_Prod'] ?></h3>
-                  <div class="stack-footer">
-                    <span class="stack-price"><?= number_format($p['Prix'], 2) ?> MAD</span>
-                    <div class="stack-actions-group">
-                      <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>" class="btn-circle-action btn-view">
-                        <i class="bi bi-arrow-up-right"></i>
-                      </a>
-                      <button class="btn-circle-action btn-cart <?= $btn_class ?>" data-id="<?= $p['ID_Prod'] ?>">
-                        <i class="bi bi-cart3"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <?php $i++;
-            } ?>
+            <?= $cards ?>
           </div>
         </div>
 
