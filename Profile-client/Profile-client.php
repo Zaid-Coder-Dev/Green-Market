@@ -64,6 +64,82 @@ try {
 
 $initiale = strtoupper(mb_substr($user['prenom'], 0, 1));
 
+// Modifier avis
+$success_avis = '';
+$err_avis = [];
+
+if (isset($_POST['modifier_avis'])) {
+    $id_avis   = $_POST['id_avis'];
+    $note_new  = $_POST['note_new'];
+    $comm_new  = $_POST['commentaire_new'];
+
+    if (empty($note_new) || $note_new < 1 || $note_new > 5) {
+        $err_avis["note"] = "La note doit être entre 1 et 5.";
+    }
+    if (empty($comm_new)) {
+        $err_avis["commentaire"] = "Le commentaire est obligatoire.";
+    }
+
+    if (empty($err_avis)) {
+        try {
+            $req = $pdo->prepare("UPDATE Avis SET note=?, commentaire=?, date_avis=NOW() WHERE ID_Avis=? AND ID_utili=?");
+            $req->execute([$note_new, $comm_new, $id_avis, $id]);
+            $success_avis = "Votre avis a été modifié.";
+
+            $req = $pdo->prepare("SELECT a.*, p.nom_Prod FROM Avis a JOIN Produit p ON a.ID_Prod = p.ID_Prod WHERE a.ID_utili = ? ORDER BY a.date_avis DESC");
+            $req->execute([$id]);
+            $avis = $req->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $err_avis["db"] = "Erreur : " . $e->getMessage();
+        }
+    }
+}
+
+// Supprimer avis
+$success_suppr_avis = '';
+
+if (isset($_POST['supprimer_avis'])) {
+    $id_avis = $_POST['id_avis'];
+    try {
+        $req = $pdo->prepare("DELETE FROM Avis WHERE ID_Avis=? AND ID_utili=?");
+        $req->execute([$id_avis, $id]);
+        $success_suppr_avis = "Votre avis a été supprimé.";
+
+        $req = $pdo->prepare("SELECT a.*, p.nom_Prod FROM Avis a JOIN Produit p ON a.ID_Prod = p.ID_Prod WHERE a.ID_utili = ? ORDER BY a.date_avis DESC");
+        $req->execute([$id]);
+        $avis = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        $req = $pdo->prepare("SELECT COUNT(*) as nb FROM Avis WHERE ID_utili = ?");
+        $req->execute([$id]);
+        $nb_avis = $req->fetch(PDO::FETCH_ASSOC)['nb'];
+    } catch (PDOException $e) {
+        $err_avis["db"] = "Erreur : " . $e->getMessage();
+    }
+}
+
+// Signaler une réclamation
+$success_reclam = '';
+$err_reclam = [];
+
+if (isset($_POST['signaler_reclam'])) {
+    $id_com      = $_POST['id_com'];
+    $description = $_POST['description'];
+
+    if (empty($description)) {
+        $err_reclam["description"] = "La description est obligatoire.";
+    }
+
+    if (empty($err_reclam)) {
+        try {
+            $req = $pdo->prepare("INSERT INTO Reclamation (description, status_reclam, ID_Com, ID_utili) VALUES (?, 'ouverte', ?, ?)");
+            $req->execute([$description, $id_com, $id]);
+            $success_reclam = "Votre réclamation a été envoyée.";
+        } catch (PDOException $e) {
+            $err_reclam["db"] = "Erreur : " . $e->getMessage();
+        }
+    }
+}
+
 // Sauvegarder profil
 $success_profil = '';
 $error_profil = '';
@@ -328,10 +404,44 @@ if (isset($_POST['save_mdp'])) {
                     <?php if (isset($err_profil["db"])) { ?>
                         <div class="alert-error-custom mb-3"><?= $err_profil["db"] ?></div>
                     <?php } ?>
+                    <?php $profil_has_errors = !empty($err_profil); ?>
 
                     <div class="content-card mb-4">
-                        <h6 class="content-card-title mb-4">Informations personnelles</h6>
-                        <form method="POST">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="content-card-title mb-0 pb-0 border-0">Informations personnelles</h6>
+                            <button type="button" class="btn btn-sm btn-modifier-profil" id="btn-edit-profil" data-errors="<?= $profil_has_errors ? '1' : '0' ?>">
+                                <i class="bi bi-pencil me-1"></i>Modifier
+                            </button>
+                        </div>
+
+                        <!-- MODE AFFICHAGE -->
+                        <div id="profil-display">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="profil-field-label">Nom</div>
+                                    <div class="profil-field-value"><?= $user['nom'] ?></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="profil-field-label">Prénom</div>
+                                    <div class="profil-field-value"><?= $user['prenom'] ?></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="profil-field-label">Email</div>
+                                    <div class="profil-field-value"><?= $user['email'] ?></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="profil-field-label">Ville</div>
+                                    <div class="profil-field-value"><?= $user['ville'] ? $user['ville'] : '—' ?></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="profil-field-label">Rue / Adresse</div>
+                                    <div class="profil-field-value"><?= $user['rue'] ? $user['rue'] : '—' ?></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODE ÉDITION -->
+                        <form method="POST" id="profil-form" class="d-none">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Nom</label>
@@ -356,8 +466,9 @@ if (isset($_POST['save_mdp'])) {
                                     <label class="form-label small fw-bold">Rue / Adresse</label>
                                     <input type="text" name="rue" class="form-control form-control-profile" value="<?= $user['rue'] ?>">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 d-flex gap-2">
                                     <button type="submit" name="save_profil" class="btn btn-save text-white">Sauvegarder</button>
+                                    <button type="button" class="btn btn-annuler-profil" id="btn-cancel-profil">Annuler</button>
                                 </div>
                             </div>
                         </form>
@@ -401,6 +512,14 @@ if (isset($_POST['save_mdp'])) {
                 <!-- MES COMMANDES -->
                 <div id="commandes" class="section d-none">
                     <h4 class="mb-4">Mes Commandes</h4>
+
+                    <?php if ($success_reclam != '') { ?>
+                        <div class="alert-success-custom mb-3"><?= $success_reclam ?></div>
+                    <?php } ?>
+                    <?php if (isset($err_reclam["db"])) { ?>
+                        <div class="alert-error-custom mb-3"><?= $err_reclam["db"] ?></div>
+                    <?php } ?>
+
                     <div class="content-card">
                         <?php if (count($commandes) == 0) { ?>
                             <p class="text-muted-ink text-center py-3">Aucune commande pour l'instant.</p>
@@ -414,6 +533,7 @@ if (isset($_POST['save_mdp'])) {
                                             <th>Ville livraison</th>
                                             <th>Total</th>
                                             <th>Statut</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -436,6 +556,11 @@ if (isset($_POST['save_mdp'])) {
                                                         <span class="badge-statut encours"><?= $c['status_com'] ?></span>
                                                     <?php } ?>
                                                 </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-reclam" data-id="<?= $c['ID_Com'] ?>" data-num="#<?= $c['ID_Com'] ?>">
+                                                        <i class="bi bi-flag me-1"></i>Signaler
+                                                    </button>
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -448,6 +573,17 @@ if (isset($_POST['save_mdp'])) {
                 <!-- MES AVIS -->
                 <div id="avis" class="section d-none">
                     <h4 class="mb-4">Mes Avis</h4>
+
+                    <?php if ($success_avis != '') { ?>
+                        <div class="alert-success-custom mb-3"><?= $success_avis ?></div>
+                    <?php } ?>
+                    <?php if ($success_suppr_avis != '') { ?>
+                        <div class="alert-success-custom mb-3"><?= $success_suppr_avis ?></div>
+                    <?php } ?>
+                    <?php if (isset($err_avis["db"])) { ?>
+                        <div class="alert-error-custom mb-3"><?= $err_avis["db"] ?></div>
+                    <?php } ?>
+
                     <div class="content-card">
                         <?php if (count($avis) == 0) { ?>
                             <p class="text-muted-ink text-center py-3">Vous n'avez laissé aucun avis pour l'instant.</p>
@@ -455,7 +591,8 @@ if (isset($_POST['save_mdp'])) {
                             <div class="d-flex flex-column gap-3">
                                 <?php foreach ($avis as $index => $av) { ?>
                                     <?php if ($index > 0) { ?>
-                                        <hr class="avis-divider"><?php } ?>
+                                        <hr class="avis-divider">
+                                    <?php } ?>
                                     <div class="avis-item">
                                         <div class="d-flex justify-content-between align-items-start mb-1">
                                             <h6 class="fw-bold mb-0"><?= $av['nom_Prod'] ?></h6>
@@ -470,7 +607,21 @@ if (isset($_POST['save_mdp'])) {
                                                 <?php } ?>
                                             <?php } ?>
                                         </div>
-                                        <p class="text-muted-ink mb-0" style="font-size:0.875rem;"><?= $av['commentaire'] ?></p>
+                                        <p class="text-muted-ink mb-2" style="font-size:0.875rem;"><?= $av['commentaire'] ?></p>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-modifier-avis"
+                                                data-id="<?= $av['ID_Avis'] ?>"
+                                                data-note="<?= $av['note'] ?>"
+                                                data-commentaire="<?= $av['commentaire'] ?>"
+                                                data-produit="<?= $av['nom_Prod'] ?>">
+                                                <i class="bi bi-pencil me-1"></i>Modifier
+                                            </button>
+                                            <button class="btn btn-sm btn-supprimer-avis"
+                                                data-id="<?= $av['ID_Avis'] ?>"
+                                                data-produit="<?= $av['nom_Prod'] ?>">
+                                                <i class="bi bi-trash me-1"></i>Supprimer
+                                            </button>
+                                        </div>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -528,6 +679,85 @@ if (isset($_POST['save_mdp'])) {
                     <?php } ?>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MODIFIER AVIS -->
+    <div class="modal fade" id="modalModifierAvis" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">Modifier mon avis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted-ink mb-3" id="modal-avis-produit" style="font-size:0.875rem;"></p>
+                    <form method="POST" id="form-modifier-avis">
+                        <input type="hidden" name="id_avis" id="input-id-avis">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Note</label>
+                            <div class="star-picker d-flex gap-2 mb-1" id="star-picker">
+                                <i class="bi bi-star-fill star-btn" data-val="1"></i>
+                                <i class="bi bi-star-fill star-btn" data-val="2"></i>
+                                <i class="bi bi-star-fill star-btn" data-val="3"></i>
+                                <i class="bi bi-star-fill star-btn" data-val="4"></i>
+                                <i class="bi bi-star-fill star-btn" data-val="5"></i>
+                            </div>
+                            <input type="hidden" name="note_new" id="input-note-new">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Commentaire</label>
+                            <textarea name="commentaire_new" id="input-commentaire-new" class="form-control form-control-profile" rows="4"></textarea>
+                        </div>
+                        <button type="submit" name="modifier_avis" class="btn btn-save text-white w-100">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SUPPRIMER AVIS -->
+    <div class="modal fade" id="modalSupprimerAvis" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">Supprimer l'avis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted-ink mb-3" style="font-size:0.875rem;">Êtes-vous sûr de vouloir supprimer votre avis pour <strong id="modal-suppr-produit"></strong> ? Cette action est irréversible.</p>
+                    <form method="POST">
+                        <input type="hidden" name="id_avis" id="input-suppr-id-avis">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm btn-appliquer w-50" data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" name="supprimer_avis" class="btn btn-sm btn-danger w-50">Supprimer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RÉCLAMATION -->
+    <div class="modal fade" id="modalReclam" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">Signaler un problème</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted-ink mb-3" style="font-size:0.875rem;">Commande <strong id="modal-reclam-num"></strong></p>
+                    <form method="POST">
+                        <input type="hidden" name="id_com" id="input-reclam-id-com">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Description du problème</label>
+                            <textarea name="description" class="form-control form-control-profile" rows="4" placeholder="Décrivez le problème rencontré..."></textarea>
+                        </div>
+                        <button type="submit" name="signaler_reclam" class="btn btn-save text-white w-100">Envoyer la réclamation</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

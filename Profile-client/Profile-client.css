@@ -94,8 +94,12 @@ h1, h2, h3, h4, h5 {
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  position: sticky;
-  top: 24px;
+
+}
+.col-md-3{
+    position: sticky;
+    top: 24px;
+    align-self: start;
 }
 
 .sidebar-divider {
@@ -396,6 +400,60 @@ h1, h2, h3, h4, h5 {
 .btn-add:hover {
   background-color: #c96d30;
   color: white;
+}
+
+/* =====================
+   AVIS ACTION BUTTONS
+===================== */
+.btn-modifier-avis {
+  background-color: var(--cream);
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-modifier-avis:hover {
+  background-color: var(--green);
+  color: white;
+}
+
+.btn-supprimer-avis {
+  background-color: #fff0f0;
+  color: #c62828;
+  border: 1px solid #c62828;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-supprimer-avis:hover {
+  background-color: #c62828;
+  color: white;
+}
+
+.btn-reclam {
+  background-color: #fff3e0;
+  color: var(--terracotta);
+  border: 1px solid var(--terracotta);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-reclam:hover {
+  background-color: var(--terracotta);
+  color: white;
+}
+
+/* =====================
+   STAR PICKER (modal)
+===================== */
+.star-picker {
+  font-size: 1.5rem;
+  color: var(--terracotta);
+  cursor: pointer;
 }
 
 /* =====================
