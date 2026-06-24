@@ -1,3 +1,16 @@
+<?php
+session_start();
+require_once '../connexion.php';
+
+if (!isset($_SESSION['id_utili'])) {
+    header('Location: ../Inscription/Inscription.php');
+    exit();
+}
+if ($_SESSION['role'] != 'admin') {
+    header('Location: ../Home Page/Home.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,7 +24,67 @@
 </head>
 <body>
 
-  <div class="container py-5">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="../Home Page/Home.php">
+        <img src="../logo_Qofa.png" alt="" class="navbar-logo">Green Market
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto nav-links">
+          <li class="nav-item"><a class="nav-link" href="../Home Page/Home.php">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
+          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
+        </ul>
+
+        <div class="nav-utils">
+          <?php
+          $cart_html = '';
+          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+              $cart_html = '<a href="../Panier/Panier.php" class="nav-icon-circle">
+                  <i class="bi bi-cart3"></i>
+                  <span class="cart-badge" id="cart-count">0</span>
+              </a>';
+          }
+
+          $profile_html = '';
+          if (isset($_SESSION['id_utili'])) {
+              if ($_SESSION['role'] == 'producteur') {
+                  $profile_href = '../Producteur/Producteur.php';
+              } elseif ($_SESSION['role'] == 'admin') {
+                  $profile_href = '../Admin/Admin.php';
+              } else {
+                  $profile_href = '../Profile-client/Profile-client.php';
+              }
+              $profile_html = '<a href="' . $profile_href . '" class="nav-icon-circle">
+                  <i class="bi bi-person"></i>
+                  <span class="notif-dot" id="notif-dot"></span>
+              </a>';
+          } else {
+              $profile_html = '<a href="../Inscription/Inscription.php" class="nav-icon-circle"><i class="bi bi-person"></i></a>';
+          }
+          ?>
+
+          <div class="nav-expand" id="navExpand">
+            <?= $cart_html ?>
+            <?= $profile_html ?>
+            <button type="button" class="lang-toggle" id="langToggle">FR</button>
+          </div>
+
+          <button type="button" class="nav-toggle-btn" id="navToggleBtn" aria-expanded="false" aria-label="Ouvrir le menu">
+            <i class="bi bi-three-dots-vertical"></i>
+            <span class="master-dot" id="masterDot"></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid px-4 px-lg-5 py-5">
     <div class="row g-4">
 
       <!-- ========================= -->
@@ -19,11 +92,6 @@
       <!-- ========================= -->
       <div class="col-12 col-md-3">
         <div class="profile-sidebar p-3">
-
-          <div class="text-center my-2">
-            <img src="logoo.png" alt="logo" width="100">
-          </div>
-          <hr class="my-2">
 
           <!-- Avatar -->
           <div class="d-flex align-items-center gap-3 p-2 mb-2">
@@ -72,7 +140,7 @@
             </a>
           </div>
           <hr>
-          <a href="../Inscription/Inscription.html" class="sidebar-link text-danger">
+          <a href="../Inscription/Inscription.php" class="sidebar-link text-danger">
             <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
           </a>
 

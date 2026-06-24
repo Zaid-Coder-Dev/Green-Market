@@ -146,7 +146,7 @@ foreach ($produits as $p) {
             if ($_SESSION['role'] == 'producteur') {
               echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
             } elseif ($_SESSION['role'] == 'admin') {
-              echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
+              echo '<a href="../Profile_Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
             } else {
               echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
             }
