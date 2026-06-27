@@ -87,9 +87,8 @@ if (isset($_COOKIE['remember_mail'])) {
                     } else {
                       setcookie('remember_mail', '', time() - 3600);
                     }
-
                     header("Location: ../Home Page/Home.php");
-                    exit;
+                      exit;
                   } else  echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
                 }
               } catch (PDOException $e) {
@@ -185,8 +184,14 @@ if (isset($_COOKIE['remember_mail'])) {
                   echo "Echec d'insertion ";
                 } else {
                   $_SESSION['success'] = "Compte créé avec succès !";
-                  header("Location:../Home Page/Home.php");
-                  exit;
+                  if($tablog['role']=="producteur"){
+                      header("Location: ../Create Market/create-market.php");
+                      exit;
+                    }else{
+                      header("Location:../Home Page/Home.php");
+                      exit;
+                    }
+                  
                 }
               } catch (PDOException $e) {
                 die("erreur insertion prod : " . $e->getMessage());

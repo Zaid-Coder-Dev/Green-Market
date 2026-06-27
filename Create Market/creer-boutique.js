@@ -163,3 +163,147 @@ document.getElementById('createBtn').addEventListener('click', function () {
   // Message de confirmation (sera remplacé par PHP plus tard)
   alert('Boutique créée avec succès ! Elle sera activée après validation par l\'administrateur.');
 });
+
+
+    // 1. Logic dyal Logo Upload
+    const uploadArea = document.getElementById('uploadArea');
+    const logoInput = document.getElementById('logoInput');
+    const browseBtn = document.getElementById('browseBtn');
+    const previewLogo = document.getElementById('previewLogo');
+    const uploadContent = document.getElementById('uploadContent');
+
+    browseBtn.addEventListener('click', (e) => { e.stopPropagation(); logoInput.click(); });
+    uploadArea.addEventListener('click', () => { logoInput.click(); });
+
+    logoInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewLogo.src = e.target.result;
+                previewLogo.style.display = 'block';
+                uploadContent.style.opacity = '0';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // 2. Logic dyal Multi-Images (Images de la boutique) & Gallery Slider
+    const addImagesBtn = document.getElementById('addImagesBtn');
+    const imagesInput = document.getElementById('imagesInput');
+    const imagesGrid = document.getElementById('imagesGrid');
+    const noImagesText = document.getElementById('noImagesText');
+    const previewImage = document.getElementById('previewImage');
+    const noPreviewText = document.getElementById('noPreviewText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let selectedFiles = [];
+    let currentPreviewIndex = 0;
+
+    addImagesBtn.addEventListener('click', () => { imagesInput.click(); });
+
+    imagesInput.addEventListener('change', function() {
+        const files = Array.from(this.files);
+        if(files.length > 0) {
+            noImagesText.style.display = 'none';
+        }
+        
+        files.forEach(file => {
+            selectedFiles.push(file);
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imgIndex = selectedFiles.length - 1;
+                
+                // Creer element dyal image Grid
+                const imgDiv = document.createElement('div');
+                imgDiv.className = 'market-image';
+                imgDiv.setAttribute('data-index', imgIndex);
+                imgDiv.innerHTML = `
+                    <img src="${e.target.result}" alt="Image boutique">
+                    <div class="image-actions">
+                        <button type="button" class="img-action-btn delete-btn" onclick="removeGalleryImage(${imgIndex})"><i class="bi bi-trash"></i></button>
+                    </div>
+                `;
+                imagesGrid.appendChild(imgDiv);
+                
+                // Trigerry l-aperçu l-awal
+                if(selectedFiles.length === 1) {
+                    updatePreview(0);
+                }
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+
+    function updatePreview(index) {
+        if(selectedFiles.length > 0 && selectedFiles[index]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+                noPreviewText.style.display = 'none';
+                
+                // Afficher les flèches si plusieurs images
+                if(selectedFiles.length > 1) {
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                } else {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+            }
+            reader.readAsDataURL(selectedFiles[index]);
+            currentPreviewIndex = index;
+        } else {
+            previewImage.style.display = 'none';
+            noPreviewText.style.display = 'block';
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+    }
+
+    // Navigation Carousel
+    nextBtn.addEventListener('click', () => {
+        let nextIndex = currentPreviewIndex + 1;
+        if(nextIndex >= selectedFiles.length) nextIndex = 0;
+        updatePreview(nextIndex);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        let prevIndex = currentPreviewIndex - 1;
+        if(prevIndex < 0) prevIndex = selectedFiles.length - 1;
+        updatePreview(prevIndex);
+    });
+
+    // Fonction bach tmseh tswira mn l-gallery qbel l-upload
+    window.removeGalleryImage = function(index) {
+        selectedFiles.splice(index, 1);
+        
+        // Re-render grid
+        imagesGrid.innerHTML = '';
+        if(selectedFiles.length === 0) {
+            noImagesText.style.display = 'block';
+            updatePreview(0);
+        } else {
+            selectedFiles.forEach((file, i) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'market-image';
+                    imgDiv.setAttribute('data-index', i);
+                    imgDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Image boutique">
+                        <div class="image-actions">
+                            <button type="button" class="img-action-btn delete-btn" onclick="removeGalleryImage(${i})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    `;
+                    imagesGrid.appendChild(imgDiv);
+                }
+                reader.readAsDataURL(file);
+            });
+            updatePreview(0);
+        }
+    };
+  
