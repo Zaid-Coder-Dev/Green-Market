@@ -24,13 +24,7 @@ try {
 }
 
 if (isset($_POST['create'])) {
-    $nom   = $_POST['nom'];
-    $ville = $_POST['ville'];
-    $des   = $_POST['des'];
-    $tel   = isset($_POST['tel'])   ? $_POST['tel']   : '';
-    $insta = isset($_POST['insta']) ? $_POST['insta'] : '';
-    $fb    = isset($_POST['fb'])    ? $_POST['fb']    : '';
-    $categs = isset($_POST['categorie']) ? $_POST['categorie'] : [];
+    extract($_POST);
 
     if (empty($nom))   { $err['nom']   = "Veuillez saisir le nom de la boutique."; }
     if (empty($ville)) { $err['ville'] = "Veuillez choisir une ville."; }
@@ -55,10 +49,8 @@ if (isset($_POST['create'])) {
     $banner_path = '';
 
     if (empty($err)) {
-        // Logo (petit, obligatoire)
-        if ($_FILES['logo']['error'] != 0) {
-            $err['logo'] = "Le logo est obligatoire.";
-        } else if (!in_array($_FILES['logo']['type'], $exts)) {
+        
+          if (!in_array($_FILES['logo']['type'], $exts)) {
             $err['logo'] = "Format non autorisé. PNG ou JPG uniquement.";
         } else if ($_FILES['logo']['size'] > 5 * 1024 * 1024) {
             $err['logo'] = "Taille max : 5 Mo.";
@@ -73,21 +65,21 @@ if (isset($_POST['create'])) {
         }
 
         // Bannière (grande, optionnelle)
-        if ($_FILES['banner']['error'] == 0) {
-            if (!in_array($_FILES['banner']['type'], $exts)) {
-                $err['banner'] = "Format non autorisé. PNG ou JPG uniquement.";
-            } else if ($_FILES['banner']['size'] > 5 * 1024 * 1024) {
-                $err['banner'] = "Taille max : 5 Mo.";
-            } else {
-                $ext      = pathinfo($_FILES['banner']['name'], PATHINFO_EXTENSION);
-                $filename = uniqid('banner_') . '.' . $ext;
-                if (!move_uploaded_file($_FILES['banner']['tmp_name'], '../uploads/boutiques_images/' . $filename)) {
-                    $err['banner'] = "Erreur lors de l'enregistrement de la bannière.";
-                } else {
-                    $banner_path = '../uploads/boutiques_images/' . $filename;
-                }
-            }
+        if (isset($_FILES['banner']) && $_FILES['banner']['error'] == 0) {
+    if (!in_array($_FILES['banner']['type'], $exts)) {
+        $err['banner'] = "Format non autorisé. PNG ou JPG uniquement.";
+    } else if ($_FILES['banner']['size'] > 5 * 1024 * 1024) {
+        $err['banner'] = "Taille max : 5 Mo.";
+    } else {
+        $ext      = pathinfo($_FILES['banner']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('banner_') . '.' . $ext;
+        if (!move_uploaded_file($_FILES['banner']['tmp_name'], '../uploads/boutiques_images/' . $filename)) {
+            $err['banner'] = "Erreur lors de l'enregistrement de la bannière.";
+        } else {
+            $banner_path = '../uploads/boutiques_images/' . $filename;
         }
+    }
+}
     }
 
     if (empty($err)) {
