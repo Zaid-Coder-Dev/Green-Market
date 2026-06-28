@@ -29,18 +29,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['echou'] = "Action non autorisée. Transition de '" . ucfirst($ancien_status) . "' vers '" . ucfirst($nouvel_statut) . "' impossible.";
                 }
             }
-        }catch(PDOException $e) {die("erreur de suppression :".$e->getMessage());}
+        }catch(PDOException $e) {
+            $_SESSION['echou'] = "Erreur : " . $e->getMessage();
+        }
         
-        
+        // Redirect to avoid form resubmission
+        header("Location: " . $_SERVER['PHP_SELF'] . "?section=voir-commande&id=" . $id_com);
+        exit();
     }
-    
 }
 ?>
 
 <div class="section d-none" id="voir-commande">
     <?php
     if (isset($_GET['id']) && !empty($_GET['id'])) {
-        $id_com =$_GET['id'];
+        $id_com = $_GET['id'];
 
         try {
             $recom = $pdo->prepare("SELECT c.*, u.nom, u.prenom, u.email, u.ville AS ville_client 
@@ -58,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $produits = $reprod->fetchAll(PDO::FETCH_ASSOC);
 
             if ($commande) {
-                extract($commande,EXTR_SKIP);
+                extract($commande, EXTR_SKIP);
                 $status = strtolower($commande['status_com']);
                 ?>
                 <div class="products-page">
@@ -95,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="bi bi-cash-stack me-1"></i> 
-                                        <strong>Total :</strong> <span class="fw-bold text-success"><?php echo $commande['prix_total'] ; ?> MAD</span>
+                                        <strong>Total :</strong> <span class="fw-bold text-success"><?php echo number_format($commande['prix_total'], 2); ?> MAD</span>
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="bi bi-info-circle-fill me-1"></i> 
@@ -169,13 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <div class="flex-grow-1">
                                                     <h6 class="fw-bold mb-1" style="color: #2d4a2d; margin:0; font-size: 15px;"><?php echo $nom_Prod; ?></h6>
                                                     <div class="text-muted mt-1 small d-flex gap-3 flex-wrap">
-                                                        <span>Prix: <strong><?php echo $Prix_Unitaire; ?> MAD</strong></span>
+                                                        <span>Prix: <strong><?php echo number_format($Prix_Unitaire, 2); ?> MAD</strong></span>
                                                         <span>Quantité: <strong><?php echo $Quantite; ?></strong></span>
                                                     </div>
                                                 </div>
                                                 <div class="text-sm-end w-100 w-sm-auto pt-2 pt-sm-0">
                                                     <small class="text-muted d-block small text-uppercase" style="font-size: 10px;">Sous-total</small>
-                                                    <span class="fw-bold text-success" style="font-size: 15px;"><?php echo $prod_total; ?> MAD</span>
+                                                    <span class="fw-bold text-success" style="font-size: 15px;"><?php echo number_format($prod_total, 2); ?> MAD</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <div class="text-end mt-4 pt-3 border-top">
                                     <p class="text-muted mb-1 small">Montant Total à Payer</p>
-                                    <h3 class="fw-bold" style="color: #2d4a2d; font-family: 'Playfair Display', serif; font-size: 28px;"><?php echo $commande['prix_total']; ?> MAD</h3>
+                                    <h3 class="fw-bold" style="color: #2d4a2d; font-family: 'Playfair Display', serif; font-size: 28px;"><?php echo number_format($commande['prix_total'], 2); ?> MAD</h3>
                                 </div>
                             </div>
                         </div>
@@ -197,12 +200,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <?php echo strtoupper(substr($nom, 0, 1)); ?>
                                     </div>
                                     <div class="overflow-hidden">
-                                        <h6 class="mb-0 fw-bold" style="color: #2d4a2d; font-size: 15px;"><?php echo $nom . ' ' . $prenom ; ?></h6>
+                                        <h6 class="mb-0 fw-bold" style="color: #2d4a2d; font-size: 15px;"><?php echo $nom . ' ' . $prenom; ?></h6>
                                         <small class="text-muted text-break" style="font-size: 12px;"><?php echo $email; ?></small>
                                     </div>
                                 </div>
                                 <div class="small text-muted pt-2 mt-3 border-top" style="font-size: 13px;">
-                                    <i class="bi bi-building me-1"></i> Ville d'origine : <strong class="text-dark"><?php echo $ville_client; ?></strong>
+                                    <i class="bi bi-building me-1"></i> Ville : <strong class="text-dark"><?php echo $ville_client; ?></strong>
                                 </div>
                             </div>
 
@@ -213,14 +216,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <div class="delivery-icon"><i class="bi bi-house-door"></i></div>
                                         <div class="delivery-info">
                                             <small>Adresse de livraison</small>
-                                            <h6><?php echo $adresse_livraison; ?></h6>
+                                            <h6><?php echo !empty($adresse_livraison) ? $adresse_livraison : 'Non renseignée'; ?></h6>
                                         </div>
                                     </div>
                                     <div class="delivery-card">
                                         <div class="delivery-icon"><i class="bi bi-building"></i></div>
                                         <div class="delivery-info">
-                                            <small>Ville & Code Postal</small>
-                                            <h6><?php echo $ville_livraison . ' - ' . $code_postal_livraison; ?></h6>
+                                            <small>Ville</small>
+                                            <h6><?php echo !empty($ville_livraison) ? $ville_livraison : 'Non renseignée'; ?></h6>
                                         </div>
                                     </div>
                                 </div>

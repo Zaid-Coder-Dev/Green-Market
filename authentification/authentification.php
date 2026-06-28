@@ -94,17 +94,10 @@ if (isset($_COOKIE['remember_mail'])) {
                       if (isset($_COOKIE['remember_mail'])) {
                         setcookie('remember_mail', '', time() - 3600, "/");
                       }
-                    }
+                    }        
 
-                    // Redirect based on role
-                    if ($tablog['role'] == 'admin') {
-                      header("Location: ../Admin/Admin.php");
-                    } elseif ($tablog['role'] == 'producteur') {
-                      header("Location: ../Producteur/Producteur.php");
-                    } else {
                       header("Location: ../Home Page/Home.php");
-                    }
-                    exit;
+                      exit;
                   } else {
                     echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
                   }

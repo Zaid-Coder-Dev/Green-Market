@@ -182,7 +182,7 @@ if (isset($_POST['ajouter_categorie'])) {
         $ext = pathinfo($_FILES['image_categ']['name'], PATHINFO_EXTENSION);
         $filename = uniqid() . '.' . $ext;
         move_uploaded_file($_FILES['image_categ']['tmp_name'], $upload_dir . $filename);
-        $image_path = 'uploads/categories_images/' . $filename; // Store relative path
+        $image_path = '../uploads/categories_images/' . $filename; // Store relative path
     }
 
     if (empty($nom)) {
