@@ -1,3 +1,46 @@
+// --- MENU NAVBAR (cart/profil/langue) ---
+var navToggleBtn = document.getElementById('navToggleBtn');
+var navExpand = document.getElementById('navExpand');
+var masterDot = document.getElementById('masterDot');
+
+if (navToggleBtn) {
+    navToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navExpand.classList.toggle('open');
+        var estOuvert = navExpand.classList.contains('open');
+        navToggleBtn.setAttribute('aria-expanded', estOuvert);
+        if (masterDot) {
+            if (estOuvert) {
+                masterDot.style.display = 'none';
+            } else {
+                masterDot.style.display = 'block';
+            }
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!navExpand.contains(e.target) && !navToggleBtn.contains(e.target)) {
+            navExpand.classList.remove('open');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// --- TOGGLE LANGUE FR/EN ---
+var langToggle = document.getElementById('langToggle');
+
+if (langToggle) {
+    langToggle.addEventListener('click', function() {
+        if (langToggle.textContent == 'FR') {
+            langToggle.textContent = 'EN';
+            document.cookie = 'lang=EN; path=/; max-age=2592000';
+        } else {
+            langToggle.textContent = 'FR';
+            document.cookie = 'lang=FR; path=/; max-age=2592000';
+        }
+    });
+}
+
 // Changer de section quand on clique un lien sidebar
 document.querySelectorAll('.sidebar-link').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -17,9 +60,53 @@ document.querySelectorAll('.sidebar-link').forEach(function(btn) {
         if (sectionId) {
             document.getElementById(sectionId).classList.remove('d-none');
             this.classList.add('active');
+            // Mémoriser pour retrouver après un POST
+            sessionStorage.setItem('clientSection', sectionId);
         }
     });
 });
+
+// Rouvrir la bonne section après un POST redirect
+var urlParams = new URLSearchParams(window.location.search);
+var ok = urlParams.get('ok');
+if (ok == 'profil' || ok == 'mdp') {
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.add('d-none'); });
+    document.getElementById('profil').classList.remove('d-none');
+    document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+    document.querySelector('.sidebar-link[data-section="profil"]').classList.add('active');
+} else if (ok == 'avis_modifie' || ok == 'avis_supprime') {
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.add('d-none'); });
+    document.getElementById('avis').classList.remove('d-none');
+    document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+    document.querySelector('.sidebar-link[data-section="avis"]').classList.add('active');
+} else if (ok == 'reclam') {
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.add('d-none'); });
+    document.getElementById('commandes').classList.remove('d-none');
+    document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+    document.querySelector('.sidebar-link[data-section="commandes"]').classList.add('active');
+}
+
+// --- TOGGLE PROFIL MODIFIER / ANNULER ---
+var btnModifier   = document.getElementById('btnModifierProfil');
+var btnAnnuler    = document.getElementById('btnAnnulerProfil');
+var profilDisplay = document.getElementById('profilDisplay');
+var profilEdit    = document.getElementById('profilEdit');
+
+if (btnModifier) {
+    btnModifier.addEventListener('click', function() {
+        profilDisplay.classList.add('d-none');
+        profilEdit.classList.remove('d-none');
+        btnModifier.classList.add('d-none');
+    });
+}
+
+if (btnAnnuler) {
+    btnAnnuler.addEventListener('click', function() {
+        profilEdit.classList.add('d-none');
+        profilDisplay.classList.remove('d-none');
+        btnModifier.classList.remove('d-none');
+    });
+}
 
 // Animation clic sur bouton panier (favoris)
 document.querySelectorAll('.btn-add').forEach(function(btn) {
@@ -31,37 +118,7 @@ document.querySelectorAll('.btn-add').forEach(function(btn) {
     });
 });
 
-// --- TOGGLE AFFICHAGE / ÉDITION PROFIL ---
-
-function ouvrirEditionProfil() {
-    document.getElementById('profil-display').classList.add('d-none');
-    document.getElementById('profil-form').classList.remove('d-none');
-    document.getElementById('btn-edit-profil').classList.add('d-none');
-}
-
-function fermerEditionProfil() {
-    document.getElementById('profil-display').classList.remove('d-none');
-    document.getElementById('profil-form').classList.add('d-none');
-    document.getElementById('btn-edit-profil').classList.remove('d-none');
-}
-
-var btnEdit = document.getElementById('btn-edit-profil');
-if (btnEdit) {
-    // Ouvrir automatiquement si erreurs de validation
-    if (btnEdit.getAttribute('data-errors') == '1') {
-        ouvrirEditionProfil();
-    }
-    btnEdit.addEventListener('click', ouvrirEditionProfil);
-}
-
-var btnCancel = document.getElementById('btn-cancel-profil');
-if (btnCancel) {
-    btnCancel.addEventListener('click', fermerEditionProfil);
-}
-
-// --- MODAL MODIFIER AVIS ---
-
-// Sélecteur d'étoiles dans le modal
+// --- ÉTOILES (modal modifier) ---
 var noteSelectionnee = 0;
 
 function mettreAJourEtoiles(valeur) {
@@ -101,22 +158,20 @@ document.querySelectorAll('.star-btn').forEach(function(star) {
     });
 });
 
-// Ouvrir le modal modifier avec les données de l'avis cliqué
+// --- MODAL MODIFIER AVIS ---
 document.querySelectorAll('.btn-modifier-avis').forEach(function(btn) {
     btn.addEventListener('click', function() {
-        var id        = this.getAttribute('data-id');
-        var note      = parseInt(this.getAttribute('data-note'));
+        var id          = this.getAttribute('data-id');
+        var note        = parseInt(this.getAttribute('data-note'));
         var commentaire = this.getAttribute('data-commentaire');
-        var produit   = this.getAttribute('data-produit');
+        var produit     = this.getAttribute('data-produit');
 
         document.getElementById('input-id-avis').value          = id;
         document.getElementById('input-commentaire-new').value  = commentaire;
         document.getElementById('modal-avis-produit').textContent = produit;
-
         mettreAJourEtoiles(note);
 
-        var modal = new bootstrap.Modal(document.getElementById('modalModifierAvis'));
-        modal.show();
+        new bootstrap.Modal(document.getElementById('modalModifierAvis')).show();
     });
 });
 
@@ -129,8 +184,7 @@ document.querySelectorAll('.btn-supprimer-avis').forEach(function(btn) {
         document.getElementById('input-suppr-id-avis').value      = id;
         document.getElementById('modal-suppr-produit').textContent = produit;
 
-        var modal = new bootstrap.Modal(document.getElementById('modalSupprimerAvis'));
-        modal.show();
+        new bootstrap.Modal(document.getElementById('modalSupprimerAvis')).show();
     });
 });
 

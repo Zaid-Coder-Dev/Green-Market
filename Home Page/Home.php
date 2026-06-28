@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../connexion.php';
+require_once '../functions.php';
 
 // BOUTIQUES CAROUSEL
 try {
@@ -11,9 +12,17 @@ try {
   die("Erreur : " . $e->getMessage());
 }
 
-// PRODUITS PHARES
+// PRODUITS PHARES (les plus achetés)
 try {
-  $req2 = $pdo->prepare("SELECT p.*, c.nom_Categ FROM Produit p JOIN Categorie c ON p.ID_Categ = c.ID_Categ LIMIT 3");
+  $req2 = $pdo->prepare("SELECT p.*, c.nom_Categ, SUM(lc.Quantite) AS total_vendu
+                          FROM Produit p
+                          JOIN Categorie c ON p.ID_Categ = c.ID_Categ
+                          JOIN Ligne_commande lc ON lc.ID_Prod = p.ID_Prod
+                          JOIN Commande co ON co.ID_Com = lc.ID_Com
+                          WHERE co.status_com != 'annulé'
+                          GROUP BY p.ID_Prod
+                          ORDER BY total_vendu DESC
+                          LIMIT 3");
   $req2->execute();
   $produits = $req2->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -87,9 +96,11 @@ foreach ($produits as $p) {
                   <a href="../Produit details/Produit details.php?id=' . $p['ID_Prod'] . '" class="btn-circle-action btn-view">
                       <i class="bi bi-arrow-up-right"></i>
                   </a>
-                  <button class="btn-circle-action btn-cart ' . $btn_class . '" data-id="' . $p['ID_Prod'] . '">
-                      <i class="bi bi-cart3"></i>
-                  </button>
+                  <button class="btn-circle-action btn-add ' . $btn_class . '" data-id="' . $p['ID_Prod'] . '">
+    <i class="bi bi-cart3"></i>
+</button>
+    
+                </form>
               </div>
           </div>
       </div>
@@ -115,49 +126,7 @@ foreach ($produits as $p) {
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-home">
-    <div class="container">
-      <a class="navbar-brand" href="../Home Page/Home.php">Green Market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav mx-auto nav-links">
-          <li class="nav-item"><a class="nav-link active" href="../Home Page/Home.php">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
-          <li class="nav-item"><a class="nav-link" href="../Produits/Produits.php">Boutique</a></li>
-        </ul>
-        <div class="d-flex align-items-center gap-3">
-          <?php
-          if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-            echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-                <i class="bi bi-cart3"></i>
-                <span class="cart-badge" id="cart-count">0</span>
-            </a>';
-          }
-          if (isset($_SESSION['id_utili'])) {
-            echo '<a href="#" class="position-relative text-decoration-none nav-icon">
-                <i class="bi bi-bell"></i>
-                <span class="cart-badge" id="bell-count">0</span>
-            </a>';
-          }
-          if (isset($_SESSION['id_utili'])) {
-            if ($_SESSION['role'] == 'producteur') {
-              echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-            } elseif ($_SESSION['role'] == 'admin') {
-              echo '<a href="../Profile_Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-            } else {
-              echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-            }
-          } else {
-            echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-          }
-          ?>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <?php render_navbar('nologo'); ?>
 
   <!-- HERO CAROUSEL -->
   <header class="hero">
@@ -241,54 +210,12 @@ foreach ($produits as $p) {
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="footer-top pt-4">
-      <div class="footer-stripe"></div>
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-12 col-md-3">
-            <h5 class="text-white fw-bold mb-2" style="font-family:'Playfair Display',serif;">Green Market</h5>
-            <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
-            <div class="footer-socials">
-              <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
-              <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-3">
-            <h6 class="footer-title">Liens utiles</h6>
-            <a href="#" class="footer-link">Accueil</a>
-            <a href="../Produits/Produits.php" class="footer-link">Boutique</a>
-            <a href="../Categories/Categories.php" class="footer-link">Catégories</a>
-            <a href="#contact" class="footer-link">Contact</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <h6 class="footer-title">Catégories</h6>
-            <a href="#" class="footer-link">Produits Bio</a>
-            <a href="#" class="footer-link">Cosmétiques</a>
-            <a href="#" class="footer-link">Artisanat</a>
-            <a href="#" class="footer-link">Mode Traditionnelle</a>
-          </div>
-          <div class="col-12 col-md-3" id="contact">
-            <h6 class="footer-title">Contact</h6>
-            <div class="footer-contact-item"><i class="bi bi-envelope"></i><span>contact@greenmarket.ma</span></div>
-            <div class="footer-contact-item"><i class="bi bi-telephone"></i><span>+212 6 00 00 00 00</span></div>
-            <div class="footer-contact-item"><i class="bi bi-geo-alt"></i><span>Marrakech, Maroc</span></div>
-          </div>
-        </div>
-        <div class="footer-divider"></div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p class="footer-bottom-text">&copy; 2026 Green Market. Tous droits réservés.</p>
-      </div>
-    </div>
-  </footer>
+  <?php render_footer(); ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../Panier_handler.js"></script>
   <script src="Home.js"></script>
+  
 </body>
 
 </html>

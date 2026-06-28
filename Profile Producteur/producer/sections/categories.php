@@ -1,6 +1,6 @@
 ﻿<div class="section d-none" id="categorie">
 <?php
-include("../config/database.php");
+include(__DIR__ . '../../../../connexion.php');
 try {
     $req = $pdo->query("SELECT 
             c.ID_Categ,

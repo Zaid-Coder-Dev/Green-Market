@@ -2,12 +2,12 @@
    VARIABLES – 5 couleurs uniquement
 ===================== */
 :root {
-  --green:       #2d4a2d;
+  --green: #2d4a2d;
   --green-hover: #3f683f;
-  --cream:       #f5ede0;
-  --sand:        #ead4b6;
-  --ink:         #2a241e;
-  --terracotta:  #e07b39;
+  --cream: #f5ede0;
+  --sand: #ead4b6;
+  --ink: #2a241e;
+  --terracotta: #e07b39;
 }
 
 /* =====================
@@ -19,7 +19,11 @@ body {
   color: var(--ink);
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: 'Playfair Display', serif;
   color: var(--green);
 }
@@ -30,8 +34,10 @@ h1, h2, h3, h4, h5 {
 .navbar {
   background-color: var(--green);
   padding: 12px 0;
-  z-index: 1000;
-}
+  z-index: 1000;}
+.navbar .container { padding-top: 24px; }
+
+
 
 .navbar-logo {
   height: 38px;
@@ -82,6 +88,136 @@ h1, h2, h3, h4, h5 {
   padding: 2px 6px;
   border-radius: 50%;
   line-height: 1;
+}
+
+/* =====================
+   NAVBAR ICON CLUSTER (required by render_navbar())
+===================== */
+.nav-utils {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+
+.nav-expand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-expand.open {
+  max-width: 220px;
+  opacity: 1;
+}
+
+.nav-icon-circle {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.product-actions form {
+  display: flex;
+  flex: 2;
+}
+
+.product-actions form .btn-ajouter {
+  width: 100%;
+}
+
+.nav-icon-circle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+
+.lang-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-toggle-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, transform 0.25s ease;
+}
+
+.nav-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.master-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--terracotta);
 }
 
 /* =====================
@@ -210,11 +346,14 @@ h1, h2, h3, h4, h5 {
 ===================== */
 .product-actions {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
-.btn-add {
+.btn-ajouter,.btn-add {
   background: var(--terracotta);
   color: white;
   border: none;
@@ -226,8 +365,15 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
   font-weight: 600;
 }
+.btn-ajouter {
+  height: 52px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.btn-add:hover {
+.btn-ajouter,.btn-add:hover {
   background: #c96a2e;
   color: white;
 }
@@ -762,7 +908,7 @@ footer {
     flex-wrap: wrap;
   }
 
-  .btn-add {
+  .btn-ajouter, .btn-add {
     flex: 1 1 100%;
   }
 }

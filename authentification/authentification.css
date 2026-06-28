@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5 {
    ============================================= */
 .page {
   min-height: 100vh;
-  background-image: url('Inscription background.avif');
+  background-image: url('authentification background.avif');
   background-size: cover;
   background-position: center;
   display: flex;

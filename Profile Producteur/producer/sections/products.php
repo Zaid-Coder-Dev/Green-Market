@@ -80,7 +80,7 @@
                 <select>
                     <option>Toutes catégories</option>
                     <?php 
-                        include("../config/database.php"); 
+                        include(__DIR__ . '../../../../connexion.php'); 
                         try{
                             $recat = $pdo->query("SELECT ID_Categ, nom_Categ FROM categorie");
                             $tab_cat = $recat->fetchAll(PDO::FETCH_NUM);

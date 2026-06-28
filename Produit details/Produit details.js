@@ -1,79 +1,104 @@
-// ===== BOUTON WISHLIST (COEUR) =====
-const heartBtn = document.querySelector(".wishlist-btn");
-if (heartBtn) {
-    heartBtn.addEventListener("click", function() {
-        const icon = heartBtn.querySelector("i");
-        icon.classList.toggle("bi-heart");
-        icon.classList.toggle("bi-heart-fill");
+// --- MENU NAVBAR (cart/profil/langue) ---
+var navToggleBtn = document.getElementById('navToggleBtn');
+var navExpand = document.getElementById('navExpand');
+
+if (navToggleBtn) {
+    navToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navExpand.classList.toggle('open');
+        var estOuvert = navExpand.classList.contains('open');
+        navToggleBtn.setAttribute('aria-expanded', estOuvert);
+        var masterDot = document.getElementById('masterDot');
+        if (masterDot) {
+            if (estOuvert) {
+                masterDot.style.display = 'none';
+            } else {
+                masterDot.style.display = 'block';
+            }
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!navExpand.contains(e.target) && !navToggleBtn.contains(e.target)) {
+            navExpand.classList.remove('open');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// --- TOGGLE LANGUE FR/EN ---
+var langToggle = document.getElementById('langToggle');
+
+if (langToggle) {
+    langToggle.addEventListener('click', function() {
+        if (langToggle.textContent == 'FR') {
+            langToggle.textContent = 'EN';
+            document.cookie = 'lang=EN; path=/; max-age=2592000';
+        } else {
+            langToggle.textContent = 'FR';
+            document.cookie = 'lang=FR; path=/; max-age=2592000';
+        }
     });
 }
 
 // ===== QUANTITÉ =====
-let quantity = 1;
-const quantityText = document.getElementById("quantity");
-const plusBtn = document.getElementById("plusBtn");
-const minusBtn = document.getElementById("minusBtn");
+var quantity = 1;
+var quantityText = document.getElementById('quantity');
+var plusBtn = document.getElementById('plusBtn');
+var minusBtn = document.getElementById('minusBtn');
+var inputQuantite = document.getElementById('inputQuantite');
 
 if (plusBtn) {
-    plusBtn.addEventListener("click", function() {
+    plusBtn.addEventListener('click', function() {
         quantity++;
         quantityText.innerText = quantity;
+        if (inputQuantite) {
+            inputQuantite.value = quantity;
+        }
     });
 }
 
 if (minusBtn) {
-    minusBtn.addEventListener("click", function() {
+    minusBtn.addEventListener('click', function() {
         if (quantity > 1) {
             quantity--;
             quantityText.innerText = quantity;
+            if (inputQuantite) {
+                inputQuantite.value = quantity;
+            }
         }
     });
 }
 
 // ===== CHANGEMENT D'IMAGE =====
-const mainImage = document.getElementById("mainImage");
+var mainImage = document.getElementById('mainImage');
 
-document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("small-img")) {
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('small-img')) {
         mainImage.src = e.target.src;
-        document.querySelectorAll(".small-img").forEach(function(item) {
-            item.classList.remove("active-img");
+        document.querySelectorAll('.small-img').forEach(function(item) {
+            item.classList.remove('active-img');
         });
-        e.target.classList.add("active-img");
+        e.target.classList.add('active-img');
     }
 });
 
-// ===== PANIER =====
-document.querySelectorAll('.btn-add').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        let badge = document.getElementById('cart-count');
-        let count = parseInt(badge.textContent) || 0;
-        badge.textContent = count + 1;
-
-        // Animation clic
-        btn.classList.add('btn-clicked');
-        setTimeout(function() {
-            btn.classList.remove('btn-clicked');
-        }, 200);
-    });
-});
-
 // ===== STAR RATING (formulaire avis) =====
-const stars = document.querySelectorAll("#starRating i");
-const ratingInput = document.getElementById("commentRating");
+var stars = document.querySelectorAll('#starRating i');
+var ratingInput = document.getElementById('commentRating');
 
 stars.forEach(function(star) {
-    star.addEventListener("click", function() {
-        const value = this.dataset.value;
+    star.addEventListener('click', function() {
+        var value = this.dataset.value;
         ratingInput.value = value;
 
         stars.forEach(function(s) {
             if (s.dataset.value <= value) {
-                s.classList.add("bi-star-fill", "text-warning");
-                s.classList.remove("bi-star");
+                s.classList.add('bi-star-fill', 'text-warning');
+                s.classList.remove('bi-star');
             } else {
-                s.classList.add("bi-star");
-                s.classList.remove("bi-star-fill", "text-warning");
+                s.classList.add('bi-star');
+                s.classList.remove('bi-star-fill', 'text-warning');
             }
         });
     });

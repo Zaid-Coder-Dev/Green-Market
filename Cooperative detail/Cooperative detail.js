@@ -1,3 +1,40 @@
+// ===== NAVBAR TOGGLE =====
+(function () {
+  var navToggleBtn = document.getElementById('navToggleBtn');
+  var navExpand = document.getElementById('navExpand');
+  var masterDot = document.getElementById('masterDot');
+
+  if (navToggleBtn && navExpand) {
+    navToggleBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      navExpand.classList.toggle('open');
+      var isOpen = navExpand.classList.contains('open');
+      navToggleBtn.setAttribute('aria-expanded', isOpen);
+      if (masterDot) {
+        masterDot.style.display = isOpen ? 'none' : '';
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!navExpand.contains(e.target) && e.target !== navToggleBtn) {
+        navExpand.classList.remove('open');
+        navToggleBtn.setAttribute('aria-expanded', false);
+      }
+    });
+  }
+
+  // ===== LANG TOGGLE =====
+  var langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', function () {
+      var current = langToggle.textContent.trim();
+      var next = current == 'FR' ? 'EN' : 'FR';
+      langToggle.textContent = next;
+      document.cookie = 'lang=' + next + '; path=/; max-age=2592000';
+    });
+  }
+})();
+
 // Fade-in des produits au chargement
 window.addEventListener('load', function () {
     var grid = document.getElementById('products-grid');
@@ -41,18 +78,5 @@ pills.forEach(function (pill) {
                 resultCount.textContent = visible + ' produits';
             }
         }
-    });
-});
-
-// Animation du bouton panier
-var cartBtns = document.querySelectorAll('.btn-add');
-
-cartBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        this.classList.add('btn-clicked');
-        var self = this;
-        setTimeout(function () {
-            self.classList.remove('btn-clicked');
-        }, 200);
     });
 });

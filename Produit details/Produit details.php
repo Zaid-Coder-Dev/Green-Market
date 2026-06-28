@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once '../connexion.php';
+require_once '../functions.php';
+
 
 // PRODUCT ID
 $id_prod = 0;
@@ -17,6 +19,49 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
     $btn_class = '';
 } else {
     $btn_class = 'd-none';
+}
+// FILL the heart
+$est_favori = false;
+
+if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+    $req = $pdo->prepare("SELECT 1 FROM Favoris WHERE ID_utili=? AND ID_Prod=?");
+    $req->execute([$_SESSION['id_utili'], $id_prod]);
+
+    if ($req->fetch()) {
+        $est_favori = true;
+    }
+}
+
+
+// TOGGLE FAVORIS
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'favoris') {
+    if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
+        try {
+            $req_fav = $pdo->prepare("SELECT * FROM Favoris WHERE ID_utili = ? AND ID_Prod = ?");
+            $req_fav->execute([$_SESSION['id_utili'], $id_prod]);
+            $favori = $req_fav->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Erreur : " . $e->getMessage());
+        }
+
+        if ($favori) {
+            try {
+                $req_del = $pdo->prepare("DELETE FROM Favoris WHERE ID_utili = ? AND ID_Prod = ?");
+                $req_del->execute([$_SESSION['id_utili'], $id_prod]);
+            } catch (PDOException $e) {
+                die("Erreur : " . $e->getMessage());
+            }
+        } else {
+            try {
+                $req_ins_fav = $pdo->prepare("INSERT INTO Favoris (ID_utili, ID_Prod) VALUES (?, ?)");
+                $req_ins_fav->execute([$_SESSION['id_utili'], $id_prod]);
+            } catch (PDOException $e) {
+                die("Erreur : " . $e->getMessage());
+            }
+        }
+    }
+    header('Location: Produit details.php?id=' . $id_prod);
+    exit();
 }
 
 // SUBMIT AVIS
@@ -139,45 +184,7 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="../Home Page/Home.php">
-                <img src="../logo_Qofa.png" alt="" class="navbar-logo">Green Market
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto nav-links">
-                    <li class="nav-item"><a class="nav-link" href="../Home Page/Home.php">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../Produits/Produits.php">Boutique</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <?php
-                    if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-                        echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-cart3"></i><span class="cart-badge" id="cart-count">0</span></a>';
-                    }
-                    if (isset($_SESSION['id_utili'])) {
-                        echo '<a href="#" class="position-relative text-decoration-none nav-icon"><i class="bi bi-bell"></i><span class="cart-badge" id="bell-count">0</span></a>';
-                    }
-                    if (isset($_SESSION['id_utili'])) {
-                        if ($_SESSION['role'] == 'producteur') {
-                            echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        } elseif ($_SESSION['role'] == 'admin') {
-                            echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        } else {
-                            echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        }
-                    } else {
-                        echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php render_navbar('logo'); ?>
 
     <!-- PRODUCT -->
     <section class="container py-5">
@@ -252,23 +259,45 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
                 <!-- BUTTONS -->
                 <?php
                 if ($btn_class == '') {
-                    echo '<div class="product-actions mb-4">';
-                    if ($produit['Stock'] == 0) {
-                        echo '<button class="btn-add" disabled style="opacity:0.5;cursor:not-allowed;">
-                            <i class="bi bi-cart3"></i> Stock épuisé
-                          </button>';
-                    } else {
-                        echo '<button class="btn-add" data-id="' . $produit['ID_Prod'] . '">
-                            <i class="bi bi-cart3"></i> Ajouter au panier
-                          </button>';
-                    }
-                    echo '
-                    <button class="buy-btn">Acheter maintenant</button>
-                    <button class="wishlist-btn"><i class="bi bi-heart"></i></button>
-                </div>';
+    echo '<div class="product-actions mb-4">';
+
+    if ($produit['Stock'] == 0) {
+        echo '<button class="btn-ajouter" disabled style="opacity:0.5;cursor:not-allowed;">
+            <i class="bi bi-cart3"></i> Stock épuisé
+          </button>';
+    } else {
+        echo '<form method="POST" action="../ajouter_panier.php" id="formAjouterPanier">
+                    <input type="hidden" name="id_prod" value="' . $produit['ID_Prod'] . '">
+                    <input type="hidden" name="retour" value="Produit details/Produit details.php?id=' . $produit['ID_Prod'] . '">
+                    <input type="hidden" name="quantite" id="inputQuantite" value="1">
+                    <button type="submit" class="btn-ajouter">
+                        <i class="bi bi-cart3"></i> Ajouter au panier
+                    </button>
+               </form>';
+    }
+
+    echo '<div class="d-flex align-items-center gap-3">';
+
+    if ($produit['Stock'] == 0) {
+        echo '<button class="buy-btn" disabled style="opacity:0.5;cursor:not-allowed;">Acheter maintenant</button>';
+    } else {
+        echo '<form method="GET" action="../Paiement/Paiement.php" id="formAcheterMaintenant">
+                    <input type="hidden" name="id_prod" value="' . $produit['ID_Prod'] . '">
+                    <input type="hidden" name="quantite" id="inputQuantiteBuy" value="1">
+                    <button type="submit" class="buy-btn">Acheter maintenant</button>
+                </form>';
+    }
+
+    echo '<form method="POST">
+                <input type="hidden" name="action" value="favoris">
+                <button type="submit" class="wishlist-btn">
+                    <i class="bi ' . ($est_favori ? 'bi-heart-fill' : 'bi-heart') . '"></i>
+                </button>
+            </form>
+        </div>
+    </div>';
                 }
                 ?>
-
                 <!-- FEATURES -->
                 <div class="features">
                     <div class="feature-item">
@@ -515,25 +544,28 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
 
             $voir_class = ($btn_class == 'd-none') ? 'w-100' : 'w-75';
 
-            echo '
-        <div class="col-6 col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="badges-wrapper">' . $badges . '</div>
-                <div class="img-wrapper">
-                    <img src="' . $s['Prod_img'] . '" class="card-img-top product-img" alt="' . $s['nom_Prod'] . '">
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <small class="text-muted-ink">' . $s['nom_Categ'] . '</small>
-                    <h6 class="card-title mt-1 mb-1">' . $s['nom_Prod'] . '</h6>
-                    <small class="boutique-name mb-2">' . $s['nom_boutique'] . '</small>
-                    <p class="fw-bold price-text mb-3 mt-auto">' . number_format($s['Prix'], 2) . ' MAD</p>
-                    <div class="d-flex gap-2">
-                        <a href="Produit details.php?id=' . $s['ID_Prod'] . '" class="btn btn-sm btn-voir ' . $voir_class . '">Voir</a>
-                        <button class="btn btn-sm btn-add w-25 ' . $btn_class . '" data-id="' . $s['ID_Prod'] . '"><i class="bi bi-cart"></i></button>
-                    </div>
-                </div>
+        echo '
+<div class="col-6 col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+        <div class="badges-wrapper">' . $badges . '</div>
+        <div class="img-wrapper">
+            <img src="' . $s['Prod_img'] . '" class="card-img-top product-img" alt="' . $s['nom_Prod'] . '">
+        </div>
+        <div class="card-body d-flex flex-column">
+            <small class="text-muted-ink">' . $s['nom_Categ'] . '</small>
+            <h6 class="card-title mt-1 mb-1">' . $s['nom_Prod'] . '</h6>
+            <small class="boutique-name mb-2">' . $s['nom_boutique'] . '</small>
+            <p class="fw-bold price-text mb-3 mt-auto">' . number_format($s['Prix'], 2) . ' MAD</p>
+            <div class="d-flex gap-2">
+                <a href="Produit details.php?id=' . $s['ID_Prod'] . '" class="btn btn-sm btn-voir ' . $voir_class . '">Voir</a>
+
+                <button class="btn btn-sm btn-add w-25 ' . $btn_class . '" data-id="' . $s['ID_Prod'] . '">
+    <i class="bi bi-cart"></i>
+</button>
             </div>
-        </div>';
+        </div>
+    </div>
+</div>';
         }
 
         echo '</div></section>';
@@ -541,53 +573,10 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
     ?>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-top pt-4">
-            <div class="footer-stripe"></div>
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-12 col-md-3">
-                        <h5 class="text-white fw-bold mb-2" style="font-family:'Playfair Display',serif;">Green Market</h5>
-                        <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
-                        <div class="footer-socials">
-                            <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h6 class="footer-title">Liens utiles</h6>
-                        <a href="../Home Page/Home.php" class="footer-link">Accueil</a>
-                        <a href="../Produits/Produits.php" class="footer-link">Boutique</a>
-                        <a href="../Categories/Categories.php" class="footer-link">Catégories</a>
-                        <a href="#contact" class="footer-link">Contact</a>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h6 class="footer-title">Catégories</h6>
-                        <a href="#" class="footer-link">Produits Bio</a>
-                        <a href="#" class="footer-link">Cosmétiques</a>
-                        <a href="#" class="footer-link">Artisanat</a>
-                        <a href="#" class="footer-link">Mode Traditionnelle</a>
-                    </div>
-                    <div class="col-12 col-md-3" id="contact">
-                        <h6 class="footer-title">Contact</h6>
-                        <div class="footer-contact-item"><i class="bi bi-envelope"></i><span>contact@greenmarket.ma</span></div>
-                        <div class="footer-contact-item"><i class="bi bi-telephone"></i><span>+212 6 00 00 00 00</span></div>
-                        <div class="footer-contact-item"><i class="bi bi-geo-alt"></i><span>Marrakech, Maroc</span></div>
-                    </div>
-                </div>
-                <div class="footer-divider"></div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <p class="footer-bottom-text">&copy; 2026 Green Market. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+    <?php render_footer(); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Panier_handler.js"></script>
     <script src="Produit details.js"></script>
 </body>
 

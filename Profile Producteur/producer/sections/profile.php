@@ -1,5 +1,5 @@
 <?php
-include("../config/database.php");
+include(__DIR__ . '../../../../connexion.php');
 
 $id = $_SESSION['id_utili'];
 

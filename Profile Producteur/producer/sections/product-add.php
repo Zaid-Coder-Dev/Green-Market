@@ -1,6 +1,6 @@
 ﻿                <!-- AJOUTER PRODUIT -->
                 <?php
-                include("../config/database.php");
+                include(__DIR__ . '../../../../connexion.php');
                 $id_utili = $_SESSION['id_utili'];
                 $reqBout = $pdo->prepare("SELECT ID_boutique 
                                         FROM boutique 
@@ -40,7 +40,7 @@
                             $nomprod= htmlspecialchars(trim($nomprod)); 
                             $des= htmlspecialchars(trim($des));
                             #deplacement de l'image du dossier tmp au dossier de l'application 
-                            $ru=move_uploaded_file($_FILES['img']['tmp_name'],"./photo/".$_FILES['img']['name']);
+                            $ru=move_uploaded_file($_FILES['img']['tmp_name'],"C:/xampp/htdocs/GitHub/Green-Market/uploads/boutiques_images/".$_FILES['img']['name']);
                             if($ru==False ) {$err['img']="l'image pas bien ete chargé";exit;}
                             else {
                                 try {
@@ -102,7 +102,7 @@
                                         <select class="form-select" name="cat">
                                             <option disabled selected>Toutes catégories</option>
                                             <?php 
-                                            include("../config/database.php"); 
+                                            include(__DIR__ . '../../../../connexion.php'); 
                                             try{
                                                 $recat = $pdo->query("SELECT ID_Categ, nom_Categ FROM categorie");
                                                 $tab_cat = $recat->fetchAll(PDO::FETCH_NUM);

@@ -1,34 +1,38 @@
-// ===== BOUTONS QUANTITÉ =====
-document.querySelectorAll('.btn-qty').forEach(function(btn) {
-  btn.addEventListener('click', function() {
+// ===== NAVBAR : OUVERTURE DU MENU (cluster d'icônes) =====
+const navToggleBtn = document.getElementById("navToggleBtn");
+const navExpand = document.getElementById("navExpand");
+const masterDot = document.getElementById("masterDot");
 
-    // Trouver le span qty à côté du bouton
-    let qtySpan = this.parentElement.querySelector('.qty');
-    let qty = parseInt(qtySpan.textContent);
+if (navToggleBtn) {
+    navToggleBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        navExpand.classList.toggle("open");
+        const isOpen = navExpand.classList.contains("open");
+        navToggleBtn.setAttribute("aria-expanded", isOpen);
+        if (masterDot) {
+            masterDot.style.display = isOpen ? "none" : "block";
+        }
+    });
 
-    // Si c'est + ajouter 1
-    if (this.textContent === '+') {
-      qtySpan.textContent = qty + 1;
-    }
+    document.addEventListener("click", function(e) {
+        if (!navExpand.contains(e.target) && !navToggleBtn.contains(e.target)) {
+            navExpand.classList.remove("open");
+            navToggleBtn.setAttribute("aria-expanded", false);
+        }
+    });
+}
 
-    // Si c'est − enlever 1 mais pas en dessous de 1
-    if (this.textContent === '−' && qty > 1) {
-      qtySpan.textContent = qty - 1;
-    }
+// ===== NAVBAR : TOGGLE LANGUE FR/EN =====
+const langToggle = document.getElementById("langToggle");
 
-  });
-});
-
-// ===== SUPPRIMER UN ARTICLE =====
-document.querySelectorAll('.btn-remove').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-
-    // Trouver le cart-item parent et le supprimer
-    let item = this.closest('.cart-item');
-    let hr = item.nextElementSibling;
-
-    item.remove();
-    if (hr && hr.tagName === 'HR') hr.remove();
-
-  });
-});
+if (langToggle) {
+    langToggle.addEventListener("click", function() {
+        if (langToggle.innerText == "FR") {
+            langToggle.innerText = "EN";
+            document.cookie = "lang=EN; path=/; max-age=2592000";
+        } else {
+            langToggle.innerText = "FR";
+            document.cookie = "lang=FR; path=/; max-age=2592000";
+        }
+    });
+}

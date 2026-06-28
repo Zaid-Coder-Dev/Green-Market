@@ -1,4 +1,48 @@
 
+
+// --- MENU NAVBAR (cart/profil/langue) ---
+var navToggleBtn = document.getElementById('navToggleBtn');
+var navExpand = document.getElementById('navExpand');
+var masterDot = document.getElementById('masterDot');
+
+if (navToggleBtn) {
+    navToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navExpand.classList.toggle('open');
+        var estOuvert = navExpand.classList.contains('open');
+        navToggleBtn.setAttribute('aria-expanded', estOuvert);
+        if (masterDot) {
+            if (estOuvert) {
+                masterDot.style.display = 'none';
+            } else {
+                masterDot.style.display = 'block';
+            }
+        }a
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!navExpand.contains(e.target) && !navToggleBtn.contains(e.target)) {
+            navExpand.classList.remove('open');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// --- TOGGLE LANGUE FR/EN ---
+var langToggle = document.getElementById('langToggle');
+
+if (langToggle) {
+    langToggle.addEventListener('click', function() {
+        if (langToggle.textContent == 'FR') {
+            langToggle.textContent = 'EN';
+            document.cookie = 'lang=EN; path=/; max-age=2592000';
+        } else {
+            langToggle.textContent = 'FR';
+            document.cookie = 'lang=FR; path=/; max-age=2592000';
+        }
+    });
+}
+
 // ===== TRI : change l'URL quand on sélectionne une option =====
 document.getElementById('sort-select').addEventListener('change', function () {
     const url = new URL(window.location.href);
@@ -16,19 +60,3 @@ if (grille) {
         grille.style.opacity = '1';
     });
 }
-
-// ===== PANIER : visuel uniquement pour l'instant =====
-let cartCount = 0;
-
-document.querySelectorAll('.btn-add').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        cartCount++;
-        document.getElementById('cart-count').textContent = cartCount;
-
-        // Animation rapide sur le bouton
-        btn.classList.add('btn-clicked');
-        setTimeout(function () {
-            btn.classList.remove('btn-clicked');
-        }, 200);
-    });
-});

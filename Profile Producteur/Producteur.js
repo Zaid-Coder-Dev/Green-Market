@@ -1,3 +1,41 @@
+// ===== NAVBAR TOGGLE =====
+var navToggleBtn = document.getElementById('navToggleBtn');
+var navExpand    = document.getElementById('navExpand');
+var masterDot    = document.getElementById('masterDot');
+
+if (navToggleBtn) {
+    navToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navExpand.classList.toggle('open');
+        var estOuvert = navExpand.classList.contains('open');
+        navToggleBtn.setAttribute('aria-expanded', estOuvert);
+        if (masterDot) {
+            masterDot.style.display = estOuvert ? 'none' : 'block';
+        }
+    });
+    document.addEventListener('click', function(e) {
+        if (!navExpand.contains(e.target) && !navToggleBtn.contains(e.target)) {
+            navExpand.classList.remove('open');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// ===== TOGGLE LANGUE FR/EN =====
+var langToggle = document.getElementById('langToggle');
+if (langToggle) {
+    langToggle.addEventListener('click', function() {
+        if (langToggle.textContent.trim() == 'FR') {
+            langToggle.textContent = 'EN';
+            document.cookie = 'lang=EN; path=/; max-age=2592000';
+        } else {
+            langToggle.textContent = 'FR';
+            document.cookie = 'lang=FR; path=/; max-age=2592000';
+        }
+    });
+}
+
+
 // ===== FONCTION CENTRALE DE NAVIGATION =====
 function showSection(sectionId) {
 

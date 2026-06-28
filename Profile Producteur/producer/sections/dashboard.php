@@ -1,5 +1,5 @@
 ﻿<?php
-include("../config/database.php");
+include(__DIR__ . '../../../../connexion.php');
 if (!isset($_SESSION['id_utili'])) {
     header("Location: auth.php");
     exit();
@@ -12,8 +12,12 @@ $reqBoutique = $pdo->prepare("SELECT ID_boutique FROM boutique WHERE ID_utili = 
 $reqBoutique->execute([$idUser]);
 $boutique = $reqBoutique->fetch(PDO::FETCH_ASSOC);
 
-$idBoutique = $boutique['ID_boutique'] ;
-
+// FIX: Check if boutique exists before accessing it
+if ($boutique) {
+    $idBoutique = $boutique['ID_boutique'];
+} else {
+    $idBoutique = 0;
+}
 
 $ca = 0;
 $commandes = 0;
@@ -114,13 +118,23 @@ if ($idBoutique > 0) {
         </div>
     </header>
 
+    <?php if ($idBoutique == 0): ?>
+        <div class="alert alert-info p-4 text-center">
+            <h4 class="mb-3">🚀 Vous n'avez pas encore de boutique</h4>
+            <p class="mb-3">Créez votre boutique pour commencer à vendre vos produits sur Green Market.</p>
+            <a href="C:/xampp/htdocs/GitHub/Green-Market/Create Market/Create Market.php" class="btn btn-creer">
+                <i class="bi bi-plus-circle me-1"></i>Créer ma boutique
+            </a>
+        </div>
+    <?php else: ?>
+
     <div class="row g-3 mb-4">
         <div class="col-6 col-lg-3">
             <div class="card-ca h-100">
                 <div class="icon"><i class="bi bi-bag-fill"></i></div>
                 <div class="content">
                     <p class="title fw-bold">Chiffre d'affaires</p>
-                    <h2 class="fw-bold"><?=$ca, 2, ',', ' ' ?> MAD</h2>
+                    <h2 class="fw-bold"><?= number_format($ca, 2, ',', ' ') ?> MAD</h2>
                     <p class="growth">Total des ventes</p>
                 </div>
             </div>
@@ -222,4 +236,5 @@ if ($idBoutique > 0) {
             </table>
         </div>
     </div>
+    <?php endif; ?>
 </div>

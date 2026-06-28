@@ -18,7 +18,7 @@ if (isset($_COOKIE['remember_mail'])) {
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="Inscription.css">
+  <link rel="stylesheet" href="authentification.css">
 </head>
 
 <body>
@@ -81,14 +81,17 @@ if (isset($_COOKIE['remember_mail'])) {
                     $_SESSION['id_utili'] = $tablog['id_utili'];
                     $_SESSION['email'] = $tablog['email'];
                     $_SESSION['role'] = $tablog['role'];
+                    $_SESSION['nom'] = $tablog['nom'];
+                    $_SESSION['prenom']=$tablog['prenom'];
 
                     if (isset($remember)) {
                       setcookie('remember_mail', $mail, time() + 30 * 24 * 60 * 60);
                     } else {
                       setcookie('remember_mail', '', time() - 3600);
                     }
+
                     header("Location: ../Home Page/Home.php");
-                      exit;
+                    exit;
                   } else  echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
                 }
               } catch (PDOException $e) {
@@ -184,14 +187,8 @@ if (isset($_COOKIE['remember_mail'])) {
                   echo "Echec d'insertion ";
                 } else {
                   $_SESSION['success'] = "Compte créé avec succès !";
-                  if($tablog['role']=="producteur"){
-                      header("Location: ../Create Market/create-market.php");
-                      exit;
-                    }else{
-                      header("Location:../Home Page/Home.php");
-                      exit;
-                    }
-                  
+                  header("Location:../Home Page/Home.php");
+                  exit;
                 }
               } catch (PDOException $e) {
                 die("erreur insertion prod : " . $e->getMessage());
@@ -293,7 +290,7 @@ if (isset($_COOKIE['remember_mail'])) {
     </div>
   </div>
 
-  <script src="Inscription.js"></script>
+  <script src="authentification.js"></script>
 </body>
-
+<?php echo"eeeeeee";?>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../connexion.php';
+require_once '../functions.php';
 
 // ===== FILTRES =====
 $categ = 0;
@@ -138,51 +139,7 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-home">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="../Home Page/Home.php">
-                <img src="../logo_Qofa.png" alt="" class="navbar-logo">Green Market
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto nav-links">
-                    <li class="nav-item"><a class="nav-link" href="../Home Page/Home.php">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Cooperatives/Cooperatives.php">Coopératives</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Categories/Categories.php">Catégories</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="Produits.php">Boutique</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <?php
-                    if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
-                        echo '<a href="../Panier/Panier.php" class="position-relative text-decoration-none nav-icon">
-        <i class="bi bi-cart3"></i>
-        <span class="cart-badge" id="cart-count">0</span>
-    </a>';
-                    }
-                    if (isset($_SESSION['id_utili'])) {
-                        echo '<a href="#" class="position-relative text-decoration-none nav-icon">
-        <i class="bi bi-bell"></i>
-        <span class="cart-badge" id="bell-count">0</span>
-    </a>';
-                    }
-                    if (isset($_SESSION['id_utili'])) {
-                        if ($_SESSION['role'] == 'producteur') {
-                            echo '<a href="../Producteur/Producteur.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        } elseif ($_SESSION['role'] == 'admin') {
-                            echo '<a href="../Admin/Admin.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        } else {
-                            echo '<a href="../Profile-client/Profile-client.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                        }
-                    } else {
-                        echo '<a href="../Inscription/Inscription.php" class="position-relative text-decoration-none nav-icon"><i class="bi bi-person"></i></a>';
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php render_navbar('logo'); ?>
 
     <!-- PAGE HEADER -->
     <section class="py-4 page-header">
@@ -353,12 +310,16 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
                                         <small class="boutique-name mb-2"><?= $p['nom_boutique'] ?></small>
                                         <p class="fw-bold price-text mb-3 mt-auto"><?= number_format($p['Prix'], 2) ?> MAD</p>
                                         <div class="d-flex gap-2">
-                                            <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>" class="btn btn-sm btn-voir <?php if ($btn_class == 'd-none') echo 'w-100';
-                                                                                                                                                else echo 'w-75'; ?>">Voir</a>
-                                            <button class="btn btn-sm btn-add w-25 <?= $btn_class ?>" data-id="<?= $p['ID_Prod'] ?>">
-                                                <i class="bi bi-cart"></i>
-                                            </button>
-                                        </div>
+    <a href="../Produit details/Produit details.php?id=<?= $p['ID_Prod'] ?>"
+        class="btn btn-sm btn-voir <?php if ($btn_class == 'd-none') echo 'w-100';
+                                    else echo 'w-75'; ?>">
+        Voir
+    </a>
+
+    <button class="btn btn-sm btn-add w-25 <?= $btn_class ?>" data-id="<?= $p['ID_Prod'] ?>">
+    <i class="bi bi-cart"></i>
+</button>
+</div>
                                     </div>
 
                                 </div>
@@ -400,53 +361,10 @@ if (isset($_SESSION['id_utili']) && $_SESSION['role'] == 'client') {
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-top pt-4">
-            <div class="footer-stripe"></div>
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-12 col-md-3">
-                        <h5 class="text-white fw-bold mb-2" style="font-family:'Playfair Display',serif;">Green Market</h5>
-                        <p class="footer-text">Votre marketplace de produits artisanaux marocains, directs des coopératives.</p>
-                        <div class="footer-socials">
-                            <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h6 class="footer-title">Liens utiles</h6>
-                        <a href="../Home Page/Home.php" class="footer-link">Accueil</a>
-                        <a href="Produits.php" class="footer-link">Boutique</a>
-                        <a href="../Categories/Categories.php" class="footer-link">Catégories</a>
-                        <a href="#contact" class="footer-link">Contact</a>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h6 class="footer-title">Catégories</h6>
-                        <a href="#" class="footer-link">Produits Bio</a>
-                        <a href="#" class="footer-link">Cosmétiques</a>
-                        <a href="#" class="footer-link">Artisanat</a>
-                        <a href="#" class="footer-link">Mode Traditionnelle</a>
-                    </div>
-                    <div class="col-12 col-md-3" id="contact">
-                        <h6 class="footer-title">Contact</h6>
-                        <div class="footer-contact-item"><i class="bi bi-envelope"></i><span>contact@greenmarket.ma</span></div>
-                        <div class="footer-contact-item"><i class="bi bi-telephone"></i><span>+212 6 00 00 00 00</span></div>
-                        <div class="footer-contact-item"><i class="bi bi-geo-alt"></i><span>Marrakech, Maroc</span></div>
-                    </div>
-                </div>
-                <div class="footer-divider"></div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <p class="footer-bottom-text">&copy; 2026 Green Market. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+    <?php render_footer(); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Panier_handler.js"></script>
     <script src="Produits.js"></script>
 </body>
 

@@ -40,28 +40,35 @@ if (langToggle) {
   });
 }
 
-// ===== DEFILEMENT FLUIDE (SMOOTH SCROLL) =====
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const targetId = this.getAttribute('href');
-    if (targetId === '#') return; // FIX: Prevents crash on empty anchor links
 
-    const target = document.querySelector(targetId);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
+(function () {
+  var searchInput  = document.getElementById('searchInput');
+  var villeFilter  = document.getElementById('villeFilter');
+  var resultCount  = document.getElementById('resultCount');
+  var emptyState   = document.getElementById('emptyState');
+  var cards        = document.querySelectorAll('.gm-card-wrapper');
 
-// ===== ANIMATIONS AU SCROLL =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), index * 120);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
+  function filterCards() {
+    var search = searchInput.value.toLowerCase().trim();
+    var ville  = villeFilter.value;
+    var visible = 0;
 
-document.querySelectorAll('.reveal').forEach(item => observer.observe(item));
+    cards.forEach(function (card) {
+      var nomMatch   = card.dataset.nom.indexOf(search) !== -1;
+      var villeMatch = ville == '' || card.dataset.ville == ville;
+
+      if (nomMatch && villeMatch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    resultCount.textContent = visible + ' coopérative' + (visible > 1 ? 's' : '');
+    emptyState.classList.toggle('d-none', visible !== 0);
+  }
+
+  searchInput.addEventListener('input', filterCards);
+  villeFilter.addEventListener('change', filterCards);
+})();

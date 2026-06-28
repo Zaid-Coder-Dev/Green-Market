@@ -3,7 +3,7 @@ session_start();
 
 if(isset($_GET['idp'])){
     extract($_GET);
-    include("../config/database.php");
+    include("../connexion.php");
     try{
     $reqd = $pdo->prepare("DELETE FROM produit WHERE ID_Prod = ? ");
     $r = $reqd->execute([$idp]);

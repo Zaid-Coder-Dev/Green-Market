@@ -2,6 +2,7 @@
 session_start();
 session_unset();
 session_destroy();
-header('Location: ../Inscription/Inscription.php');
+session_gc();
+header('Location: authentification/authentification.php');
 exit();
 ?>

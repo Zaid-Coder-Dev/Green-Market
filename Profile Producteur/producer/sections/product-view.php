@@ -1,7 +1,7 @@
 ﻿                <!-- VOIR PRODUIT -->
                 <?php 
                 if(isset($_GET['id'])){
-                    include("../config/database.php");
+                    include(__DIR__ . '../../../../connexion.php');
                     try{
                         $resid= $pdo->prepare("SELECT p.*, c.nom_Categ FROM produit p
                                                 JOIN categorie c ON p.ID_Categ = c.ID_Categ

@@ -86,7 +86,7 @@
 
         <?php
         try {
-            include("../config/database.php");
+            include(__DIR__ . '../../../../connexion.php');
             $id_utili = $_SESSION['id_utili'];
             $reqBout = $pdo->prepare("SELECT ID_boutique 
                                     FROM boutique 
