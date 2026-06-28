@@ -3,7 +3,7 @@
         <?php
         // Fetch boutique info including logo
         $id_utili = $_SESSION['id_utili'] ?? 0;
-        $logo_path = '../'; // Default fallback
+        $logo_path = '';
         $cooperative_name = 'Coopérative Amal';
         
         if ($id_utili > 0) {
@@ -31,18 +31,21 @@
         
         // Get user initial for avatar
         $user_initial = strtoupper(substr($_SESSION['prenom'] ?? 'U', 0, 1));
+        $has_logo = !empty($boutique['logo']);
         ?>
         
         <!-- Cooperative Logo -->
         <div class="text-center my-2">
-            <img 
-                alt="Logo Coopérative" 
-                class="rounded-3" 
-                src="<?= htmlspecialchars($logo_path) ?>" 
-                width="100" 
-                onerror="this.src='/xampp/htdocs/GitHub/Green-Market/uploads/boutiques_images/logo_default.png'"
-            />
-            <p class="small text-muted mt-1 mb-0"><?= htmlspecialchars($cooperative_name) ?></p>
+            <?php if ($has_logo) { ?>
+                <img 
+                    alt="Logo Coopérative" 
+                    class="rounded-3" 
+                    src="<?= $logo_path ?>" 
+                    width="100"
+                    onerror="this.onerror=null; this.src='../../uploads/boutiques_images/logo_default.png';"
+                />
+            <?php } ?>
+            <p class="small text-muted mt-1 mb-0"><?= $cooperative_name ?></p>
         </div>
         <hr class="my-2" />
         
@@ -81,7 +84,7 @@
             </a>
         </div>
         <hr />
-        <a class="sidebar-link text-danger" href="../../deconnexion.php">
+        <a class="sidebar-link text-danger" href="../deconnexion.php">
             <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
         </a>
     </div>

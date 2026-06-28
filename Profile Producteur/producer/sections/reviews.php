@@ -6,15 +6,23 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 
         if (!empty($reponse) && !empty($id_avis)) {
             try{
-                $check = $pdo->prepare("SELECT ID_Rep FROM reponse WHERE ID_Avis = ?");
-                $check->execute([$id_avis]);
+                // FIXED: Check if THIS producer already has a response for this avis
+                $check = $pdo->prepare("SELECT ID_Rep FROM reponse WHERE ID_Avis = ? AND ID_utili = ?");
+                $check->execute([$id_avis, $idProducteur]);
                 $tab=$check->fetch(PDO::FETCH_ASSOC);
                 if ($tab) {
-                    //update reponse
+                    // Update producer's own response
                     $req = $pdo->prepare("UPDATE reponse SET message = ? WHERE ID_Avis = ? AND ID_utili = ?");
                     $req->execute([$reponse, $id_avis, $idProducteur]);
                 }else{
-                    //add reponse
+                    // Check if admin already responded (to prevent overwriting)
+                    $adminCheck = $pdo->prepare("SELECT ID_Rep FROM reponse WHERE ID_Avis = ? AND ID_utili IN (SELECT id_utili FROM utilisateur WHERE role = 'admin')");
+                    $adminCheck->execute([$id_avis]);
+                    if($adminCheck->fetch()){
+                        // Admin already responded, maybe show a message or allow producer to add their own
+                        // For now, we'll let the producer add their own response too
+                    }
+                    // Add producer's response
                     $req = $pdo->prepare("INSERT INTO reponse (message, ID_utili, ID_Avis) VALUES (?, ?, ?)");
                     $req->execute([$reponse, $idProducteur, $id_avis]);
                 }
@@ -34,12 +42,18 @@ try {
             a.ID_Avis, a.note, a.commentaire, a.date_avis,
             p.nom_Prod, p.Prod_img, p.ID_Prod,
             u.nom AS client_nom, u.prenom AS client_prenom,
-            r.message AS reponse_producteur
+            r.message AS reponse_producteur,
+            r.ID_Rep AS reponse_id,
+            r.ID_utili AS reponse_auteur_id,
+            u2.nom AS auteur_nom,
+            u2.prenom AS auteur_prenom,
+            u2.role AS auteur_role
         FROM avis a
         JOIN produit p ON a.ID_Prod = p.ID_Prod
         JOIN boutique b ON p.ID_boutique = b.ID_boutique
         JOIN utilisateur u ON a.ID_utili = u.ID_utili
         LEFT JOIN reponse r ON a.ID_Avis = r.ID_Avis
+        LEFT JOIN utilisateur u2 ON r.ID_utili = u2.id_utili
         WHERE b.ID_utili = ?  
         ORDER BY a.date_avis DESC
     ");
@@ -56,7 +70,7 @@ try {
         <div class="stock-header">
             <div>
                 <h2>Avis Clients</h2>
-                <p class="subtitle">Consultez et gerez les avis laisses par vos clients.</p>
+                <p class="subtitle">Consultez et gérez les avis laissés par vos clients.</p>
             </div>
             <div class="header-actions">
                 <button class="export-btn"><i class="bi bi-download me-2"></i>Exporter</button>
@@ -91,7 +105,7 @@ try {
                 <tbody>
                     <?php if (empty($les_avis)): ?>
                         <tr>
-                            <td colspan="6" class="text-center py-4">Aucun avis trouve pour vos produits.</td>
+                            <td colspan="6" class="text-center py-4">Aucun avis trouvé pour vos produits.</td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($les_avis as $av): ?>
@@ -120,21 +134,45 @@ try {
                                 <td>
                                     <div class="text-muted mb-1"><?= $av['commentaire']?></div>
                                     
-                                    <?php if (!empty($av['reponse_producteur'])): ?>
+                                    <?php 
+                                    // FIXED: Only show producer's own responses, not admin responses
+                                    if (!empty($av['reponse_producteur']) && $av['reponse_auteur_id'] == $idProducteur): 
+                                    ?>
                                         <div class="p-2 rounded mt-2" style="background-color: #f4eee2; border-left: 3px solid var(--gm-green); font-size: 0.9rem;">
                                             <strong style="color: var(--gm-green);"><i class="bi bi-reply-fill me-1"></i>Votre réponse :</strong> 
                                             <span class="text-dark"><?= $av['reponse_producteur'] ?></span>
+                                            <small class="d-block text-muted" style="font-size: 0.7rem;">Réponse envoyée par vous</small>
+                                        </div>
+                                    <?php elseif (!empty($av['reponse_producteur']) && $av['reponse_auteur_id'] != $idProducteur): ?>
+                                        <div class="p-2 rounded mt-2" style="background-color: #e8f0fe; border-left: 3px solid #1a73e8; font-size: 0.9rem;">
+                                            <strong style="color: #1a73e8;"><i class="bi bi-shield-check me-1"></i>Réponse admin :</strong> 
+                                            <span class="text-dark"><?= $av['reponse_producteur'] ?></span>
+                                            <small class="d-block text-muted" style="font-size: 0.7rem;">Réponse de l'administrateur</small>
                                         </div>
                                     <?php endif; ?>
                                 </td>
                                 <td><?= date('d/m/Y', strtotime($av['date_avis'])) ?></td>
                                 <td>
-                                    <button class="btn-update btn-repondre-modal" 
-                                            data-id="<?= $av['ID_Avis'] ?>" 
-                                            data-produit="<?= $av['nom_Prod'] ?>"
-                                            data-actuel="<?= $av['reponse_producteur'] ?? '' ?>">
-                                        <?= !empty($av['reponse_producteur']) ? '<i class="bi bi-pencil-square me-1"></i>Modifier' : '<i class="bi bi-reply me-1"></i>Répondre' ?>
-                                    </button>
+                                    <?php 
+                                    // FIXED: Only show action button if no admin response exists OR if producer already responded
+                                    $hasProducerResponse = (!empty($av['reponse_producteur']) && $av['reponse_auteur_id'] == $idProducteur);
+                                    $hasAdminResponse = (!empty($av['reponse_producteur']) && $av['reponse_auteur_id'] != $idProducteur);
+                                    
+                                    if (!$hasAdminResponse || $hasProducerResponse):
+                                    ?>
+                                        <button class="btn-update btn-repondre-modal" 
+                                                data-id="<?= $av['ID_Avis'] ?>" 
+                                                data-produit="<?= $av['nom_Prod'] ?>"
+                                                data-actuel="<?= $hasProducerResponse ? $av['reponse_producteur'] : '' ?>"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reponseModal">
+                                            <?= $hasProducerResponse ? '<i class="bi bi-pencil-square me-1"></i>Modifier' : '<i class="bi bi-reply me-1"></i>Répondre' ?>
+                                        </button>
+                                    <?php else: ?>
+                                        <span class="text-muted" style="font-size: 0.8rem;">
+                                            <i class="bi bi-check-circle text-success me-1"></i>Traité par admin
+                                        </span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -151,7 +189,8 @@ try {
     </div>
 </div>
 
-<div class="modal fade" id="reponseModal" tabindex="-1">
+<!-- FIXED MODAL -->
+<div class="modal fade" id="reponseModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content reponse-modal">
             <div class="modal-header">
@@ -183,8 +222,7 @@ try {
                             id="modal-reponse-text"
                             rows="4"
                             placeholder="Écrivez votre réponse ici..."
-                            required>
-                        </textarea>
+                            required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -205,5 +243,29 @@ try {
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
+<script>
+$(document).ready(function() {
+    // FIXED: Properly handle the modal population
+    $('.btn-repondre-modal').on('click', function() {
+        var idAvis = $(this).data('id');
+        var produit = $(this).data('produit');
+        var actuel = $(this).data('actuel') || '';
+        
+        $('#modal-id-avis').val(idAvis);
+        $('#modal-product-name').text(produit);
+        $('#modal-reponse-text').val(actuel);
+        
+        // Update button text
+        if (actuel.trim() !== '') {
+            $('button[name="envoyer_reponse"]').html('<i class="bi bi-pencil-square me-1"></i>Modifier');
+        } else {
+            $('button[name="envoyer_reponse"]').html('<i class="bi bi-send me-1"></i>Envoyer');
+        }
+    });
+    
+    // Reset modal when closed
+    $('#reponseModal').on('hidden.bs.modal', function() {
+        $('#modal-reponse-text').val('');
+    });
+});
+</script>

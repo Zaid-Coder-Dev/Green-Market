@@ -2,8 +2,10 @@
 session_start();
 
 $emailCookie = "";
+$rememberChecked = "";
 if (isset($_COOKIE['remember_mail'])) {
     $emailCookie = $_COOKIE['remember_mail'];
+    $rememberChecked = "checked";
 }
 ?>
 
@@ -61,9 +63,9 @@ if (isset($_COOKIE['remember_mail'])) {
               try {
                 $req = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
                 $req->execute([$mail]);
-                if ($req->rowCount() == 0) $err['mail'] = "cette emil n'existe pas ";
+                if ($req->rowCount() == 0) $err['mail'] = "Cette email n'existe pas";
               } catch (PDOException $e) {
-                die('error delection reference :' . $e->getMessage());
+                die('Erreur de selection reference :' . $e->getMessage());
               }
             }
 
@@ -82,17 +84,30 @@ if (isset($_COOKIE['remember_mail'])) {
                     $_SESSION['email'] = $tablog['email'];
                     $_SESSION['role'] = $tablog['role'];
                     $_SESSION['nom'] = $tablog['nom'];
-                    $_SESSION['prenom']=$tablog['prenom'];
+                    $_SESSION['prenom'] = $tablog['prenom'];
 
+                    // Handle remember me cookie
                     if (isset($remember)) {
-                      setcookie('remember_mail', $mail, time() + 30 * 24 * 60 * 60);
+                      setcookie('remember_mail', $mail, time() + 30 * 24 * 60 * 60, "/"); // 30 days
                     } else {
-                      setcookie('remember_mail', '', time() - 3600);
+                      // Delete the cookie if it exists
+                      if (isset($_COOKIE['remember_mail'])) {
+                        setcookie('remember_mail', '', time() - 3600, "/");
+                      }
                     }
 
-                    header("Location: ../Home Page/Home.php");
+                    // Redirect based on role
+                    if ($tablog['role'] == 'admin') {
+                      header("Location: ../Admin/Admin.php");
+                    } elseif ($tablog['role'] == 'producteur') {
+                      header("Location: ../Producteur/Producteur.php");
+                    } else {
+                      header("Location: ../Home Page/Home.php");
+                    }
                     exit;
-                  } else  echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
+                  } else {
+                    echo "<div style='color:red'>Login ou mot de passe incorrects</div>";
+                  }
                 }
               } catch (PDOException $e) {
                 die("Erreur authentification :" . $e->getMessage());
@@ -107,7 +122,7 @@ if (isset($_COOKIE['remember_mail'])) {
           <?php if (isset($err['mail'])) echo "<div class='text-danger small mt-1'>" . $err['mail'] . "</div>" ?>
           <div class="input-group">
             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-            <input type="email" class="form-control" placeholder="Email" name="mail" value="<?php echo $emailCookie; ?>">
+            <input type="email" class="form-control" placeholder="Email" name="mail" value="<?php echo htmlspecialchars($emailCookie); ?>">
           </div>
 
           <?php if (isset($err['mdp'])) echo "<div class='text-danger small mt-1'>" . $err['mdp'] . "</div>" ?>
@@ -118,7 +133,7 @@ if (isset($_COOKIE['remember_mail'])) {
 
 
           <div class="form-row">
-            <label><input type="checkbox" name="remember"> Se souvenir de moi</label>
+            <label><input type="checkbox" name="remember" <?= $rememberChecked ?>> Se souvenir de moi</label>
             <a href="#" class="lien-form">Mot de passe oublié ?</a>
           </div>
 
@@ -182,7 +197,7 @@ if (isset($_COOKIE['remember_mail'])) {
                 $mdp = password_hash($mdp, PASSWORD_ARGON2ID);
                 $date = date("Y-m-d H:i:s");
                 $res = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role, ville, rue, date_inscription) VALUES (?,?,?,?,?,?,?,?)");
-                $r =$res->execute([$nom, $prenom, $mail, $mdp, $role, $ville, $rue, $date]);
+                $r = $res->execute([$nom, $prenom, $mail, $mdp, $role, $ville, $rue, $date]);
                 if ($r == False) {
                   echo "Echec d'insertion ";
                 } else {
@@ -292,5 +307,4 @@ if (isset($_COOKIE['remember_mail'])) {
 
   <script src="authentification.js"></script>
 </body>
-<?php echo"eeeeeee";?>
 </html>

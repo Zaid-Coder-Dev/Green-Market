@@ -251,7 +251,7 @@ foreach ($villes as $v) { $opts_villes .= '<option value="' . $v . '">'; }
     <!-- 4. BANNIÈRE (grande) -->
     <div class="form-card mb-4">
       <div class="form-card-header">
-        <div class="form-card-icon"><i class="bi bi-panorama"></i></div>
+        <div class="form-card-icon"><i class="bi bi-image"></i></div>
         <div>
           <h4 class="form-card-title">4. Bannière de la boutique</h4>
           <p class="form-card-subtitle">Image d'en-tête affichée en haut de votre page boutique. Optionnelle.</p>

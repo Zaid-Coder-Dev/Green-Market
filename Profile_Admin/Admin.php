@@ -169,7 +169,7 @@ if (isset($_POST['supprimer_reponse'])) {
     }
 }
 
-// --- AJOUTER CATÉGORIE (MODIFIÉ POUR IMAGE) ---
+// --- AJOUTER CATÉGORIE (FIXED) ---
 if (isset($_POST['ajouter_categorie'])) {
     $nom  = $_POST['nom_categ'];
     $desc = $_POST['desc_categ'];
@@ -177,20 +177,20 @@ if (isset($_POST['ajouter_categorie'])) {
 
     // Gestion de l'upload d'image
     if (isset($_FILES['image_categ']) && $_FILES['image_categ']['error'] == 0) {
-        $upload_dir = '../assets/uploads/categories/';
+        $upload_dir = '../uploads/categories_images/';
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
         $ext = pathinfo($_FILES['image_categ']['name'], PATHINFO_EXTENSION);
         $filename = uniqid() . '.' . $ext;
         move_uploaded_file($_FILES['image_categ']['tmp_name'], $upload_dir . $filename);
-        $image_path = $upload_dir . $filename;
+        $image_path = 'uploads/categories_images/' . $filename; // Store relative path
     }
 
     if (empty($nom)) {
         $err[] = "Le nom de la catégorie est obligatoire.";
     } else {
         try {
-            
-            $req = $pdo->prepare("INSERT INTO Categorie (nom_Categ, description_Categ, image_Categ) VALUES (?,?,?)");
+            // FIXED: Use Categ_img not image_Categ
+            $req = $pdo->prepare("INSERT INTO Categorie (nom_Categ, description_Categ, Categ_img) VALUES (?,?,?)");
             $req->execute([$nom, $desc, $image_path]);
             $success = "Catégorie ajoutée.";
         } catch (PDOException $e) {
@@ -199,7 +199,7 @@ if (isset($_POST['ajouter_categorie'])) {
     }
 }
 
-// --- MODIFIER CATÉGORIE ---
+// --- MODIFIER CATÉGORIE (FIXED) ---
 if (isset($_POST['modifier_categorie'])) {
     $id_cat = $_POST['id_categ'];
     $nom    = $_POST['nom_categ_edit'];
@@ -211,14 +211,16 @@ if (isset($_POST['modifier_categorie'])) {
         try {
             // Check if a new image was uploaded
             if (isset($_FILES['image_categ_edit']) && $_FILES['image_categ_edit']['error'] == 0) {
-                $upload_dir = '../assets/uploads/categories/';
+                $upload_dir = '../uploads/categories_images/';
                 if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
                 $ext = pathinfo($_FILES['image_categ_edit']['name'], PATHINFO_EXTENSION);
                 $filename = uniqid() . '.' . $ext;
                 move_uploaded_file($_FILES['image_categ_edit']['tmp_name'], $upload_dir . $filename);
-                $image_path = $upload_dir . $filename;
+                // FIXED: Store relative path
+                $image_path = 'uploads/categories_images/' . $filename;
 
-                $req = $pdo->prepare("UPDATE Categorie SET nom_Categ=?, description_Categ=?, image_Categ=? WHERE ID_Categ=?");
+                // FIXED: Use Categ_img not image_Categ
+                $req = $pdo->prepare("UPDATE Categorie SET nom_Categ=?, description_Categ=?, Categ_img=? WHERE ID_Categ=?");
                 $req->execute([$nom, $desc, $image_path, $id_cat]);
             } else {
                 $req = $pdo->prepare("UPDATE Categorie SET nom_Categ=?, description_Categ=? WHERE ID_Categ=?");
@@ -487,12 +489,6 @@ try {
         if ($pr['Stock'] == 0)              { $nb_rupture++; }
         else if ($pr['Stock'] <= 5)         { $nb_stock_faible++; }
     }
-
-    $req = $pdo->prepare("SELECT * FROM Notification WHERE ID_utili=? ORDER BY ID_Noti DESC");
-    $req->execute([$id]);
-    $notifications = $req->fetchAll(PDO::FETCH_ASSOC);
-    $nb_notif_non_lues = 0;
-    foreach ($notifications as $n) { if (!$n['est_lu']) { $nb_notif_non_lues++; } }
 
 } catch (PDOException $e) {
     die("Erreur base de données : " . $e->getMessage());
@@ -877,7 +873,7 @@ foreach ($villes as $v) { $opts_villes .= '<option value="' . $v . '">'; }
         </div>
       </div>
 
-      <!-- CATÉGORIES -->
+      <!-- CATÉGORIES (FIXED DISPLAY) -->
       <div id="categories" class="section d-none">
         <h2 class="mb-1">Catégories</h2>
         <p class="text-muted-ink mb-4">Ajoutez, modifiez ou supprimez les catégories de produits.</p>
@@ -905,8 +901,9 @@ foreach ($villes as $v) { $opts_villes .= '<option value="' . $v . '">'; }
               <tbody>
                 <?php
                 foreach ($categories as $cat) {
-                    $img = !empty($cat['image_Categ'])
-                        ? '<img src="' . $cat['image_Categ'] . '" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">'
+                    // FIXED: Use Categ_img not image_Categ
+                    $img = !empty($cat['Categ_img'])
+                        ? '<img src="' . $cat['Categ_img'] . '" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">'
                         : '<div style="width:40px;height:40px;background:#eee;border-radius:6px;"></div>';
 
                     $trash = $cat['nb_produits'] == 0

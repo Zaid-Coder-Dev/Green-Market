@@ -1,19 +1,19 @@
 <?php
 $idProducer = $_SESSION['id_utili'];
-//confirmer
+
+// Confirmer paiement
 if(isset($_GET['confirm'])){
     try{
-        $req = $pdo->prepare("UPDATE commande
-                              SET status_com = 'livrée'
-                              WHERE ID_Com = ?
-                            ");
+        $req = $pdo->prepare("UPDATE commande SET status_com = 'livrée' WHERE ID_Com = ?");
         $req->execute([$_GET['confirm']]);
         $_SESSION['conP_success'] = "Le paiement de la commande #CMD".$_GET['confirm']." a été confirmé avec succès.";
         $openSection = 'paimnt';
-    }catch(Exception $e){ die("Erreur : " . $e->getMessage());}
+    }catch(Exception $e){ 
+        $_SESSION['conP_error'] = "Erreur : " . $e->getMessage();
+    }
 }
 
-//payment historique
+// Payment historique
 $totalPaiement = 0;
 $nbPaye = 0;
 $nbAttente = 0;
@@ -63,19 +63,28 @@ try {
 <div class="section d-none" id="paimnt">
     <?php if(isset($_SESSION['conP_success'])): ?>
     <div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <?php echo $_SESSION['conP_success'] ?>
+        <?php echo $_SESSION['conP_success'] ?>
         <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
     </div>
     <?php unset($_SESSION['conP_success']) ?>
     <?php endif ?>
 
+    <?php if(isset($_SESSION['conP_error'])): ?>
+    <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        <?php echo $_SESSION['conP_error'] ?>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+    </div>
+    <?php unset($_SESSION['conP_error']) ?>
+    <?php endif ?>
+
+    <!-- Real data from database -->
     <div class="row g-3 mb-3">
         <div class="col-6 col-lg-3">
             <div class="card-ca h-100">
                 <div class="icon"><i class="bi bi-cash-stack"></i></div>
                 <div class="content">
                     <p class="title fw-bold">Total Revenus</p>
-                    <h2 class="fw-bold"><?= $totalPaiement?> MAD</h2>
+                    <h2 class="fw-bold"><?= number_format($totalPaiement, 2) ?> MAD</h2>
                 </div>
             </div>
         </div>
@@ -84,7 +93,8 @@ try {
                 <div class="icon"><i class="bi bi-check-circle"></i></div>
                 <div class="content">
                     <p class="title fw-bold">Transactions Réussies</p>
-                    <h2 class="fw-bold"><?= $nbPaye ?> <span style="font-size: 0.8rem; font-weight: normal;" class="text-muted">/ <?= $nbTotalTransactions ?></span></h2>
+                    <h2 class="fw-bold"><?= $nbPaye ?></h2>
+                    <small class="text-muted">sur <?= $nbTotalTransactions ?> total</small>
                 </div>
             </div>
         </div>
@@ -93,7 +103,8 @@ try {
                 <div class="icon"><i class="bi bi-hourglass-split"></i></div>
                 <div class="content">
                     <p class="title fw-bold">En attente</p>
-                    <h2 class="fw-bold"><?= $nbAttente ?><span style="font-size: 0.8rem; font-weight: normal;" class="text-muted">/ <?= $nbTotalTransactions ?></span></h2>
+                    <h2 class="fw-bold"><?= $nbAttente ?></h2>
+                    <small class="text-muted">sur <?= $nbTotalTransactions ?> total</small>
                 </div>
             </div>
         </div>
@@ -102,7 +113,8 @@ try {
                 <div class="icon"><i class="bi bi-arrow-counterclockwise"></i></div>
                 <div class="content">
                     <p class="title fw-bold">Remboursements</p>
-                    <h2 class="fw-bold"><?= $nbRembourse ?><span style="font-size: 0.8rem; font-weight: normal;" class="text-muted">/ <?= $nbTotalTransactions ?></span></h2>
+                    <h2 class="fw-bold"><?= $nbRembourse ?></h2>
+                    <small class="text-muted">sur <?= $nbTotalTransactions ?> total</small>
                 </div>
             </div>
         </div>
@@ -115,18 +127,18 @@ try {
                 <p class="subtitle">Visualisez vos revenus et paiements reçus.</p>
             </div>
             <div class="header-actions">
-                <button class="export-btn"><i class="bi bi-download me-2"></i>Exporter</button>
+                <button class="export-btn" onclick="exportPayments()"><i class="bi bi-download me-2"></i>Exporter</button>
             </div>
         </div>
         
         <div class="top-bar">
             <div class="search-box">
                 <i class="bi bi-search"></i>
-                <input id="searchPay" placeholder="Rechercher par client, commande..." type="text" class="search" />
+                <input id="searchPay" placeholder="Rechercher par client, commande..." type="text" class="search" onkeyup="filterPayments()" />
             </div>
             <div class="filter-box">
                 <i class="bi bi-funnel"></i>
-                <select id="filterStatus">
+                <select id="filterStatus" onchange="filterPayments()">
                     <option value="">Tous statuts</option>
                     <option value="payé">Payé</option>
                     <option value="en attente">En attente</option>
@@ -135,13 +147,13 @@ try {
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
             <table class="product-table">
-                <thead>
+                <thead style="position: sticky; top: 0; background: #f8f5f0; z-index: 10;">
                     <tr>
                         <th>ID Paiement</th>
                         <th>ID Commande</th>
-                        <th>       Client       </th>
+                        <th>Client</th>
                         <th>Montant (Votre Part)</th>
                         <th>Méthode</th>
                         <th>Statut</th>
@@ -149,7 +161,7 @@ try {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="paymentBody">
                     <?php if (empty($all_pay)): ?>
                         <tr>
                             <td colspan="8" class="text-center py-5 text-muted">
@@ -158,41 +170,49 @@ try {
                             </td>
                         </tr>
                     <?php else: ?>
-                        <?php foreach ($all_pay as $pay): ?>
-                            <tr class="payment-row" data-status="<?php 
-                                            if($pay['status_com'] == 'livrée') echo 'payé';
-                                            elseif($pay['status_com'] == 'en attente' || $pay['status_com'] == 'en cours') echo 'en attente';
-                                            else echo 'échoué';
-                                            ?>">
+                        <?php foreach ($all_pay as $pay): 
+                            $statusClass = '';
+                            $statusLabel = '';
+                            $dataStatus = '';
+                            
+                            if($pay['status_com'] == 'livrée') {
+                                $statusClass = 'stock ok';
+                                $statusLabel = 'Payé';
+                                $dataStatus = 'payé';
+                            } elseif($pay['status_com'] == 'en attente' || $pay['status_com'] == 'en cours') {
+                                $statusClass = 'stock low';
+                                $statusLabel = 'En attente';
+                                $dataStatus = 'en attente';
+                            } else {
+                                $statusClass = 'stock out';
+                                $statusLabel = 'Échoué';
+                                $dataStatus = 'échoué';
+                            }
+                        ?>
+                            <tr class="payment-row" data-status="<?= $dataStatus ?>" data-search="<?= strtolower($pay['client_prenom'] . ' ' . $pay['client_nom'] . ' #CMD' . $pay['ID_Com']) ?>">
                                 <td>#PAY<?= $pay['ID_Pay'] ?></td>
                                 <td>#CMD<?= $pay['ID_Com'] ?></td>
                                 <td>
                                     <h6 class="mb-0"><?= $pay['client_prenom'] . ' ' . $pay['client_nom'] ?></h6>
-                                    <small>#C-<?= $pay['client_id'] ?></small>
+                                    <small class="text-muted">#C-<?= $pay['client_id'] ?></small>
                                 </td>
-                                <td class="fw-bold text-success"><?= $pay['montant_vendeur'] ?> MAD</td>
-                                <td><?= $pay['mode_pay'] ?></td>
-                                <td>
-                                    <?php if ($pay['status_com'] == "livrée"): ?>
-                                        <span class="stock ok">Payé</span>
-                                    <?php elseif ($pay['status_com'] == "en attente" || $pay['status_com'] == "en cours"): ?>
-                                        <span class="stock low">En attente</span>
-                                    <?php else: ?>
-                                        <span class="stock out" style="color: #d17946; background: #fdf2eb;">Échoué</span>
-                                    <?php endif; ?>
-                                </td>
+                                <td class="fw-bold text-success"><?= number_format($pay['montant_vendeur'], 2) ?> MAD</td>
+                                <td><?= ucfirst($pay['mode_pay']) ?></td>
+                                <td><span class="<?= $statusClass ?>"><?= $statusLabel ?></span></td>
                                 <td><?= date('d/m/Y', strtotime($pay['date_pay'])) ?></td>
                                 <td>
                                     <div class="action-buttons">
                                         <?php if ($pay['status_com'] == "livrée"): ?>
                                             <a href="facture.php?id=<?= $pay['ID_Com'] ?>" 
-                                            target="_blank"
-                                            class="icon-btn edit-btn">
-                                            <i class="bi bi-download"></i>
+                                               target="_blank"
+                                               class="icon-btn edit-btn"
+                                               title="Télécharger la facture">
+                                                <i class="bi bi-download"></i>
                                             </a>
                                         <?php else: ?>
                                             <button class="icon-btn edit-btn"
-                                                    onclick="window.location='?confirm=<?= $pay['ID_Com'] ?>&section=paimnt'">
+                                                    onclick="confirmPayment(<?= $pay['ID_Com'] ?>)"
+                                                    title="Confirmer le paiement">
                                                 <i class="bi bi-check-circle"></i>
                                             </button>
                                         <?php endif; ?>
@@ -204,33 +224,116 @@ try {
                 </tbody>
             </table>
         </div>
+        
+        <?php if (!empty($all_pay)): ?>
+        <div class="text-muted mt-2" id="paymentCount">
+            <?= count($all_pay) ?> paiement(s) trouvé(s)
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 
-
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function filterPayments() {
+    const searchInput = document.getElementById('searchPay');
+    const filterSelect = document.getElementById('filterStatus');
+    const rows = document.querySelectorAll('.payment-row');
+    const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
+    const filterValue = filterSelect ? filterSelect.value : '';
+    let visibleCount = 0;
     
-    const searchInput = document.getElementById("searchPay");
-    const filterSelect = document.getElementById("filterStatus");
-    const rows = document.querySelectorAll(".payment-row");
-
-    function filterTable() {
-        const searchValue = searchInput ? searchInput.value.toLowerCase() : "";
-        const filterValue = filterSelect ? filterSelect.value : "";
-        rows.forEach(row => {
-            const text = row.innerText.toLowerCase();
-            const status = row.getAttribute("data-status");
-            if (text.includes(searchValue) && (filterValue === "" || status === filterValue)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
+    rows.forEach(row => {
+        const searchData = row.getAttribute('data-search') || '';
+        const status = row.getAttribute('data-status') || '';
+        
+        const matchesSearch = searchData.includes(searchValue);
+        const matchesFilter = filterValue === '' || status === filterValue;
+        
+        if (matchesSearch && matchesFilter) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Update count
+    const countEl = document.getElementById('paymentCount');
+    if (countEl) {
+        countEl.textContent = visibleCount + ' paiement(s) trouvé(s)';
     }
-    if (searchInput) searchInput.addEventListener("keyup", filterTable);
-    if (filterSelect) filterSelect.addEventListener("change", filterTable);
-;
+}
+
+function confirmPayment(comId) {
+    if (confirm('Confirmer le paiement de la commande #CMD' + comId + ' ?')) {
+        window.location = '?confirm=' + comId + '&section=paimnt';
+    }
+}
+
+function exportPayments() {
+    const table = document.querySelector('.product-table');
+    if (!table) return;
+    
+    let csv = 'ID Paiement,ID Commande,Client,Montant,Méthode,Statut,Date\n';
+    const rows = document.querySelectorAll('.payment-row');
+    rows.forEach(row => {
+        if (row.style.display === 'none') return;
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 7) {
+            const idPay = cells[0].textContent.trim();
+            const idCom = cells[1].textContent.trim();
+            const client = cells[2].textContent.trim().replace(/,/g, ';');
+            const montant = cells[3].textContent.trim();
+            const methode = cells[4].textContent.trim();
+            const statut = cells[5].textContent.trim();
+            const date = cells[6].textContent.trim();
+            csv += `${idPay},${idCom},${client},${montant},${methode},${statut},${date}\n`;
+        }
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'paiements_export.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+// Handle Enter key for search
+document.getElementById('searchPay')?.addEventListener('keyup', function(e) {
+    if (e.key === 'Escape') {
+        this.value = '';
+        filterPayments();
+        this.blur();
+    }
 });
 </script>
+
+<style>
+/* Custom styles using your palette */
+#searchPay {
+    border-radius: 20px;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+}
+
+#searchPay:focus {
+    outline: none;
+    border-color: var(--gm-green, #2d4a2d);
+    box-shadow: 0 0 0 3px rgba(45, 74, 45, 0.1);
+}
+
+.payment-row {
+    transition: background-color 0.2s ease;
+}
+
+.payment-row:hover {
+    background-color: #f8f5f0;
+}
+
+#paymentCount {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+</style>

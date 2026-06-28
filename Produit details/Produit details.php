@@ -130,6 +130,28 @@ try {
     die("Erreur : " . $e->getMessage());
 }
 
+// REPONSES (toutes en une seule requête, groupées par ID_Avis)
+$reponses_par_avis = [];
+if (count($avis) > 0) {
+    $ids_avis = array_column($avis, 'ID_Avis');
+    $placeholders = implode(',', array_fill(0, count($ids_avis), '?'));
+    try {
+        $req_rep = $pdo->prepare("
+            SELECT r.*, u.nom, u.prenom, u.role
+            FROM Reponse r
+            JOIN Utilisateur u ON r.ID_utili = u.id_utili
+            WHERE r.ID_Avis IN ($placeholders)
+            ORDER BY r.ID_Rep ASC
+        ");
+        $req_rep->execute($ids_avis);
+        foreach ($req_rep->fetchAll(PDO::FETCH_ASSOC) as $rep) {
+            $reponses_par_avis[$rep['ID_Avis']][] = $rep;
+        }
+    } catch (PDOException $e) {
+        die("Erreur : " . $e->getMessage());
+    }
+}
+
 $note_moyenne = 0;
 if (count($avis) > 0) {
     $total_notes = 0;
@@ -475,6 +497,27 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
                 }
             }
 
+            $reps_html = '';
+            if (!empty($reponses_par_avis[$av['ID_Avis']])) {
+                foreach ($reponses_par_avis[$av['ID_Avis']] as $rep) {
+                    $rep_initiale = strtoupper(substr($rep['prenom'], 0, 1));
+                    $rep_nom = $rep['prenom'] . ' ' . strtoupper(substr($rep['nom'], 0, 1)) . '.';
+                    $is_producteur = ($rep['role'] == 'producteur');
+                    $badge = $is_producteur ? '<span class="rep-badge">Producteur</span>' : '';
+                    $reps_html .= '
+                    <div class="rep-box d-flex align-items-start mt-3">
+                        <div class="rep-avatar me-2">' . $rep_initiale . '</div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <h6 class="mb-0 small fw-bold">' . $rep_nom . '</h6>
+                                ' . $badge . '
+                            </div>
+                            <p class="mb-0 small">' . $rep['message'] . '</p>
+                        </div>
+                    </div>';
+                }
+            }
+
             echo '
         <div class="review-box d-flex align-items-start mb-3">
             <div class="review-avatar me-3">' . $initiale . '</div>
@@ -487,6 +530,7 @@ $est_nouveau = est_nouveau($produit['date_ajout_Prod']);
                     <div class="review-stars">' . $etoiles . '</div>
                 </div>
                 <p class="mb-0">' . $av['commentaire'] . '</p>
+                ' . ($reps_html ? '<div class="reps-wrapper mt-2">' . $reps_html . '</div>' : '') . '
             </div>
         </div>';
         }

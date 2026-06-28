@@ -1,5 +1,5 @@
 ﻿<?php
-include(__DIR__ . '../../../../connexion.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     extract($_POST);
     if(isset($updateStatu)){

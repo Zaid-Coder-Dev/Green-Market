@@ -912,3 +912,42 @@ footer {
     flex: 1 1 100%;
   }
 }
+/* =====================
+   RÉPONSES AUX AVIS
+===================== */
+.reps-wrapper {
+    border-left: 3px solid var(--sand);
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+.rep-box {
+    background: rgba(234, 212, 182, 0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.rep-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.rep-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: var(--green);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
