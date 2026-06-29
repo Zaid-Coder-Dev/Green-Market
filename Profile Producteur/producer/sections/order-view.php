@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
     if (isset($_GET['id']) && !empty($_GET['id'])) {
         $id_com = $_GET['id'];
+        $id_producer = $_SESSION['id_utili'];
 
         try {
+            // Get commande details
             $recom = $pdo->prepare("SELECT c.*, u.nom, u.prenom, u.email, u.ville AS ville_client 
                                     FROM commande c 
                                     JOIN utilisateur u ON c.ID_utili = u.ID_utili 
@@ -53,12 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $recom->execute([$id_com]);
             $commande = $recom->fetch(PDO::FETCH_ASSOC);
 
-            $reprod = $pdo->prepare("SELECT p.nom_Prod, p.Prod_img, lc.Quantite, lc.Prix_Unitaire 
-                                     FROM ligne_commande lc 
-                                     JOIN produit p ON lc.ID_Prod = p.ID_Prod 
-                                     WHERE lc.ID_Com = ?");
-            $reprod->execute([$id_com]);
+            // Get ONLY the producer's products from this commande
+            $reprod = $pdo->prepare("
+                SELECT p.nom_Prod, p.Prod_img, lc.Quantite, lc.Prix_Unitaire,
+                       (lc.Quantite * lc.Prix_Unitaire) as sous_total,
+                       b.nom_boutique
+                FROM ligne_commande lc 
+                JOIN produit p ON lc.ID_Prod = p.ID_Prod 
+                JOIN boutique b ON p.ID_boutique = b.ID_boutique
+                WHERE lc.ID_Com = ? AND b.ID_utili = ?
+                ORDER BY p.nom_Prod ASC
+            ");
+            $reprod->execute([$id_com, $id_producer]);
             $produits = $reprod->fetchAll(PDO::FETCH_ASSOC);
+
+            // Calculate producer's total
+            $producer_total = 0;
+            foreach ($produits as $p) {
+                $producer_total += $p['sous_total'];
+            }
 
             if ($commande) {
                 extract($commande, EXTR_SKIP);
@@ -98,7 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="bi bi-cash-stack me-1"></i> 
-                                        <strong>Total :</strong> <span class="fw-bold text-success"><?php echo number_format($commande['prix_total'], 2); ?> MAD</span>
+                                        <strong>Total Commande :</strong> <span class="fw-bold"><?php echo number_format($commande['prix_total'], 2); ?> MAD</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-wallet2 me-1"></i> 
+                                        <strong>Votre Part :</strong> <span class="fw-bold text-success"><?php echo number_format($producer_total, 2); ?> MAD</span>
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="bi bi-info-circle-fill me-1"></i> 
@@ -156,39 +175,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="row g-4">
                         <div class="col-lg-8">
                             <div class="content-card">
-                                <h5 class="form-section-title mb-4" style="color: #2d4a2d; font-family: 'Playfair Display', serif;"><i class="bi bi-box-seam me-2"></i>Produits commandés</h5>
+                                <h5 class="form-section-title mb-4" style="color: #2d4a2d; font-family: 'Playfair Display', serif;">
+                                    <i class="bi bi-box-seam me-2"></i>Vos Produits dans cette commande
+                                </h5>
                                 
-                                <div class="row g-3">
-                                    <?php foreach ($produits as $p): ?>
-                                        <?php 
-                                        extract($p, EXTR_SKIP); 
-                                        $prod_total = $Prix_Unitaire * $Quantite; 
-                                        ?>
-                                        <div class="col-12">
-                                            <div class="view-box d-flex align-items-center gap-3 flex-wrap flex-sm-nowrap">
-                                                <div class="product-info" style="gap: 0;">
-                                                    <img src="<?php echo $Prod_img; ?>" alt="<?php echo $nom_Prod; ?>">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="fw-bold mb-1" style="color: #2d4a2d; margin:0; font-size: 15px;"><?php echo $nom_Prod; ?></h6>
-                                                    <div class="text-muted mt-1 small d-flex gap-3 flex-wrap">
-                                                        <span>Prix: <strong><?php echo number_format($Prix_Unitaire, 2); ?> MAD</strong></span>
-                                                        <span>Quantité: <strong><?php echo $Quantite; ?></strong></span>
+                                <?php if (count($produits) > 0): ?>
+                                    <div class="row g-3">
+                                        <?php foreach ($produits as $p): ?>
+                                            <?php 
+                                            extract($p, EXTR_SKIP); 
+                                            ?>
+                                            <div class="col-12">
+                                                <div class="view-box d-flex align-items-center gap-3 flex-wrap flex-sm-nowrap">
+                                                    <div class="product-info" style="gap: 0;">
+                                                        <img src="<?php echo $Prod_img; ?>" alt="<?php echo $nom_Prod; ?>">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="fw-bold mb-1" style="color: #2d4a2d; margin:0; font-size: 15px;"><?php echo $nom_Prod; ?></h6>
+                                                        <div class="text-muted mt-1 small d-flex gap-3 flex-wrap">
+                                                            <span>Prix: <strong><?php echo number_format($Prix_Unitaire, 2); ?> MAD</strong></span>
+                                                            <span>Quantité: <strong><?php echo $Quantite; ?></strong></span>
+                                                            <span>Boutique: <strong><?php echo $nom_boutique; ?></strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-sm-end w-100 w-sm-auto pt-2 pt-sm-0">
+                                                        <small class="text-muted d-block small text-uppercase" style="font-size: 10px;">Sous-total</small>
+                                                        <span class="fw-bold text-success" style="font-size: 15px;"><?php echo number_format($sous_total, 2); ?> MAD</span>
                                                     </div>
                                                 </div>
-                                                <div class="text-sm-end w-100 w-sm-auto pt-2 pt-sm-0">
-                                                    <small class="text-muted d-block small text-uppercase" style="font-size: 10px;">Sous-total</small>
-                                                    <span class="fw-bold text-success" style="font-size: 15px;"><?php echo number_format($prod_total, 2); ?> MAD</span>
-                                                </div>
                                             </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
+                                        <?php endforeach; ?>
+                                    </div>
 
-                                <div class="text-end mt-4 pt-3 border-top">
-                                    <p class="text-muted mb-1 small">Montant Total à Payer</p>
-                                    <h3 class="fw-bold" style="color: #2d4a2d; font-family: 'Playfair Display', serif; font-size: 28px;"><?php echo number_format($commande['prix_total'], 2); ?> MAD</h3>
-                                </div>
+                                    <div class="text-end mt-4 pt-3 border-top">
+                                        <p class="text-muted mb-1 small">Votre part du montant total</p>
+                                        <h3 class="fw-bold" style="color: #2d4a2d; font-family: 'Playfair Display', serif; font-size: 28px;">
+                                            <?php echo number_format($producer_total, 2); ?> MAD
+                                        </h3>
+                                        <small class="text-muted">
+                                            (Total commande: <?php echo number_format($commande['prix_total'], 2); ?> MAD)
+                                        </small>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-info-circle" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                                        Aucun de vos produits dans cette commande.
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -228,6 +261,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <?php if (count($produits) > 0): ?>
+                            <div class="view-box" style="background: #f8f5f0; border: 1px solid #e8e0d6;">
+                                <h6 class="form-section-title mb-3" style="font-size: 16px; font-family: 'Playfair Display', serif;">
+                                    <i class="bi bi-cash-stack me-2" style="color: #2d4a2d;"></i>Résumé
+                                </h6>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Vos produits:</span>
+                                    <span class="fw-bold"><?php echo count($produits); ?></span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Total commande:</span>
+                                    <span><?php echo number_format($commande['prix_total'], 2); ?> MAD</span>
+                                </div>
+                                <div class="d-flex justify-content-between border-top pt-2 mt-2">
+                                    <span class="fw-bold">Votre part:</span>
+                                    <span class="fw-bold text-success" style="font-size: 18px;"><?php echo number_format($producer_total, 2); ?> MAD</span>
+                                </div>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
